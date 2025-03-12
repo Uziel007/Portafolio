@@ -416,3 +416,100 @@ h2 {
 .imagenlenguajes {
   animation: float-img 2.5s ease-in-out infinite;
 }
+
+/* Estilos para la sección de Conocimientos */
+.conocimientos-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px;
+}
+
+.conocimientos-content {
+  flex: 1;
+  min-width: 300px;
+}
+
+.conocimientos-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.conocimientos-list li {
+  margin: 10px 0;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.conocimientos-figure {
+  flex: 1;
+  min-width: 300px;
+  position: relative;
+  perspective: 400px;
+}
+
+.view {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  perspective: 400px;
+}
+
+.plane.main {
+  position: relative;
+  margin: 0;
+  transform: rotateX(60deg) rotateZ(-30deg);
+  animation: rotate 20s infinite linear;
+}
+
+.plane {
+  width: 120px;
+  height: 120px;
+  transform-style: preserve-3d;
+}
+
+.plane.main .circle {
+  width: 120px;
+  height: 120px;
+  position: absolute;
+  transform-style: preserve-3d;
+  border-radius: 100%;
+  box-sizing: border-box;
+  box-shadow: 0 0 60px rgba(220, 20, 60, 1), inset 0 0 60px rgba(220, 20, 60, 1);
+}
+
+.plane.main .circle::before,
+.plane.main .circle::after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  width: 10%;
+  height: 10%;
+  border-radius: 100%;
+  background: rgba(220, 20, 60, 1);
+  box-sizing: border-box;
+  box-shadow: 0 0 60px 2px rgba(220, 20, 60, 1);
+}
+
+.plane.main .circle::before {
+  transform: translateZ(-90px);
+}
+
+.plane.main .circle::after {
+  transform: translateZ(90px);
+}
+
+@keyframes rotate {
+  0% {
+      transform: rotateX(0) rotateY(0) rotateZ(0);
+  }
+  100% {
+      transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg);
+  }
+}

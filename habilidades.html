@@ -68,33 +68,36 @@
                 </div>
             </div>
             </div>
-
-            <!-- Segunda fila de habilidades actualizada -->
-            <div class="row habilidades-2">
-                <!-- Conocimientos -->
-                <section style="display: flex; align-items: flex-start; gap: 20px;">
-                    <!-- Columna 1: SVG Animado -->
-                    <div style="flex: 1; text-align: center;">
-                        <svg id="svg" width="200" height="200" viewBox="0 0 200 200">
-                            <path id="circle-path" d="M10,100a90,90 0 1,0 180,0a90,90 0 1,0 -180,0" />
-                            <path id="rect-path" d="M90,10 110,10 110,190 90,190 90,10" />
-                            <path id="triangle-path" d="M100,40 170,160 30,160 100,40" />
-                        </svg>
-                        <canvas id="canvas" width="200" height="200"></canvas>
-                    </div>
-                    <!-- Columna 2: Lista de conocimientos -->
-                        <h2>Conocimientos</h2>
-                        <ul>
-                            <li>Lenguajes de Programación: C++, Java, Python, PHP, JavaScript</li>
-                            <li>Desarrollo Web: HTML, CSS, JavaScript</li>
-                            <li>Frameworks: React, Angular, Bootstrap</li>
-                            <li>Bases de Datos: MySQL, PostgreSQL</li>
-                            <li>Herramientas de Desarrollo: Git, Visual Studio Code, IntelliJ IDEA</li>
-                            <li>Administración de Sistemas: Linux, Windows Server</li>
-                            <li>Metodologías Ágiles: Scrum</li>
-                            <li>Marketing Digital: Certificación en Marketing Digital</li>
+            <!-- Sección de Conocimientos -->
+            <section id="conocimientos" class="section">
+                <div class="conocimientos-container">
+                    <div class="conocimientos-content">
+                        <ul class="conocimientos-list">
+                            <h2>Conocimientos</h2>
+                            <li style="color: white;">Lenguajes de Programación: C++, Java, Python, PHP, JavaScript</li>
+                            <li style="color: white;">Desarrollo Web: HTML, CSS, JavaScript</li>
+                            <li style="color: white;">Frameworks: React, Angular, Bootstrap</li>
+                            <li style="color: white;">Bases de Datos: MySQL, PostgreSQL</li>
+                            <li style="color: white;">Herramientas de Desarrollo: Git, Visual Studio Code, IntelliJ IDEA</li>
+                            <li style="color: white;">Administración de Sistemas: Linux, Windows Server</li>
+                            <li style="color: white;">Metodologías Ágiles: Scrum</li>
+                            <li style="color: white;">Marketing Digital: Certificación en Marketing Digital</li>
                         </ul>
-                </section>
+                    </div>
+                    <div class="conocimientos-figure">
+                        <div class="view">
+                            <div class="plane main">
+                                <!-- Genera los círculos mediante un bucle en JavaScript -->
+                                <script>
+                                    for (var x = 0; x < 6; x++) {
+                                        document.write('<div class="circle"></div>');
+                                    }
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
             </div>
 
             <style>
