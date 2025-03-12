@@ -113,19 +113,19 @@ document.querySelector(".btn-carrusel1").addEventListener("click", function(even
         <h1 class="h1relleno2"></h1>
         <strong>LINK DEL VIDEO DEMOSTRANDO EL FUNCIONAMIENTO:</strong> 
         <table style="width: 100%; height: 100%;">
-            <tr>
-                <td style="text-align: center; vertical-align: middle;">
-                <div style="display: flex; justify-content: center;">
-                    <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 80%; width: 80%;">
-                        <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" 
-                                src="https://www.youtube.com/embed/xctI6uWRVHw" 
-                                frameborder="0" 
-                                allowfullscreen>
-                        </iframe>
-                    </div>
-                </div>
-                </td>
-            </tr>
+                <tr>
+                    <td style="text-align: center; vertical-align: middle;">
+                        <div style="display: flex; justify-content: center; align-items: center; width: 100%;">
+                            <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 80%; width: 80%;">
+                                <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" 
+                                        src="https://www.youtube.com/embed/xctI6uWRVHw" 
+                                        frameborder="0" 
+                                        allowfullscreen>
+                                </iframe>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
         </table>
 
         <h1 class="h1relleno2"></h1>
