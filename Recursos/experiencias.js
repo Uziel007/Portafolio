@@ -115,8 +115,8 @@ document.querySelector(".btn-carrusel1").addEventListener("click", function(even
         <table style="width: 100%; height: 100%;">
             <tr>
                 <td style="text-align: center; vertical-align: middle;">
-                <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 80%;">
-                    <iframe style="position: absolute; top: 0; left: 0; width: 60%; height: 60%;" 
+                <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%;">
+                    <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" 
                             src="https://www.youtube.com/embed/xctI6uWRVHw" 
                             frameborder="0" 
                             allowfullscreen>
