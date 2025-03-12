@@ -115,10 +115,13 @@ document.querySelector(".btn-carrusel1").addEventListener("click", function(even
         <table style="width: 100%; height: 100%;">
             <tr>
                 <td style="text-align: center; vertical-align: middle;">
-                    <video controls>
-                        <source src="https://github.com/Uziel007/Portafolio/raw/main/Recursos/experiencias/galerias/punto%20de%20venta/Video%20Punto%20De%20Venta.mp4" type="video/mp4">
-                        Tu navegador no soporta el formato de video.
-                    </video>
+                <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 80%;">
+                    <iframe style="position: absolute; top: 0; left: 0; width: 60%; height: 60%;" 
+                            src="https://www.youtube.com/embed/xctI6uWRVHw" 
+                            frameborder="0" 
+                            allowfullscreen>
+                    </iframe>
+                </div>
                 </td>
             </tr>
         </table>
