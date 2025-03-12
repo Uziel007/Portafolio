@@ -116,8 +116,8 @@ document.querySelector(".btn-carrusel1").addEventListener("click", function(even
             <tr>
                 <td style="text-align: center; vertical-align: middle;">
                     <video controls>
-                        <source src="Recursos/experiencias/galerias/punto de venta/Video Punto De Venta.mp4" type="video/mp4">
-                        Tu navegador no soporta el elemento de video.
+                        <source src="https://github.com/Uziel007/Portafolio/raw/main/Recursos/experiencias/galerias/punto%20de%20venta/Video%20Punto%20De%20Venta.mp4" type="video/mp4">
+                        Tu navegador no soporta el formato de video.
                     </video>
                 </td>
             </tr>
