@@ -1,0 +1,418 @@
+  .view {
+    position: absolute;
+    /* Ajusta estos valores para mover la animación */
+    top: 400px;    /* Distancia desde la parte superior */
+    right: 180px;  /* Distancia desde la parte derecha */
+    bottom: auto; /* Si quieres moverlo desde abajo, cambia este valor */
+    left: auto;   /* Si quieres moverlo desde la izquierda, cambia este valor */
+  
+    perspective: 400px;
+    width: 200px;  /* Ajusta el ancho según el tamaño deseado */
+    height: 200px; /* Ajusta la altura según el tamaño deseado */
+  }
+  
+  .plane.main {
+    position: relative;
+    margin: 0;
+    transform: rotateX(60deg) rotateZ(-30deg);
+    animation: rotate 20s infinite linear;
+  }  
+  
+  .section {
+    position: relative; /* Asegura que la posición absoluta de .view sea relativa a esta sección */
+  }
+  
+  .skills-container {
+    margin-top: 220px; /* Evita superposición con el contenido de habilidades */
+  }
+  
+  
+  .plane {
+    width: 120px;
+    height: 120px;
+    transform-style: preserve-3d;
+  }
+  
+  .plane.main .circle {
+    width: 120px;
+    height: 120px;
+    position: absolute;
+    transform-style: preserve-3d;
+    border-radius: 100%;
+    box-sizing: border-box;
+    box-shadow: 0 0 60px rgba(220, 20, 60, 1), inset 0 0 60px rgba(220, 20, 60, 1);
+  }
+  
+  .plane.main .circle::before,
+  .plane.main .circle::after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: 10%;
+    height: 10%;
+    border-radius: 100%;
+    background: rgba(220, 20, 60, 1);
+    box-sizing: border-box;
+    box-shadow: 0 0 60px 2px rgba(220, 20, 60, 1);
+  }
+  
+  .plane.main .circle::before {
+    transform: translateZ(-90px);
+  }
+  
+  .plane.main .circle::after {
+    transform: translateZ(90px);
+  }
+  
+  /* Generar múltiples círculos */
+  .plane.main .circle:nth-child(1) {
+    transform: rotateZ(calc(1 / 5 * 360deg)) rotateX(63.435deg);
+  }
+  .plane.main .circle:nth-child(2) {
+    transform: rotateZ(calc(2 / 5 * 360deg)) rotateX(63.435deg);
+  }
+  .plane.main .circle:nth-child(3) {
+    transform: rotateZ(calc(3 / 5 * 360deg)) rotateX(63.435deg);
+  }
+  .plane.main .circle:nth-child(4) {
+    transform: rotateZ(calc(4 / 5 * 360deg)) rotateX(63.435deg);
+  }
+  .plane.main .circle:nth-child(5) {
+    transform: rotateZ(calc(5 / 5 * 360deg)) rotateX(63.435deg);
+  }
+  
+  @keyframes rotate {
+    0% {
+      transform: rotateX(0) rotateY(0) rotateZ(0);
+    }
+    100% {
+      transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg);
+    }
+  }
+  
+  /* Contenedor general */
+.skills-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Fila principal */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+/* Columna de habilidades */
+.column.habilidades {
+  flex: 1;
+  min-width: 300px;
+}
+
+/* Columna de figura (circle) */
+.column.figure {
+  flex: 1;
+  min-width: 300px;
+}
+
+/* Círculos generados */
+.circle {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin: 10px;
+  display: inline-block;
+}
+
+/* Segunda fila de habilidades */
+.habilidades-2 {
+  margin-top: 50px;
+}
+
+/* Estilo de las listas */
+.skills-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.skills-list li {
+  margin: 10px 0;
+}
+
+
+/*Textos por encima de cosas*/
+
+
+.skills-container {
+  position: relative;
+  z-index: 1; /* Asegura que las habilidades estén por encima de la animación */
+}
+
+/* Contenedor principal */
+.academic-container {
+  font-family: 'Arial', sans-serif;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: rgb(40, 40, 40);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Título */
+.academic-title {
+  text-align: center;
+  color: #ffffff; /* Color oscuro para el texto */
+  font-size: 2rem;
+  margin-bottom: 20px;
+  opacity: 0; /* Inicialmente invisible para la animación */
+}
+
+/* Contenido de la lista */
+.academic-content {
+  background-color: rgb(40, 40, 40);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Lista de formación */
+.academic-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+/* Elementos de la lista */
+.academic-item {
+  background-color: rgb(40, 40, 40);
+  margin: 10px 0;
+  padding: 15px;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  color: #ffffff; /* Color de texto azul oscuro */
+  opacity: 0; /* Inicialmente invisible para la animación */
+  transform: translateY(20px); /* Posición inicial para la animación */
+  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Efecto hover */
+.academic-item:hover {
+  background-color: #4ebbaf; /* Cambio de color al pasar el mouse */
+  transform: translateY(-5px); /* Elevación */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra */
+}
+
+
+/*Figura 2*/
+svg {
+  stroke: none;
+  fill: none;
+  display: none;
+  position: absolute;
+}
+
+canvas {
+  position: absolute;
+  display: block;
+  margin: -100px -100px;
+  top: 50%;
+  left: 50%;
+}
+
+/*Cards*/
+.containercard {
+  position: relative;
+  width: 1100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 30px;
+}
+
+.containercard .card {
+  position: relative;
+  max-width: 300px;
+  height: 215px;
+  background: #565252;
+  margin: 30px 10px;
+  padding: 20px 15px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+  transition: 0.3s ease-in-out;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.containercard .card .contentcard {
+  position: relative;
+  padding: 10px 15px;
+  text-align: center;
+  color: #111;
+}
+
+.containercard .card .contentcard h2 {
+  font-size: 18px; /* Tamaño de fuente más pequeño */
+  margin-bottom: 10px;
+  visibility: visible; /* Asegura que el h2 sea visible */
+  opacity: 1; /* Asegura que no esté invisible */
+  position: relative; /* Asegura que esté en el flujo normal de la página */
+}
+
+.containercard .card .contentcard p {
+  visibility: hidden; /* Ocultar la descripción por defecto */
+  opacity: 0;
+  transition: 0.3s ease-in-out;
+  margin-top: 10px;
+  font-size: 14px; /* Tamaño de fuente más pequeño */
+
+}
+
+.containercard .card:hover .contentcard p {
+  visibility: visible; /* Mostrar la descripción al hacer hover */
+  opacity: 1;
+  transition-delay: 0.3s;
+}
+
+.containercard .card:hover {
+  height: 465px;
+  border: 2px solid #ff0000;
+  box-shadow: 0 0 10px 2px rgba(255, 0, 0, 0.8);
+}
+
+
+.containercard .card:hover {
+  height: 465px;
+  border: 2px solid #ff0000;
+  box-shadow: 0 0 10px 2px rgba(255, 0, 0, 0.8);
+}
+
+
+
+.containercard .card .imgBx {
+  position: relative;
+  width: 260px;
+  height: 260px;
+  top: -60px;
+  left: 20px;
+  z-index: 1;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+}
+
+.containercard .card .imgBx img {
+  max-width: 100%;
+  border-radius: 4px;
+}
+
+.containercard .card .contentcard {
+  position: relative;
+  margin-top: -120px;
+  padding: 10px 15px;
+  text-align: center;
+  color: #111;
+  visibility: hidden;
+  opacity: 0;
+  transition: 0.3s ease-in-out;
+}
+
+.containercard .card:hover .contentcard {
+  visibility: visible;
+  opacity: 1;
+  margin-top: -40px;
+  transition-delay: 0.3s;
+}
+
+.center-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.containercard {
+  position: relative;
+  width: 1100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 30px;
+}
+
+/*Idiomas*/
+#contenidoidiomas {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+
+.idioma {
+  width: 45%;
+  margin-bottom: 20px;
+}
+
+.barra-individual {
+  margin-bottom: 20px;
+}
+
+.barra-progreso {
+  width: 100%;
+  height: 20px;
+  background-color: #e0e0e0;
+  border-radius: 10px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.barra-progreso-color {
+  height: 100%;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.barra-progreso-color.espanol-color {
+  background-color: rgb(34, 193, 195); /* Color verde-azul */
+  box-shadow: 0 0 10px rgb(34, 193, 195), 0 0 20px rgb(34, 193, 195);
+}
+
+.barra-progreso-color.ingles-color {
+  background-color: rgb(253, 29, 29); /* Color rojo */
+  box-shadow: 0 0 10px rgb(253, 29, 29), 0 0 20px rgb(253, 29, 29);
+}
+
+p {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  margin-top: 10px;
+}
+
+h2 {
+  font-family: "Arial", sans-serif;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+/* Animación de flotación para las imágenes con la clase .imagenlenguajes */
+@keyframes float-img {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-0.75rem);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.imagenlenguajes {
+  animation: float-img 2.5s ease-in-out infinite;
+}

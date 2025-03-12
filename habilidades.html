@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Recursos/styles.css">
+    <link rel="stylesheet" href="Recursos/habilidades.css">
+    <title>Habilidades - Portafolio de Uziel Sánchez Marín</title>
+</head>
+
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="cat">
+                <div class="ear ear--left"></div>
+                <div class="ear ear--right"></div>
+                <div class="face">
+                    <div class="eye eye--left">
+                        <div class="eye-pupil"></div>
+                    </div>
+                    <div class="eye eye--right">
+                        <div class="eye-pupil"></div>
+                    </div>
+                    <div class="muzzle"></div>
+                </div>
+            </div>
+            <h1 class="h1relleno">Hol</h1>
+            <div class="logo">Uziel Sánchez Marín</div>
+            <ul class="nav-links">
+                <li><a href="Perfil_Profesional.html">Perfil</a></li>
+                <li><a href="habilidades.html#habilidades">Habilidades</a></li>
+                <li><a href="experiencia.html#experiencia">Experiencia</a></li>
+                <li><a href="hobbies.html#hobbies">Hobbies</a></li>
+                <li><a href="contacto.html#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Sección de Habilidades -->
+        <section id="habilidades" class="section">
+            <div class="academic-container">
+                <h2 class="academic-title" style="text-align: left;">Formación Académica</h2>
+                <div class="academic-content">
+                    <ul class="academic-list">
+                        <li class="academic-item">
+                            <strong>Ingeniería en Sistemas:</strong> Universidad Bancaria de México (2021-2025)
+                        </li>
+                        <li class="academic-item">
+                            <strong>Técnico en Programación:</strong> Universidad Bancaria de México (2016-2019)
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Columna con la figura (circle) -->
+            <div class="column figure">
+                <div class="view">
+                    <div class="plane main">
+                        <!-- Genera los círculos mediante un bucle en JavaScript -->
+                        <script>
+                            for (var x = 0; x < 6; x++) {
+                                document.write('<div class="circle"></div>');
+                            }
+                        </script>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+            <!-- Segunda fila de habilidades actualizada -->
+            <div class="row habilidades-2">
+                <!-- Conocimientos -->
+                <section style="display: flex; align-items: flex-start; gap: 20px;">
+                    <!-- Columna 1: SVG Animado -->
+                    <div style="flex: 1; text-align: center;">
+                        <svg id="svg" width="200" height="200" viewBox="0 0 200 200">
+                            <path id="circle-path" d="M10,100a90,90 0 1,0 180,0a90,90 0 1,0 -180,0" />
+                            <path id="rect-path" d="M90,10 110,10 110,190 90,190 90,10" />
+                            <path id="triangle-path" d="M100,40 170,160 30,160 100,40" />
+                        </svg>
+                        <canvas id="canvas" width="200" height="200"></canvas>
+                    </div>
+                    <!-- Columna 2: Lista de conocimientos -->
+                    <div style="flex: 2;">
+                        <h2>Conocimientos</h2>
+                        <ul>
+                            <li>Lenguajes de Programación: C++, Java, Python, PHP, JavaScript</li>
+                            <li>Desarrollo Web: HTML, CSS, JavaScript</li>
+                            <li>Frameworks: React, Angular, Bootstrap</li>
+                            <li>Bases de Datos: MySQL, PostgreSQL</li>
+                            <li>Herramientas de Desarrollo: Git, Visual Studio Code, IntelliJ IDEA</li>
+                            <li>Administración de Sistemas: Linux, Windows Server</li>
+                            <li>Metodologías Ágiles: Scrum</li>
+                            <li>Marketing Digital: Certificación en Marketing Digital</li>
+                        </ul>
+                    </div>
+                </section>
+            </div>
+
+            <style>
+                body {
+                    background: #fafafa;
+                }
+
+                svg {
+                    stroke: none;
+                    fill: none;
+                    display: block;
+                    /* Lo hace visible */
+                    position: relative;
+                    /* Posición normal dentro del flujo del documento */
+                }
+
+                canvas {
+                    position: relative;
+                    /* Posición normal */
+                    display: block;
+                    /* Asegura que se muestra correctamente */
+                    margin: 0;
+                    /* Elimina el margen negativo */
+                }
+                .containercard a {
+                    text-decoration: none;
+                }
+
+            </style>
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+            <script>
+                var colors = ["#EDEEC0", "#ED7B84", "#7397C3", "#7EB77F"];
+
+                var canvas = document.getElementById("canvas");
+                var ctx = canvas.getContext("2d");
+                var pathPointsFrom, pathPointsTo, pathPointsNow;
+                var steps = 200;
+                var offset = 0;
+                var pathCount = 0;
+                var interpolationPoint = { percentage: 0 };
+                ctx.lineWidth = 4;
+                ctx.lineCap = "round";
+
+                function drawPathToCanvas() {
+                    var thisColor, lastColor = getColorSegment(0);
+                    ctx.strokeStyle = lastColor;
+                    ctx.beginPath();
+                    for (var i = 0, l = pathPointsNow.length; i < l; i++) {
+                        if (pathPointsNow[i + 1]) {
+                            ctx.moveTo(pathPointsNow[i].x, pathPointsNow[i].y);
+                            ctx.lineTo(pathPointsNow[i + 1].x, pathPointsNow[i + 1].y);
+                        } else {
+                            ctx.lineTo(pathPointsNow[i].x, pathPointsNow[i].y);
+                        }
+                        thisColor = getColorSegment(i);
+                        if (thisColor) {
+                            if (thisColor != lastColor) {
+                                ctx.closePath();
+                                ctx.stroke();
+                                ctx.beginPath();
+                                ctx.strokeStyle = thisColor;
+                                lastColor = thisColor;
+                            }
+                        }
+                    }
+                    ctx.closePath();
+                    ctx.stroke();
+                }
+
+                function samplePath(pathSelector) {
+                    var path = document.getElementById(pathSelector);
+                    var length = path.getTotalLength();
+                    var points = [];
+                    for (var i = 0; i <= steps; i++) {
+                        points.push(path.getPointAtLength(length * i / steps));
+                    }
+                    return points;
+                }
+
+                function interpolatePaths() {
+                    var points = [];
+                    for (var i = 0; i <= steps; i++) {
+                        points.push({
+                            x: pathPointsFrom[i].x + (pathPointsTo[i].x - pathPointsFrom[i].x) * interpolationPoint.percentage,
+                            y: pathPointsFrom[i].y + (pathPointsTo[i].y - pathPointsFrom[i].y) * interpolationPoint.percentage
+                        });
+                    }
+                    return points;
+                }
+
+                function getColorSegment(i) {
+                    var p = i / steps + offset;
+                    if (p > 1) p = p - 1;
+                    var point = Math.floor(p * 4);
+                    return colors[point];
+                }
+
+                var paths = [samplePath("circle-path"), samplePath("rect-path"), samplePath("triangle-path")];
+
+                function loop() {
+                    ctx.clearRect(0, 0, 200, 200);
+                    offset = offset + 0.009;
+                    pathPointsNow = interpolatePaths();
+                    if (offset >= 1) offset = 0;
+                    drawPathToCanvas();
+                    requestAnimationFrame(loop);
+                }
+
+                function tweenPaths() {
+                    pathPointsFrom = paths[pathCount];
+                    if (pathCount + 1 <= 2) pathPointsTo = paths[pathCount + 1];
+                    else pathPointsTo = paths[0];
+
+                    gsap.to(interpolationPoint, {
+                        percentage: 1,
+                        duration: 0.7,
+                        ease: "power2.inOut",
+                        delay: 0.4,
+                        onComplete: function () {
+                            interpolationPoint.percentage = 0;
+                            pathCount++;
+                            if (pathCount > 2) {
+                                pathCount = 0;
+                            }
+                            tweenPaths();
+                        }
+                    });
+                }
+
+                tweenPaths();
+                loop();
+            </script>
+            </div>
+            </div>
+            <!-- Aptitudes -->
+            <section style="text-align: center;">
+                <h2>Aptitudes</h2>
+                <div style="display: flex; flex-wrap: wrap;">
+                    <ul style="flex: 1; padding-right: 20px;">
+                        <li>Trabajo en equipo</li>
+                        <li>Resolución de problemas</li>
+                        <li>Comunicación efectiva</li>
+                        <li>Adaptabilidad a entornos dinámicos</li>
+                        <li>Capacidad de análisis</li>
+                        <li>Enfoque en resultados</li>
+                        <li>Creatividad</li>
+                        <li>Gestión del tiempo</li>
+                        <li>Empatía</li>
+                        <li>Liderazgo</li>
+                    </ul>
+                    <ul style="flex: 1; padding-right: 20px;">
+                        <li>Capacidad para resolver conflictos</li>
+                        <li>Trabajo en red (networking)</li>
+                        <li>Persuasión</li>
+                        <li>Planificación estratégica</li>
+                        <li>Gestión de recursos</li>
+                        <li>Priorización</li>
+                        <li>Manejo de proyectos</li>
+                        <li>Capacidad para delegar</li>
+                        <li>Pensamiento crítico</li>
+                        <li>Resolución de problemas complejos</li>
+                    </ul>
+                    <ul style="flex: 1;">
+                        <li>Toma de decisiones informada</li>
+                        <li>Aprendizaje rápido</li>
+                        <li>Innovación</li>
+                        <li>Dominio de herramientas tecnológicas</li>
+                        <li>Análisis de datos</li>
+                        <li>Redacción profesional</li>
+                        <li>Habilidades de presentación</li>
+                        <li>Conocimientos financieros</li>
+                        <li>Autonomía</li>
+                        <li>Resiliencia</li>
+                    </ul>
+                </div>
+            </section>
+            <h1 class="h1relleno2">Hol</h1>
+
+            <div class="center-wrapper">
+                <div class="containercard">
+                    <!-- Certificación SCRUM -->
+                    <a href="https://www.scrumstudy.com/certification/verify?type=SFC&number=1056186" target="_blank">
+                        <div class="card">
+                            <div class="imgBx">
+                                <img src="Recursos/Certificaciones/scrumfundamentals.png" alt="Certificación SCRUM">
+                            </div>
+                            <div class="contentcard">
+                                <h2>Certificación de SCRUM FUNDAMENTALS (2024)</h2>
+                                <p>Obtuve la Certificación Scrum Fundamentals, que me proporcionó una base sólida en la
+                                    metodología ágil Scrum. Aprendí a gestionar proyectos de manera eficiente,
+                                    trabajando en equipos colaborativos para entregar valor rápido y de forma continua.
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- Certificación Google Analytics -->
+                    <a href="https://skillshop.credential.net/b52f8295-7bf4-4760-9dae-c189130d9a9f#acc.jZBeV19Q"
+                        target="_blank">
+                        <div class="card">
+                            <div class="imgBx">
+                                <img src="Recursos/Certificaciones/GoogleAnalytics.png"
+                                    alt="Certificación Google Analytics">
+                            </div>
+                            <div class="contentcard">
+                                <h2>Certificación en Google Analytics</h2>
+                                <p>Certificación otorgada por Google que avala conocimientos en análisis de datos web,
+                                    interpretación de métricas clave y optimización del rendimiento digital. Incluye el
+                                    uso de informes, segmentación avanzada y configuración de eventos para tomar
+                                    decisiones basadas en datos.</p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- Certificación en Marketing -->
+                    <a href="https://c46e136a583f7e334124-ac22991740ab4ff17e21daf2ed577041.ssl.cf1.rackcdn.com/Certificate/DigitalMarketingFundamentals-UzielSanchezMarin-611988.pdf"
+                        target="_blank">
+                        <div class="card">
+                            <div class="imgBx">
+                                <img src="Recursos/Certificaciones/marketing.png" alt="Certificación Marketing">
+                            </div>
+                            <div class="contentcard">
+                                <h2>Certificación Digital Marketing Fundamentals</h2>
+                                <p>Con la Certificación en Marketing, adquirí habilidades en estrategias digitales,
+                                    gestión de campañas y análisis de mercado. Aprendí a conectar marcas con su
+                                    audiencia a través de tácticas efectivas y orientadas a resultados.</p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="https://www.udemy.com/certificate/UC-65101205-8c2c-453d-a6bb-03d6e2466af5/" target="_blank">
+                        <div class="card">
+                            <div class="imgBx">
+                                <img src="Recursos/Certificaciones/certificadodatabasecourse6coursesin1.jpg" alt="Card Three">
+                            </div>
+                            <div class="contentcard">
+                                <h2>Practical Database Course for Beginners</h2>
+                                <p>He completado este curso sobre bases de datos, donde aprendí a estructurar, gestionar y optimizar información utilizando SQL. También desarrollé habilidades en normalización y consultas avanzadas, adquiriendo una base sólida para la administración eficiente de bases de datos.</p>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <a href="https://www.udemy.com/certificate/UC-223436ce-99ef-4fa5-88c4-4c687f9512c1/" target="_blank">
+                        <div class="card">
+                            <div class="imgBx">
+                                <img src="Recursos/Certificaciones/phpmasterproyectosavanzados.jpg" alt="Card Four">
+                            </div>
+                            <div class="contentcard">
+                                <h2>PHP Masterclass: Desarrollo de Proyectos Complejos y Avanzados</h2>
+                                <p>Certificación en desarrollo avanzado con PHP, donde trabajé en la creación de aplicaciones web escalables. Aprendí sobre patrones de diseño, seguridad y optimización de código, además de desarrollar proyectos completos aplicando buenas prácticas y arquitectura eficiente.</p>
+                            </div>
+                        </div>
+                    </a>                                                       
+
+                    <a href="https://www.udemy.com/certificate/UC-70e496be-05ff-4552-be0f-8039291c9bca/" target="_blank">
+                        <div class="card">
+                            <div class="imgBx">
+                                <img src="Recursos/Certificaciones/dominajquery.jpg" alt="Card Four">
+                            </div>
+                            <div class="contentcard">
+                                <h2>Dominar los conceptos básicos de jQuery</h2>
+                                <p>He completado esta certificación en jQuery, donde aprendí a manipular el DOM, crear animaciones, manejar eventos y realizar peticiones AJAX. También reforcé mis habilidades en JavaScript, optimizando la interactividad y dinamismo en aplicaciones web.</p>
+                            </div>
+                        </div>
+                    </a>                    
+
+                    <a href="https://www.udemy.com/certificate/UC-4f4d3aa4-df56-421f-b30e-28ba6d6d6649/" target="_blank">
+                        <div class="card">
+                            <div class="imgBx">
+                                <img src="Recursos/Certificaciones/LearnSpringModulithMonolithtoMicroservicesSeamlessly.jpg" alt="Card Four">
+                            </div>
+                            <div class="contentcard">
+                                <h2>Learn Spring Modulith: Monolith to Microservices Seamlessly</h2>
+                                <p>Certificación enfocada en la transformación de arquitecturas monolíticas a microservicios con 
+                                   Spring Modulith y Spring Boot 3. Se abordaron temas como modularización de aplicaciones, 
+                                   integración con Spring Data JPA y Spring MVC, despliegue con Docker y Kubernetes, optimización 
+                                   con GraalVM y prácticas de CI/CD para desarrollo escalable y eficiente.</p>
+                            </div>
+                        </div>
+                    </a>                    
+
+                    <a href="https://data-flair.training/verify/75B547582A-75AF51C5AE-7591D036BD/" target="_blank">
+                        <div class="card">
+                            <div class="imgBx">
+                                <img src="Recursos/Certificaciones/Introduction to Python Certificate.png" alt="Certificación en Python">
+                            </div>
+                            <div class="contentcard">
+                                <h2>Introduction to Python</h2>
+                                <p>Certificación que valida conocimientos fundamentales en Python, incluyendo variables, estructuras de control, funciones y manipulación de datos. Proporciona una base sólida para el desarrollo de software y análisis de datos.</p>
+                            </div>
+                        </div>
+                    </a>
+                    
+
+                    <a href="https://enlace-card" target="_blank">
+                        <div class="card">
+                            <div class="imgBx">
+                                <img src="Recursos/Certificaciones" alt="Card Four">
+                            </div>
+                            <div class="contentcard">
+                                <h2>Php Masterclass Desarrollo de Proyectos Complejos y Avanzados</h2>
+                                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim amet animi libero
+                                    soluta. Explicabo voluptate enim labore quisquam, quo ipsam porro vitae debitis
+                                    accusamus eaque esse, quos natus praesentium quam!</p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="https://enlace-card" target="_blank">
+                        <div class="card">
+                            <div class="imgBx">
+                                <img src="Recursos/Certificaciones" alt="Card Four">
+                            </div>
+                            <div class="contentcard">
+                                <h2>Php Masterclass Desarrollo de Proyectos Complejos y Avanzados</h2>
+                                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim amet animi libero
+                                    soluta. Explicabo voluptate enim labore quisquam, quo ipsam porro vitae debitis
+                                    accusamus eaque esse, quos natus praesentium quam!</p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="https://enlace-card" target="_blank">
+                        <div class="card">
+                            <div class="imgBx">
+                                <img src="Recursos/Certificaciones" alt="Card Four">
+                            </div>
+                            <div class="contentcard">
+                                <h2>Php Masterclass Desarrollo de Proyectos Complejos y Avanzados</h2>
+                                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim amet animi libero
+                                    soluta. Explicabo voluptate enim labore quisquam, quo ipsam porro vitae debitis
+                                    accusamus eaque esse, quos natus praesentium quam!</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <h1 class="h1relleno2">Hol</h1>
+                <!-- Inglés -->
+                <div id="dividiomaingles" class="idioma" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; width: 50%; margin: auto;">
+                    <h2>Inglés</h2>
+                
+                    <div class="barra-individual ingles" style="margin: 15px 0; width: 100%;">
+                        <div class="barra-progreso" style="width: 100%;">
+                            <div class="barra-progreso-color ingles-color" style="width: 75%;"></div>
+                        </div>
+                        <p>Vocabulario básico: 75%</p>
+                    </div>
+                
+                    <div class="barra-individual ingles" style="margin: 15px 0; width: 100%;">
+                        <div class="barra-progreso" style="width: 100%;">
+                            <div class="barra-progreso-color ingles-color" style="width: 90%;"></div>
+                        </div>
+                        <p>Pronunciación: 90%</p>
+                    </div>
+                
+                    <div class="barra-individual ingles" style="margin: 15px 0; width: 100%;">
+                        <div class="barra-progreso" style="width: 100%;">
+                            <div class="barra-progreso-color ingles-color" style="width: 70%;"></div>
+                        </div>
+                        <p>Gramática básica: 70%</p>
+                    </div>
+                
+                    <div class="barra-individual ingles" style="margin: 15px 0; width: 100%;">
+                        <div class="barra-progreso" style="width: 100%;">
+                            <div class="barra-progreso-color ingles-color" style="width: 85%;"></div>
+                        </div>
+                        <p>Comprensión auditiva: 85%</p>
+                    </div>
+                
+                    <div class="barra-individual ingles" style="margin: 15px 0; width: 100%;">
+                        <div class="barra-progreso" style="width: 100%;">
+                            <div class="barra-progreso-color ingles-color" style="width: 90%;"></div>
+                        </div>
+                        <p>Escritura y lectura: 90%</p>
+                    </div>
+                </div>                
+            <h1 class="h1relleno2">Hol</h1>
+
+            <section
+                style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; align-items: flex-start;">
+                <div style="flex: 1; min-width: 300px; text-align: center;">
+                    <img src="Recursos/iconos/lenguajes.png" alt="Imagen Lenguajes" class="imagenlenguajes"
+                        style="max-width: 70%; height: auto;">
+                    <h2>Lenguajes de Programación</h2>
+                    <section style="text-align: center; margin-top: 20px;">
+                        <table style="width: 80%; margin: 0 auto; border-spacing: 0;">
+                            <tr>
+                                <td style="padding: 10px; text-align: center;">Python</td>
+                                <td style="padding: 10px; text-align: center;">C#</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; text-align: center;">C++</td>
+                                <td style="padding: 10px; text-align: center;">Java</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; text-align: center;">C</td>
+                                <td style="padding: 10px; text-align: center;">Octave</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; text-align: center;">JavaScript</td>
+                                <td style="padding: 10px; text-align: center;">PHP</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; text-align: center;">SQL</td>
+                                <td style="padding: 10px; text-align: center;">Kotlin</td>
+                            </tr>
+                        </table>
+                    </section>
+                </div>
+                <div style="flex: 1; min-width: 300px; text-align: center;">
+                    <img src="Recursos/iconos/escritorio.png" alt="Imagen Desarrollo" class="imagenlenguajes"
+                        style="max-width: 70%; height: auto;">
+                    <h2>Desarrollo y Programación</h2>
+                    <ul
+                        style="list-style-type: none; padding: 0; text-align: left; display: flex; flex-direction: column; align-items: center;">
+                        <li>Programación orientada a objetos</li>
+                        <li>Diseño y desarrollo de aplicaciones móviles (Android, iOS)</li>
+                        <li>Desarrollo web (HTML, CSS, JavaScript, React, Angular, Vue.js)</li>
+                        <li>Control de versiones (Git, GitHub, Bitbucket)</li>
+                        <li>Desarrollo de APIs RESTful</li>
+                        <li>Arquitectura de microservicios</li>
+                        <li>Principios de diseño (SOLID, MVC)</li>
+                    </ul>
+                </div>
+                <div style="flex: 1; min-width: 300px; text-align: center;">
+                    <img src="Recursos/iconos/sql.png" alt="Imagen Bases de Datos" class="imagenlenguajes"
+                        style="max-width: 70%; height: auto;">
+                    <h2>Manejo de Bases de Datos</h2>
+                    <ul
+                        style="list-style-type: none; padding: 0; text-align: left; display: flex; flex-direction: column; align-items: center;">
+                        <li>MySQL</li>
+                        <li>Oracle</li>
+                        <li>SQL Server</li>
+                        <li>PostgreSQL</li>
+                        <li>MongoDB</li>
+                        <li>Diseño y optimización de bases de datos</li>
+                    </ul>
+                </div>
+            </section>
+
+
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2025 Uziel Sánchez Marín. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        // Función para animar el título y los elementos de la lista
+        function animateAcademicSection() {
+            const title = document.querySelector('.academic-title');
+            const items = document.querySelectorAll('.academic-item');
+
+            // Animación para el título
+            setTimeout(() => {
+                title.style.opacity = '1';
+                title.style.transition = 'opacity 1s ease-in-out';
+            }, 500);
+
+            // Animación para los elementos de la lista
+            items.forEach((item, index) => {
+                setTimeout(() => {
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateY(0)';
+                    item.style.transition = 'opacity 0.5s ease-in-out, transform 0.5s ease-in-out';
+                }, 800 + index * 200); // Retraso escalonado para cada elemento
+            });
+        }
+
+        // Ejecutar la animación cuando la página cargue
+        window.addEventListener('load', animateAcademicSection);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Recursos/styles.css">
+    <title>Portafolio de Uziel Sánchez Marín</title>
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="cat">
+                <div class="ear ear--left"></div>
+                <div class="ear ear--right"></div>
+                <div class="face">
+                    <div class="eye eye--left">
+                        <div class="eye-pupil"></div>
+                    </div>
+                    <div class="eye eye--right">
+                        <div class="eye-pupil"></div>
+                    </div>
+                    <div class="muzzle"></div>
+                </div>
+            </div>
+            <h1 class="h1relleno">Hol</h1>
+            <div class="logo">Uziel Sánchez Marin</div>
+            <ul class="nav-links">
+                <li><a href="Perfil_Profesional.html">Perfil</a></li>
+                <li><a href="habilidades.html#habilidades">Habilidades</a></li>
+                <li><a href="experiencia.html#experiencia">Experiencia</a></li>
+                <li><a href="hobbies.html#hobbies">Hobbies</a></li>
+                <li><a href="contacto.html#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Sección Hero -->
+        <section id="hero" class="hero">
+            <div class="hero-content">
+                <h1>¡Bienvenido a mi Portafolio!</h1>
+                <p>Ingeniero en Sistemas Computacionales con experiencia en desarrollo de software y soluciones innovadoras.</p>
+            </div>
+        </section>
+
+        <!-- Sección Perfil Profesional -->
+<section id="perfil" class="section">
+    <h2>Acerca de mi</h2>
+    <div class="profile-container">
+        <div class="image-container">
+            <img src="Recursos/foto.jpeg" alt="Foto de perfil">
+        </div>
+                <div id="profile-text" class="profile-text">
+            <div>
+                Ingeniero en Sistemas Computacionales con más de 3 años de experiencia en el sector empresarial, especializado en el desarrollo de software, análisis de datos y soluciones tecnológicas personalizadas. Profesional orientado a resultados, con una alta capacidad de proactividad y adaptabilidad en entornos dinámicos y cambiantes.
+                <br><br>
+                Posee habilidades excepcionales de comunicación, tanto oral como escrita, que facilitan la colaboración efectiva con equipos multidisciplinarios. Su enfoque en la toma de decisiones se basa en un análisis detallado de la información disponible, lo que le permite encontrar soluciones eficaces y eficientes ante desafíos complejos.
+                <br><br>
+                Entre sus principales competencias destacan la resolución de problemas, la capacidad para liderar proyectos tecnológicos y la implementación de estrategias innovadoras. Con un enfoque creativo y orientado al cliente, ha demostrado ser capaz de superar obstáculos y garantizar el éxito en proyectos de alto impacto.
+                <br><br>
+                Además, cuenta con una sólida formación académica y certificaciones en áreas clave como gestión ágil de proyectos (SCRUM) y marketing digital, lo que le permite integrar conocimientos técnicos con habilidades estratégicas para ofrecer soluciones integrales a las necesidades de los clientes y organizaciones.
+                <br><br>
+                Comprometido con la mejora continua, mantiene un fuerte interés en el aprendizaje constante, adoptando nuevas tecnologías y metodologías que optimizan los procesos y promueven la innovación. Su capacidad para trabajar bajo presión y adaptarse rápidamente a nuevas circunstancias lo convierte en un recurso valioso para cualquier equipo o proyecto.
+            </div>
+                <div>
+                    <a href="javascript:void(0);" class="enhanced-btn" id="changeTextBtn">Conoce más sobre mí</a>
+                </div>
+            </div>
+    </div>
+</section>
+
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2025 Uziel Sánchez Marín. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- Script para cambiar el texto -->
+    <script>
+const changeTextBtn = document.getElementById('changeTextBtn');
+const profileText = document.getElementById('profile-text');
+
+changeTextBtn.addEventListener('click', function() {
+    profileText.innerHTML = `Soy un apasionado de la tecnología y un profesional comprometido con la mejora continua. Mi enfoque en la programación y el desarrollo de sistemas no solo se basa en habilidades técnicas, sino también en valores fundamentales como la empatía, el respeto y la adaptabilidad. Me considero una persona responsable, organizada y con una gran capacidad para resolver problemas, características que se reflejan tanto en mi vida profesional como en mis pasatiempos.<br><br>
+
+Mi experiencia no se limita solo al ámbito de la tecnología. A lo largo de los años, he aprendido a aplicar principios de responsabilidad y organización en mis hobbies, como el cuidado de mis acuarios. La dedicación que requiero para mantener un ecosistema saludable en mi pecera me ha enseñado la importancia de la atención al detalle, la perseverancia y la capacidad para solucionar problemas de manera eficiente. Estos mismos principios los aplico al abordar proyectos de programación, donde siempre busco una solución concisa y efectiva, sin dejar de lado la creatividad.<br><br>
+
+Como líder nato, siempre busco completar las tareas de manera rápida y eficiente, asegurándome de que cada miembro del equipo se sienta apoyado y motivado para alcanzar sus objetivos. Soy adaptable a diferentes estilos de trabajo y en situaciones desafiantes, mi enfoque es encontrar el mejor camino hacia la solución, no importa lo complejo que sea. La empatía y la paciencia son claves en mi enfoque, tanto al interactuar con mi equipo como al tratar de entender las necesidades del cliente o del proyecto en sí.<br><br>
+
+Mi pasión por aprender y mi constante deseo de mantenerme actualizado en las últimas tecnologías me permiten aportar soluciones innovadoras a los proyectos en los que participo. Me encanta automatizar procesos, lo que me permite tener un control más eficiente sobre mis tareas y hobbies. Ya sea programando o cuidando de mis acuarios, siempre busco optimizar mi tiempo para lograr el mejor resultado posible.<br><br>
+
+Mi visión es ser un miembro valioso de cualquier equipo, contribuyendo con ideas frescas y soluciones prácticas que mejoren la productividad y el ambiente de trabajo. Mi capacidad para adaptarme rápidamente a nuevas situaciones y mi compromiso con la excelencia me posicionan como un profesional capaz de generar un impacto positivo en cualquier empresa.`;
+    profileText.style.animation = "textChange 1s ease-out"; // Animación al cambiar el texto
+});
+
+
+
+    </script>
+</body>
+</html>
