@@ -142,8 +142,8 @@
 /* Para pantallas menores a 768px (tablets y móviles en horizontal) */
 @media (max-width: 768px) {
     .contacto_superior {
-        top: 100px; /* Se baja 50px */
-        right: 50px;
+        top: 80px; /* Se baja 50px */
+        right: 60px; /* Ajuste proporcional */
         gap: 10px;
     }
 
@@ -153,33 +153,37 @@
     }
 
     .moc {
-        height: 50px;
-        width: 50px;
-        border-radius: 25px;
+        height: 55px;
+        width: 55px;
+        border-radius: 27px;
     }
 
     .moc:before {
-        height: 50px;
-        width: 50px;
-        border-radius: 25px;
+        height: 55px;
+        width: 55px;
+        border-radius: 27px;
     }
 
     .moj {
-        height: 50px;
-        width: 50px;
+        height: 55px;
+        width: 55px;
+    }
+
+    .moj div {
+        margin: 22px 0;
     }
 
     .moj div a {
-        width: 8px;
-        height: 8px;
+        width: 9px;
+        height: 9px;
     }
 }
 
 /* Para pantallas menores a 480px (móviles) */
 @media (max-width: 480px) {
     .contacto_superior {
-        top: 150px; /* Se baja 100px */
-        right: 30px;
+        top: 130px; /* Se baja más */
+        right: 40px;
         gap: 8px;
     }
 
@@ -189,24 +193,28 @@
     }
 
     .moc {
-        height: 40px;
-        width: 40px;
-        border-radius: 20px;
+        height: 45px;
+        width: 45px;
+        border-radius: 22px;
     }
 
     .moc:before {
-        height: 40px;
-        width: 40px;
-        border-radius: 20px;
+        height: 45px;
+        width: 45px;
+        border-radius: 22px;
     }
 
     .moj {
-        height: 40px;
-        width: 40px;
+        height: 45px;
+        width: 45px;
+    }
+
+    .moj div {
+        margin: 20px 0;
     }
 
     .moj div a {
-        width: 6px;
-        height: 6px;
+        width: 7px;
+        height: 7px;
     }
 }
