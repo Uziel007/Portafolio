@@ -21,6 +21,7 @@
     align-items: center;
     gap: 15px;
     position: relative;
+    justify-content: flex-start; /* Alinea el texto a la izquierda */
 }
 
 /* Estilo del texto "Contáctame" */
@@ -31,6 +32,7 @@
     text-decoration: none;
     padding: 10px;
     transition: transform 0.3s ease;
+    margin-right: 10px; /* Asegura que haya espacio entre el texto y el círculo */
 }
 
 /* Estilo del círculo con los iconos */
@@ -39,12 +41,9 @@
     width: 63px;
     background: #444;
     border-radius: 30px;
-    position: absolute;
+    position: relative;  /* Cambiado a relative para que el círculo se ubique bien */
     cursor: pointer;
     transition: transform 0.3s ease;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
 }
 
 /* Icono animado dentro del círculo */
@@ -132,10 +131,9 @@
 
 /* Mueve el texto "Contáctame" hacia la izquierda con la animación */
 .container_contacto:hover .contactame {
-    transform: translateX(-35px);
+    transform: translateX(-50px); /* Mueve el texto 15px más a la izquierda */
 }
 
-/* Cambios de color en los iconos al hacer hover */
 /* Cambios de color en los iconos al hacer hover */
 .moj a[href*='feedburner.com']:hover { background-color: #ff6000; }
 .moj a[href*='feedburner.google.com']:hover { background-color: #C90000; }
