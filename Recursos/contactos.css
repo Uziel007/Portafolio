@@ -148,16 +148,8 @@
 
 /* -------------------- MEDIA QUERIES PARA RESPONSIVIDAD -------------------- */
 
-/* -------------------- MEDIA QUERIES PARA RESPONSIVIDAD -------------------- */
-
 /* Para pantallas menores a 768px (tabletas y móviles en horizontal) */
 @media (max-width: 768px) {
-    .contacto_superior {
-        top: 40px; /* Aumenta la separación superior */
-        right: 70px; /* Aumenta la separación derecha */
-        gap: 12px; /* Reduce el espacio entre los elementos */
-    }
-
     .moc {
         height: 55px;
         width: 55px;
@@ -182,12 +174,6 @@
 
 /* Para pantallas menores a 480px (móviles) */
 @media (max-width: 480px) {
-    .contacto_superior {
-        top: 50px; /* Aumenta aún más la separación superior */
-        right: 60px; /* Aumenta aún más la separación derecha */
-        gap: 15px; /* Ajuste el espacio entre los elementos */
-    }
-
     .moc {
         height: 45px;
         width: 45px;
