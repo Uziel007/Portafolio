@@ -136,6 +136,7 @@
 }
 
 /* Cambios de color en los iconos al hacer hover */
+/* Cambios de color en los iconos al hacer hover */
 .moj a[href*='feedburner.com']:hover { background-color: #ff6000; }
 .moj a[href*='feedburner.google.com']:hover { background-color: #C90000; }
 .moj a[href*='facebook.com']:hover { background-color: #5777FF; }
@@ -149,17 +150,6 @@
 
 /* Para pantallas menores a 768px (tabletas y móviles en horizontal) */
 @media (max-width: 768px) {
-    .contacto_superior {
-        top: 80px; /* Se baja el "contáctame" */
-        right: 60px;
-        gap: 10px;
-    }
-
-    .contactame {
-        font-size: 16px; /* Reducir texto */
-        padding: 8px;
-    }
-
     .moc {
         height: 55px;
         width: 55px;
@@ -178,22 +168,12 @@
     .moj div a {
         width: 9px;
         height: 9px;
+        font-size: 8px; /* Reducir tamaño del texto dentro de los círculos */
     }
 }
 
 /* Para pantallas menores a 480px (móviles) */
 @media (max-width: 480px) {
-    .contacto_superior {
-        top: 130px; /* Baja más el contáctame */
-        right: 40px;
-        gap: 8px;
-    }
-
-    .contactame {
-        font-size: 14px; /* Reducir más el texto en móviles */
-        padding: 6px;
-    }
-
     .moc {
         height: 45px;
         width: 45px;
@@ -212,5 +192,6 @@
     .moj div a {
         width: 7px;
         height: 7px;
+        font-size: 6px; /* Reducir más el tamaño de los iconos */
     }
 }
