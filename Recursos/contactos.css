@@ -149,8 +149,8 @@
 /* Para pantallas menores a 768px (tabletas y móviles en horizontal) */
 @media (max-width: 768px) {
     .moc {
-        height: 55px;
-        width: 55px;
+        height: 57px;
+        width: 57px;
         border-radius: 27px;
     }
 
@@ -173,8 +173,8 @@
 /* Para pantallas menores a 480px (móviles) */
 @media (max-width: 480px) {
     .moc {
-        height: 45px;
-        width: 45px;
+        height: 47px;
+        width: 47px;
         border-radius: 22px;
     }
 
