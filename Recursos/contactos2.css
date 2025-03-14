@@ -1,0 +1,172 @@
+* {
+    -moz-transition: all 1s ease;  
+    -webkit-transition: all 1s ease;  
+    transition: all 1s ease;
+  }
+  
+  .moc {
+    height:63px;
+    width: 63px;
+    margin:100px auto;
+    background: #444;
+    -moz-border-radius:30px;
+    -webkit-border-radius:30px;
+    border-radius:30px;
+    position:relative;
+  }
+  .moc:before {
+    content:'';
+    position:absolute;
+    height:63px;
+    width: 63px;
+    background:url(https://3.bp.blogspot.com/-lRNAeEy_nv0/UMozg8PKKcI/AAAAAAAABXM/C2WsAivKAwo/s1600/reds2.png) #444;
+    -moz-border-radius:30px;
+    -webkit-border-radius:30px;
+    border-radius:30px;
+    z-index:100;
+  }
+  .moj {
+    height:60px;
+    width: 60px;
+    -moz-border-radius:30px;
+    -webkit-border-radius:30px;
+    border-radius:30px;
+    position:relative;
+  }
+  .moj div {
+    height:10px;
+    width:100%;
+    position:absolute;
+    margin: 25px 0;
+  }
+  .moj div:nth-child(1) {
+    -moz-transform:rotate(0deg);
+    -webkit-transform:rotate(0deg);
+    transform:rotate(0deg);
+  }
+  .moj div:nth-child(2) {
+    -moz-transform:rotate(45deg);
+    -webkit-transform:rotate(45deg);
+    transform:rotate(45deg);
+  }
+  .moj div:nth-child(3) {
+    -moz-transform:rotate(90deg);
+    -webkit-transform:rotate(90deg);
+    transform:rotate(90deg);
+  }
+  .moj div:nth-child(4) {
+    -moz-transform:rotate(135deg);
+    -webkit-transform:rotate(135deg);
+    transform:rotate(135deg);
+  }
+  .moj div a {
+    height: 10px;
+    width:10px;
+    background:#fff;
+    display: inline-block;
+    position:absolute;
+    -moz-border-radius:50px;
+    -webkit-border-radius:50px;
+    border-radius:50px;
+    background-position: 50% 50%;
+    background-size: 80%;
+  }
+  .moj div a:nth-child(1) {
+    right:0px;
+  }
+  .moj div a:nth-child(2) {
+    left:0px;
+  }
+  .moj a[href*='feedburner.com'] {
+    background-image:url(https://3.bp.blogspot.com/-jr02z0CQzOw/UMfp00_ZLKI/AAAAAAAABUo/jBfOYc5r4Fs/s1600/feed3.png);
+  }
+  .moj a[href*='feedburner.google.com'] {
+    background-image:url(https://1.bp.blogspot.com/-Hl01-wKecLs/UMo_2WtsRhI/AAAAAAAABXg/wXAYKNUJ4S0/s1600/mails.png);
+  }
+  .moj a[href*='facebook.com'] {
+    background-image:url(https://4.bp.blogspot.com/-a40XC_2YHVA/UMfpz-AamUI/AAAAAAAABUg/6VUhLRzk0iY/s1600/face3.png);
+  }
+  .moj a[href*='plus.google.com'] {
+    background-image:url(https://2.bp.blogspot.com/-WKhahKy0wT0/UMfp2BZmdgI/AAAAAAAABUw/JAa1rxS3YqI/s1600/gmas3.png);
+  }
+  .moj a[href*='tumblr.com'] {
+    background-image:url(https://4.bp.blogspot.com/-J46A9SOM2Bo/UUoPXbXET1I/AAAAAAAABsg/n0sqU6O57Fc/s1600/3tumblr.png);
+  }
+  .moj a[href*='lastfm.es'] {
+    background-image:url(https://4.bp.blogspot.com/-nyj4-KEIIjw/UV1vb_O6JjI/AAAAAAAABvc/j8rQGKh9SgM/s1600/lastfm.png);
+  }
+  .moj a[href*='twitter.com'] {
+    background-image:url(https://1.bp.blogspot.com/-LSTaADYtJBs/UV1vb6heFYI/AAAAAAAABvg/hlwEON_Z_8k/s1600/twiter.png);
+  }
+  .moj a[href*='linkedin.com'] {
+    background-image:url(https://3.bp.blogspot.com/-Fd3NpakWN4E/UV1vb5mlkqI/AAAAAAAABvo/7MQ95Hlnuxk/s1600/linked.png);
+  }
+  .moj div:nth-child(2) a {
+    -moz-transform:rotate(-45deg);
+    -webkit-transform:rotate(-45deg);
+    transform:rotate(-45deg);
+  }
+  .moj div:nth-child(3) a {
+    -moz-transform:rotate(-90deg);
+    -webkit-transform:rotate(-90deg);
+    transform:rotate(-90deg);
+  }
+  .moj div:nth-child(4) a {
+    -moz-transform:rotate(-135deg);
+    -webkit-transform:rotate(-135deg);
+    transform:rotate(-135deg);
+  }
+  
+  .moc:hover {
+   -moz-box-shadow: 0px 0px 0px 2px white, 0 0 20px 2px white;
+   -webkit-box-shadow: 0px 0px 0px 2px white, 0 0 20px 2px white;
+   box-shadow: 0px 0px 0px 2px white, 0 0 20px 2px white;
+  }
+  .moc:hover .moj div {
+    margin:60px 0;
+    height:30px;
+    width:100%;
+  }
+  .moc:hover .moj div a {
+    height: 30px;
+    width:30px;
+  }
+  .moc:hover .moj  {
+    -moz-transform:rotate(360deg);
+    -webkit-transform:rotate(360deg);
+    transform:rotate(360deg);
+    height:150px;
+    width:150px;
+    left:-45px;
+    top:-45px;
+  }
+  .moj div a:hover {
+    -moz-box-shadow: 0px 0px 0px 2px white, 0 0 20px 2px white;
+    -webkit-box-shadow: 0px 0px 0px 2px white, 0 0 20px 2px white;
+    box-shadow: 0px 0px 0px 2px white, 0 0 20px 2px white;
+  }
+  
+  .moj a[href*='feedburner.com']:hover {
+    background-color:#ff6000;
+  }
+  .moj a[href*='feedburner.google.com']:hover {
+    background-color:#C90000;
+  }
+  .moj a[href*='facebook.com']:hover {
+    background-color:#5777FF;
+  }
+  .moj a[href*='plus.google.com']:hover {
+    background-color:#C90000;
+  }
+  .moj a[href*='tumblr.com']:hover {
+    background-color:#2c4762;
+  }
+  .moj a[href*='lastfm.es']:hover {
+    background-color:#f00;
+  }
+  .moj a[href*='twitter.com']:hover {
+    background-color:#00c0ff;
+  }
+  .moj a[href*='linkedin.com']:hover {
+    background-color:#0055c9;
+  }
