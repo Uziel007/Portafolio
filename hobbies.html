@@ -81,10 +81,102 @@
                         acuarios, que son de ajolotes, gambas y peces amazónicos plantados, porque me permiten conectar
                         con la naturaleza y me enseñan sobre los ecosistemas acuáticos.</p>
                 </div>
-                <div class="item content-acuario" style="margin-top: -20px; display: flex; justify-content: space-between; align-items: center;">
-                    <!-- Carrusel a la izquierda (más pequeño) -->
-                    <div id="carousel" class="carousel" style="flex: 0 0 40%; max-width: 40%;"> <!-- Ajuste el tamaño del carrusel -->
-                        <div class="carousel-images">
+                <style>
+                    * {
+                        box-sizing: border-box;
+                        margin: 0;
+                        padding: 0;
+                    }
+            
+                    .container {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: center;
+                        width: 100%;
+                        padding: 20px;
+                    }
+            
+                    /* Estilos generales para los carruseles */
+                    .carrusel {
+                        position: relative;
+                        overflow: hidden;
+                        border-radius: 10px;
+                        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+                        margin-bottom: 30px;
+                    }
+            
+                    .carrusel-imagenes {
+                        display: flex;
+                        transition: transform 0.5s ease-in-out;
+                    }
+            
+                    .carrusel-imagenes img {
+                        width: 100%;
+                        border-radius: 10px;
+                    }
+            
+                    .carrusel-btn {
+                        position: absolute;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        background: rgba(0, 0, 0, 0.5);
+                        color: white;
+                        border: none;
+                        padding: 10px;
+                        cursor: pointer;
+                        font-size: 18px;
+                        border-radius: 50%;
+                    }
+            
+                    .carrusel-btn:hover {
+                        background: rgba(0, 0, 0, 0.8);
+                    }
+            
+                    .prev {
+                        left: 10px;
+                    }
+            
+                    .next {
+                        right: 10px;
+                    }
+            
+                    .carrusel-texto {
+                        margin-top: 10px;
+                        font-size: 16px;
+                        color: #333;
+                        text-align: center;
+                        font-weight: bold;
+                    }
+            
+                    /* Primer carrusel (Vertical estándar) */
+                    .carrusel-vertical {
+                        width: 100%;
+                        max-width: 600px;
+                    }
+            
+                    /* Segundo carrusel (Horizontal) */
+                    .carrusel-horizontal {
+                        width: 100%;
+                        max-width: 900px; /* Más ancho */
+                    }
+            
+                    @media (max-width: 768px) {
+                        .carrusel-vertical {
+                            max-width: 100%;
+                        }
+            
+                        .carrusel-horizontal {
+                            max-width: 100%;
+                        }
+                    }
+                </style>
+            <body>
+            
+                <div class="container">
+                    <!-- Primer Carrusel (Normal) -->
+                    <div class="carrusel carrusel-vertical">
+                        <div class="carrusel-imagenes" id="imagenes-vertical">
                             <img src="Recursos/hobbies/acuarios/calciferentronco.jpg" alt="Calcifer en un tronco">
                             <img src="Recursos/hobbies/acuarios/calcifermirando.jpg" alt="Calcifer observando su entorno">
                             <img src="Recursos/hobbies/acuarios/colisaroja.jpg" alt="Pez colisa roja">
@@ -97,15 +189,50 @@
                             <img src="Recursos/hobbies/acuarios/tertraneonambiente.jpg" alt="Tetra neón en su hábitat">
                             <img src="Recursos/hobbies/acuarios/troncoconplantas.jpg" alt="Tronco con plantas acuáticas">
                         </div>
-                        <button class="prev" onclick="changeImage(-1)">&#10094;</button>
-                        <button class="next" onclick="changeImage(1)">&#10095;</button>
+                        <button class="carrusel-btn prev" onclick="moverCarrusel('vertical', -1)">&#10094;</button>
+                        <button class="carrusel-btn next" onclick="moverCarrusel('vertical', 1)">&#10095;</button>
                     </div>
-                
-                    <!-- Texto relacionado a la derecha -->
-                    <div class="item footer-acuario" style="flex: 1; margin-top: 50px; max-width: 55%; text-align: right;">
+                    <div class="carrusel-texto" id="texto-vertical" style="color: white;"></div>
+            
+                    <!-- Segundo Carrusel (Horizontal) -->
+                    <div class="carrusel carrusel-horizontal">
+                        <div class="carrusel-imagenes" id="imagenes-horizontal">
+                            <img src="Recursos/hobbies/acuarios/escritorio.jpg" alt="Escritorio de trabajo">
+                            <img src="Recursos/hobbies/acuarios/escritorio.jpg" alt="Escritorio de trabajo">
+                            <img src="Recursos/hobbies/acuarios/escritorio.jpg" alt="Escritorio de trabajo">
+
+                        </div>
+                        <button class="carrusel-btn prev" onclick="moverCarrusel('horizontal', -1)">&#10094;</button>
+                        <button class="carrusel-btn next" onclick="moverCarrusel('horizontal', 1)">&#10095;</button>
+                    </div>
+                    <div class="carrusel-texto" id="texto-horizontal" style="color: white;"></div>
+                </div>
+            
+                <script>
+                    let indices = { 
+                        vertical: 0, 
+                        horizontal: 0 
+                    };
+            
+                    function actualizarTexto(tipo) {
+                        const imagenes = document.querySelectorAll(`#imagenes-${tipo} img`);
+                        document.getElementById(`texto-${tipo}`).textContent = imagenes[indices[tipo]].alt;
+                    }
+            
+                    function moverCarrusel(tipo, direccion) {
+                        const imagenes = document.querySelectorAll(`#imagenes-${tipo} img`);
+                        const totalImagenes = imagenes.length;
+            
+                        indices[tipo] = (indices[tipo] + direccion + totalImagenes) % totalImagenes;
+                        document.getElementById(`imagenes-${tipo}`).style.transform = `translateX(${-indices[tipo] * 100}%)`;
                         
-                    </div>
-                </div>                
+                        actualizarTexto(tipo);
+                    }
+            
+                    // Cargar textos iniciales
+                    actualizarTexto("vertical");
+                    actualizarTexto("horizontal");
+                </script>          
         </section>
     </main>
     <script src="Recursos/hobbies.js"></script>
