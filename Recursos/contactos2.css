@@ -146,27 +146,35 @@
     box-shadow: 0px 0px 0px 2px white, 0 0 20px 2px white;
   }
   
-  .moj a[href*='feedburner.com']:hover {
-    background-color:#ff6000;
-  }
-  .moj a[href*='feedburner.google.com']:hover {
-    background-color:#C90000;
-  }
-  .moj a[href*='facebook.com']:hover {
-    background-color:#5777FF;
-  }
-  .moj a[href*='plus.google.com']:hover {
-    background-color:#C90000;
-  }
-  .moj a[href*='tumblr.com']:hover {
-    background-color:#2c4762;
-  }
-  .moj a[href*='lastfm.es']:hover {
-    background-color:#f00;
-  }
-  .moj a[href*='twitter.com']:hover {
-    background-color:#00c0ff;
-  }
-  .moj a[href*='linkedin.com']:hover {
-    background-color:#0055c9;
-  }
+  .moj a[href*='linkedin.com'] {
+    background-color: #0055c9;
+    background-image: url('Recursos/redes/iconos/linkedin.png');
+}
+.moj a[href*='github.com'] {
+    background-color: #333;
+    background-image: url('Recursos/redes/iconos/github.png');
+}
+.moj a[href*='wa.me'] {
+    background-color: #25D366;
+    background-image: url('Recursos/redes/iconos/whatsap.png');
+}
+.moj a[href*='x.com'] {
+    background-color: #000;
+    background-image: url('/Recursos/redes/iconos/x.png');
+}
+.moj a[href*='mailto'] {
+    background-color: #D44638;
+    background-image: url('/Recursos/redes/iconos/gmail.png');
+}
+.moj a[href*='tel'] {
+    background-color: #34B7F1;
+    background-image: url('/Recursos/redes/iconos/telefono.png');
+}
+.moj a[href*='facebook.com'] {
+    background-color: #5777FF;
+    background-image: url('/Recursos/redes/iconos/facebook.png');
+}
+.moj a[href*='instagram.com'] {
+    background-color: #be086f;
+    background-image: url('/Recursos/redes/iconos/instagram.png');
+}
