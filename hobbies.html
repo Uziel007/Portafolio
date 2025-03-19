@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="Recursos/styles.css">
     <link rel="stylesheet" href="Recursos/hobbies.css">
+    <link rel="stylesheet" href="Recursos/contactos2.css">
     <title>Habilidades - Portafolio de Uziel Sánchez Marín</title>
 </head>
 
@@ -73,8 +74,8 @@
         <!-- Sección de Hobbies -->
         <section id="hobbies" class="section" style="display: none;">
             <div class="container">
-                <div class="item header-acuario">Acuarismo</div>
-                <div class="item sidebar-acuario">
+                <div class="item header-acuario" style="color: white;">Acuarismo</div>
+                <div class="item sidebar-acuario" style="color: white;">
                     <h3>Cómo me gusta el acuarismo</h3>
                     <p>El acuarismo me ha enseñado paciencia, responsabilidad y dedicación. Me ha ayudado a organizarme
                         mejor, tanto en mi vida personal como en mi trabajo profesional. Me encanta cuidar de mis
@@ -155,20 +156,25 @@
                         max-width: 600px;
                     }
             
-                    /* Segundo carrusel (Horizontal) */
+                    /* Carrusel horizontal */
                     .carrusel-horizontal {
                         width: 100%;
-                        max-width: 900px; /* Más ancho */
+                        max-width: 900px; /* Ajuste de ancho */
                     }
-            
+
                     @media (max-width: 768px) {
-                        .carrusel-vertical {
-                            max-width: 100%;
-                        }
-            
                         .carrusel-horizontal {
                             max-width: 100%;
                         }
+                    }   
+                    table {
+                        width: 100%;
+                        border-collapse: collapse;
+                    }
+                    td {
+                        width: 50%;
+                        padding: 10px;
+                        vertical-align: top;
                     }
                 </style>
             <body>
@@ -177,30 +183,48 @@
                     <!-- Primer Carrusel (Normal) -->
                     <div class="carrusel carrusel-vertical">
                         <div class="carrusel-imagenes" id="imagenes-vertical">
-                            <img src="Recursos/hobbies/acuarios/calciferentronco.jpg" alt="Calcifer en un tronco">
-                            <img src="Recursos/hobbies/acuarios/calcifermirando.jpg" alt="Calcifer observando su entorno">
-                            <img src="Recursos/hobbies/acuarios/colisaroja.jpg" alt="Pez colisa roja">
-                            <img src="Recursos/hobbies/acuarios/escalarnegro.jpg" alt="Pez escalar de color negro">
-                            <img src="Recursos/hobbies/acuarios/escritorio.jpg" alt="Escritorio de trabajo">
-                            <img src="Recursos/hobbies/acuarios/gamba.jpg" alt="Gamba en el acuario">
-                            <img src="Recursos/hobbies/acuarios/gambaembarazada.jpg" alt="Gamba embarazada con huevos visibles">
-                            <img src="Recursos/hobbies/acuarios/otocinclo.jpg" alt="Pez otocinclus en el acuario">
-                            <img src="Recursos/hobbies/acuarios/puestadehuevos.jpg" alt="Puesta de huevos en el acuario">
-                            <img src="Recursos/hobbies/acuarios/tertraneonambiente.jpg" alt="Tetra neón en su hábitat">
-                            <img src="Recursos/hobbies/acuarios/troncoconplantas.jpg" alt="Tronco con plantas acuáticas">
+                            <img src="Recursos/hobbies/acuarios/calciferentronco.jpg" alt="Calcifer, mi ajolote, descansando sobre su tronco favorito. Me gusta ver cómo explora su entorno con curiosidad.">
+                            <img src="Recursos/hobbies/acuarios/calcifermirando.jpg" alt="Calcifer observando todo a su alrededor. Es increíble cómo este pequeño ser tiene tanta personalidad y energía.">
+                            <img src="Recursos/hobbies/acuarios/colisaroja.jpg" alt="Mi colisa roja, un pez con colores vibrantes y una actitud tranquila que aporta belleza y equilibrio a mi acuario.">
+                            <img src="Recursos/hobbies/acuarios/escalarnegro.jpg" alt="Uno de mis escalares negros. Me gusta su elegancia y la forma en que se desliza suavemente por el agua.">
+                            <img src="Recursos/hobbies/acuarios/escritorio.jpg" alt="Mi escritorio de trabajo, donde conviven mis pasiones: la acuariofilia, la programación y los videojuegos.">
+                            <img src="Recursos/hobbies/acuarios/gamba.jpg" alt="Una de mis gambas en el acuario, siempre activa y ayudando a mantener el ecosistema limpio.">
+                            <img src="Recursos/hobbies/acuarios/gambaembarazada.jpg" alt="Gamba embarazada con huevos visibles. Me gusta ver cómo se desarrolla la vida en mi acuario y cómo crecen las nuevas generaciones.">
+                            <img src="Recursos/hobbies/acuarios/otocinclo.jpg" alt="Mi pez otocinclus, un trabajador incansable que ayuda a mantener el acuario libre de algas de forma natural.">
+                            <img src="Recursos/hobbies/acuarios/puestadehuevos.jpg" alt="Un momento especial en mi acuario: la puesta de huevos. Me encanta ver cómo mis peces crean vida y cuidan su descendencia.">
+                            <img src="Recursos/hobbies/acuarios/tertraneonambiente.jpg" alt="Un tetra neón nadando entre las plantas. Me gusta su color brillante y cómo añade movimiento y vida al acuario.">
+                            <img src="Recursos/hobbies/acuarios/troncoconplantas.jpg" alt="Tronco con plantas acuáticas, un elemento clave en mi acuario para proporcionar refugio y equilibrio natural.">
+                            
                         </div>
                         <button class="carrusel-btn prev" onclick="moverCarrusel('vertical', -1)">&#10094;</button>
                         <button class="carrusel-btn next" onclick="moverCarrusel('vertical', 1)">&#10095;</button>
                     </div>
                     <div class="carrusel-texto" id="texto-vertical" style="color: white;"></div>
-            
+                    <h1 class="h1relleno2">Hol</h1>
+                    <h1 class="h1relleno2">Hol</h1>
+                    <div class="item header-digital" style="color: white;">DIGITAL ENTERTAINMENT</div>
+                    <div class="item sidebar-digital" style="color: white;">
+                        <h3>Mi pasión por el Digital Entertainment</h3>
+                        <p>El Digital Entertainment, especialmente los videojuegos, me ha enseñado mucho más que entretenimiento. Me ha ayudado a mejorar mi capacidad de resolver problemas, a pensar estratégicamente y a trabajar bajo presión. Disfruto profundamente sumergiéndome en diferentes mundos virtuales, lo que me permite explorar nuevos retos y situaciones que me enseñan a ser más creativo y perseverante. Además, me ha permitido conectar con personas de todo el mundo y comprender diversas perspectivas, lo cual enriquece tanto mi vida personal como profesional.</p>                        
+                    </div>
+
                     <!-- Segundo Carrusel (Horizontal) -->
                     <div class="carrusel carrusel-horizontal">
                         <div class="carrusel-imagenes" id="imagenes-horizontal">
-                            <img src="Recursos/hobbies/acuarios/escritorio.jpg" alt="Escritorio de trabajo">
-                            <img src="Recursos/hobbies/acuarios/escritorio.jpg" alt="Escritorio de trabajo">
-                            <img src="Recursos/hobbies/acuarios/escritorio.jpg" alt="Escritorio de trabajo">
-
+                            <img src="Recursos/hobbies/videojuegos/perfil.jpg" alt="Este es mi perfil de PlayStation, donde guardo mis mejores momentos y logros en los videojuegos que más disfruto.">
+                            <img src="Recursos/hobbies/acuarios/escritorio.jpg" alt="Mi escritorio de trabajo, donde paso el tiempo entre programación, juegos y mis otros hobbies.">
+                            <img src="Recursos/hobbies/videojuegos/chras2.jpg" alt="Crash Bandicoot 2: Cortex Strikes Back, uno de los juegos de mi infancia. Me encanta su jugabilidad, el diseño de niveles y el desafío que ofrece.">
+                            <img src="Recursos/hobbies/videojuegos/crashuno.jpg" alt="Crash Bandicoot 1, el inicio de una saga que marcó mi amor por los videojuegos. Me gusta por su dificultad y la nostalgia que me trae.">
+                            <img src="Recursos/hobbies/videojuegos/cuphed.jpg" alt="Cuphead, un juego que me ha enseñado paciencia y precisión. Sus jefes son desafiantes y cada victoria se siente como un gran logro.">
+                            <img src="Recursos/hobbies/videojuegos/howard.jpg" alt="Hogwarts Legacy, un sueño hecho realidad para cualquier fan de Harry Potter. Me encanta explorar el mundo mágico y perderme en cada detalle.">
+                            <img src="Recursos/hobbies/videojuegos/ittakestwo.jpg" alt="It Takes Two, un juego que me ha hecho valorar el trabajo en equipo. Cada nivel tiene mecánicas únicas que hacen que nunca se vuelva repetitivo.">
+                            <img src="Recursos/hobbies/videojuegos/minecraft.jpg" alt="Minecraft, mi escape creativo. Me gusta construir, explorar y relajarme en un mundo sin límites.">
+                            <img src="Recursos/hobbies/videojuegos/piterman2.jpg" alt="Spider-Man 2, porque me encanta la sensación de balancearme por Nueva York. La historia y el combate me mantienen enganchado.">
+                            <img src="Recursos/hobbies/videojuegos/playstation.jpg" alt="Mi colección de juegos de PlayStation, que representa mi pasión por los videojuegos y todas las experiencias que me han dejado.">
+                            <img src="Recursos/hobbies/videojuegos/starwars.jpg" alt="Star Wars Jedi: Survivor, un juego que combina acción y exploración en un universo que me fascina. Me gusta la libertad de combate y la historia.">
+                            <img src="Recursos/hobbies/videojuegos/stray.jpg" alt="Stray, un juego diferente que me atrapó por su atmósfera y la forma en que logra contar una historia sin necesidad de diálogos.">
+                            <img src="Recursos/hobbies/videojuegos/uncharted.jpg" alt="Uncharted, una saga que disfruto por su acción y exploración. Me hace sentir como un verdadero aventurero en busca de tesoros.">
+                            <img src="Recursos/hobbies/videojuegos/godofwar.jpg" alt="God of War: Ragnarok, una historia impresionante con personajes profundos. Me gusta por su combate brutal y su narrativa emocional.">
                         </div>
                         <button class="carrusel-btn prev" onclick="moverCarrusel('horizontal', -1)">&#10094;</button>
                         <button class="carrusel-btn next" onclick="moverCarrusel('horizontal', 1)">&#10095;</button>
@@ -232,7 +256,37 @@
                     // Cargar textos iniciales
                     actualizarTexto("vertical");
                     actualizarTexto("horizontal");
-                </script>          
+                </script>    
+                <h1 class="h1relleno2">Hol</h1>
+                    <table>
+                        <tr>
+                            <tr>Si te interesa conocer más sobre mi trabajo o deseas estar al tanto de mis proyectos y actualizaciones, te invito a seguirme en mis redes sociales. Puedes encontrarme en LinkedIn, GitHub, Twitter (X), Facebook e Instagram, donde comparto contenido relacionado con mis proyectos, logros y pensamientos sobre el desarrollo. Además, si prefieres un contacto más directo, puedes comunicarte conmigo a través de WhatsApp. Estoy siempre dispuesto a conectar con profesionales y personas que compartan intereses similares. ¡Espero verte pronto en mis redes!</tr>
+                            <tr>
+                                <h3 style="text-align: center; font-size: 24px; color: #fdfdfd;">Contáctame</h3>
+                                <div style="display: flex; align-items: center; justify-content: center; gap: 5px;">
+                                    <div class='moc'>
+                                        <div class='moj'>
+                                            <div>
+                                                <a href='https://www.linkedin.com/in/uziel-sánchez-marin-146436339' target="_blank" style="background-image: url('Recursos/redes/iconos/linkedin.png'); background-repeat: no-repeat; background-size: contain;"></a>
+                                                <a href='https://github.com/Uziel007' target="_blank" style="background-image: url('Recursos/redes/iconos/github.png'); background-repeat: no-repeat; background-size: contain;"></a>
+                                            </div>
+                                            <div>
+                                                <a href='https://wa.me/5585067049' target="_blank" style="background-image: url('Recursos/redes/iconos/whatsap.png'); background-repeat: no-repeat; background-size: contain;"></a>
+                                                <a href='https://x.com/chuchelongo' target="_blank" style="background-image: url('Recursos/redes/iconos/x.png'); background-repeat: no-repeat; background-size: contain;"></a>
+                                            </div>
+                                            <div>
+                                                <a href='mailto:uzielsanchez007@gmail.com' target="_blank" style="background-image: url('Recursos/redes/iconos/gmail.png'); background-repeat: no-repeat; background-size: contain;"></a>
+                                                <a href='tel:+5585067049' target="_blank" style="background-image: url('Recursos/redes/iconos/telefono.png'); background-repeat: no-repeat; background-size: contain;"></a>
+                                            </div>
+                                            <div>
+                                                <a href='https://www.facebook.com/uziel.marin.7?locale=es_LA' target="_blank" style="background-image: url('Recursos/redes/iconos/facebook.png'); background-repeat: no-repeat; background-size: contain;"></a>
+                                                <a href='https://www.instagram.com/uziel_0902/' target="_blank" style="background-image: url('Recursos/redes/iconos/instagram.png'); background-repeat: no-repeat; background-size: contain;"></a>
+                                            </div>                                                       
+                                        </div>
+                                    </div>
+                            </tr>
+                        </tr>
+                    </table>      
         </section>
     </main>
     <script src="Recursos/hobbies.js"></script>

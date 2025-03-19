@@ -612,7 +612,7 @@
         font-size: 36px;
         font-weight: bold;
         color: white;
-        text-shadow: 0 0 10px #00FF00, 0 0 20px #00FF00, 0 0 30px #00FF00;
+        text-shadow: 0 0 10px #5edfff, 0 0 20px #5edfff, 0 0 30px #5edfff;
         margin-bottom: 10px; /* Ajusta el espacio debajo de "Acuarismo" */
       }        
       
@@ -701,4 +701,30 @@
     .next {
         right: 10px;
     }
+    .footer-digital {
+      grid-area: footer-digital;
+      font-size: 16px;
+      color: #888;
+      text-align: center;
+    }      
     
+    .header-digital {
+      grid-area: header-digital;
+      text-align: center;
+      font-size: 36px;
+      font-weight: bold;
+      color: white;
+      text-shadow: 0 0 10px #e738fe, 0 0 20px #e738fe, 0 0 30px #e738fe;
+      margin-bottom: 10px; /* Ajusta el espacio debajo de "Acuarismo" */
+    }        
+    
+    .sidebar-digital {
+      grid-area: sidebar-digital;
+      font-size: 18px;
+      line-height: 1.5;
+    }
+    
+    .content-digital {
+      grid-area: content-digital;
+      position: relative;
+  }
