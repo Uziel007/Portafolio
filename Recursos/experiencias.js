@@ -222,6 +222,104 @@ document.getElementById("contenido").innerHTML = `
     </p>`;
 });
 
+document.querySelector(".btn-carrusel6").addEventListener("click", function(event) {
+    event.preventDefault();
+    document.getElementById("contenido").innerHTML = `
+        <ul>
+            <li>Desarrollé una tienda online de ropa completamente funcional con diseño responsivo y estéticamente atractivo.</li>
+            <li>Incluye un catálogo dinámico con filtros por color, estilo, temporada y colaboraciones, adaptándose automáticamente según la fecha.</li>
+            <li>Integré un sistema de favoritos local sin base de datos, permitiendo a los usuarios guardar prendas sin necesidad de iniciar sesión.</li>
+            <li>Se utilizaron tecnologías como HTML, CSS, JavaScript y Supabase para permitir que el contenido sea modificable sin tocar el código.</li>
+            <li>Incorporé sliders interactivos para mostrar colaboraciones y un Lookbook visualmente atractivo.</li>
+            <li>La galería de looks cuenta con filtros combinables para facilitar la navegación.</li>
+            <li>Diseño minimalista con efectos sutiles (hover, transiciones suaves, modo claro/oscuro y parallax).</li>
+            <li>Sección de contacto con mapa interactivo y formulario funcional.</li>
+            <li>Desarrollé un blog integrado con artículos categorizados y editables desde un panel.</li>
+            <li>Cuenta con una sección "Behind the Scenes" que muestra bocetos, inspiración y videos del proceso creativo.</li>
+        </ul>
+        <h1 class="h1relleno2"></h1>
+        <h1 class="h1relleno2"></h1>
+        <strong>Galería de imágenes:</strong> 
+        <section id="slideshow">
+            <div class="entire-content">
+                <div class="content-carrousel">
+                    <figure class="shadow" onclick="openModal('Recursos/experiencias/galerias/TiendaRopa/ropa1.png')">
+                        <img src="Recursos/experiencias/galerias/TiendaRopa/ropa1.png"/>
+                    </figure>
+                    <figure class="shadow" onclick="openModal('Recursos/experiencias/galerias/TiendaRopa/ropa2.png')">
+                        <img src="Recursos/experiencias/galerias/TiendaRopa/ropa2.png"/>
+                    </figure>
+                    <figure class="shadow" onclick="openModal('Recursos/experiencias/galerias/TiendaRopa/ropa3.png')">
+                        <img src="Recursos/experiencias/galerias/TiendaRopa/ropa3.png"/>
+                    </figure>
+                    <figure class="shadow" onclick="openModal('Recursos/experiencias/galerias/TiendaRopa/ropa4.png')">
+                        <img src="Recursos/experiencias/galerias/TiendaRopa/ropa4.png"/>
+                    </figure>
+                    <figure class="shadow" onclick="openModal('Recursos/experiencias/galerias/TiendaRopa/ropa5.png')">
+                        <img src="Recursos/experiencias/galerias/TiendaRopa/ropa5.png"/>
+                    </figure>
+                    <figure class="shadow" onclick="openModal('Recursos/experiencias/galerias/TiendaRopa/ropa6.png')">
+                        <img src="Recursos/experiencias/galerias/TiendaRopa/ropa6.png"/>
+                    </figure>
+                    <figure class="shadow" onclick="openModal('Recursos/experiencias/galerias/TiendaRopa/ropa7.png')">
+                        <img src="Recursos/experiencias/galerias/TiendaRopa/ropa7.png"/>
+                    </figure>
+                    <figure class="shadow" onclick="openModal('Recursos/experiencias/galerias/TiendaRopa/ropa8.png')">
+                        <img src="Recursos/experiencias/galerias/TiendaRopa/ropa8.png"/>
+                    </figure>
+                    <figure class="shadow" onclick="openModal('Recursos/experiencias/galerias/TiendaRopa/ropa9.png')">
+                        <img src="Recursos/experiencias/galerias/TiendaRopa/ropa9.png"/>
+                    </figure>
+                    <figure class="shadow" onclick="openModal('Recursos/experiencias/galerias/TiendaRopa/ropa10.png')">
+                        <img src="Recursos/experiencias/galerias/TiendaRopa/ropa10.png"/>
+                    </figure>
+                    <figure class="shadow" onclick="openModal('Recursos/experiencias/galerias/TiendaRopa/ropa11.png')">
+                        <img src="Recursos/experiencias/galerias/TiendaRopa/ropa11.png"/>
+                    </figure>
+                    <figure class="shadow" onclick="openModal('Recursos/experiencias/galerias/TiendaRopa/ropa12.png')">
+                        <img src="Recursos/experiencias/galerias/TiendaRopa/ropa12.png"/>
+                    </figure>
+                    <figure class="shadow" onclick="openModal('Recursos/experiencias/galerias/TiendaRopa/ropa13.png')">
+                        <img src="Recursos/experiencias/galerias/TiendaRopa/ropa13.png"/>
+                    </figure>
+                    <figure class="shadow" onclick="openModal('Recursos/experiencias/galerias/TiendaRopa/ropa14.png')">
+                        <img src="Recursos/experiencias/galerias/TiendaRopa/ropa14.png"/>
+                    </figure>
+                </div>
+            </div>
+        </section>
+        <h1 class="h1relleno2"></h1>
+        <h1 class="h1relleno2"></h1>
+        <strong>VIDEO DEL PROYECTO:</strong> 
+        <table style="width: 100%; height: 100%;">
+            <tr>
+                <td style="text-align: center; vertical-align: middle;">
+                    <div style="display: flex; justify-content: center; align-items: center; width: 100%;">
+                        <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 80%; width: 80%;">
+                            <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" 
+                                    src="https://www.youtube.com/embed/as7fO08yJec"
+                                    frameborder="0" 
+                                    allowfullscreen>
+                            </iframe>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <h1 class="h1relleno2"></h1>
+        <h1 class="h1relleno2"></h1>
+        <section class="contact-section">
+            <p class="contact-text">Si deseas más información sobre este proyecto, puedes comunicarte con la persona de referencia:</p>
+            <div class="phone-container">
+                <i class="Phone is-animating"></i>
+                <span class="phone-number">+52 55 2421 8886</span>
+            </div>
+            <p class="reference-name">Adela Ávila Franco</p>
+        </section>
+    `;
+});
+
+
 
 document.querySelectorAll(".custom-arrow").forEach(arrow => {
     arrow.addEventListener("click", function() {
