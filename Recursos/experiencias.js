@@ -133,11 +133,23 @@ document.querySelector(".btn-carrusel1").addEventListener("click", function(even
 
         <section class="contact-section">
             <p class="contact-text">Si deseas más información sobre este proyecto, puedes comunicarte con la persona de referencia:</p>
-            <div class="phone-container">
-                <i class="Phone is-animating"></i>
-                <span class="phone-number">+52 56 3335 3852</span>
+            
+            <div class="contact-options">
+                <a href="https://wa.me/525633353852" class="whatsapp-btn" target="_blank">
+                    <span class="btn-icon">📱</span>
+                    <span class="btn-text">Enviar WhatsApp</span>
+                </a>
+                
+                <a href="tel:+525633353852" class="call-btn">
+                    <span class="btn-icon">📞</span>
+                    <span class="btn-text">Llamar ahora</span>
+                </a>
             </div>
-            <p class="reference-name">Nadia Ambrocio</p>
+            
+            <div class="contact-details">
+                <p class="phone-number">+52 56 3335 3852</p>
+                <p class="reference-name">Nadia Ambrocio</p>
+            </div>
         </section>
 
     `;
@@ -171,14 +183,26 @@ document.getElementById("contenido").innerHTML = `
         A lo largo de mi desempeño, fui reconocido por mi esfuerzo laboral, ética profesional y capacidad de trabajo en equipo. Esta experiencia consolidó mis habilidades en desarrollo de software, fortaleciendo mi perfil como un profesional altamente calificado y orientado a resultados.
     </p>
     
-    <section class="contact-section">
-        <p class="contact-text">Si deseas saber más sobre mí y mi forma de trabajar, puedes comunicarte con la persona de referencia:</p>
-        <div class="phone-container">
-            <i class="Phone is-animating"></i>
-            <span class="phone-number">+52 55 2278 5158</span>
-        </div>
-        <p class="reference-name">Ing. Mauricio Gomez Gallegos</p>
-    </section>
+        <section class="contact-section">
+            <p class="contact-text">Si deseas saber más sobre mí y mi forma de trabajar, puedes comunicarte con la persona de referencia:</p>
+            
+            <div class="contact-options">
+                <a href="https://wa.me/525522785158" class="whatsapp-btn" target="_blank">
+                    <span class="btn-icon">📱</span>
+                    <span class="btn-text">Enviar WhatsApp</span>
+                </a>
+                
+                <a href="tel:+525522785158" class="call-btn">
+                    <span class="btn-icon">📞</span>
+                    <span class="btn-text">Llamar ahora</span>
+                </a>
+            </div>
+            
+            <div class="contact-details">
+                <p class="phone-number">+52 55 2278 5158</p>
+                <p class="reference-name">Ing. Mauricio Gomez Gallegos</p>
+            </div>
+        </section>
     `;
 });
 
@@ -200,14 +224,26 @@ document.getElementById("contenido").innerHTML = `
         Este rol no solo me permitió desarrollar habilidades técnicas avanzadas, sino también fortalecer competencias clave como la ética profesional, la comunicación efectiva y el liderazgo en entornos dinámicos.
     </p>
     
-    <section class="contact-section">
-        <p class="contact-text">Si deseas saber más sobre mí y mi forma de trabajar, puedes comunicarte con la persona de referencia:</p>
-        <div class="phone-container">
-            <i class="Phone is-animating"></i>
-            <span class="phone-number">+52 56 4729 0495</span>
-        </div>
-        <p class="reference-name">Ing. Pedro Carlos Ávila Zállago</p>
-    </section>
+        <section class="contact-section">
+            <p class="contact-text">Si deseas saber más sobre mí y mi forma de trabajar, puedes comunicarte con la persona de referencia:</p>
+            
+            <div class="contact-options">
+                <a href="https://wa.me/525647290495" class="whatsapp-btn" target="_blank">
+                    <span class="btn-icon">📱</span>
+                    <span class="btn-text">Enviar WhatsApp</span>
+                </a>
+                
+                <a href="tel:+525647290495" class="call-btn">
+                    <span class="btn-icon">📞</span>
+                    <span class="btn-text">Llamar ahora</span>
+                </a>
+            </div>
+            
+            <div class="contact-details">
+                <p class="phone-number">+52 56 4729 0495</p>
+                <p class="reference-name">Ing. Pedro Carlos Ávila Zállago</p>
+            </div>
+        </section>
     `;
 });
 
@@ -308,14 +344,26 @@ document.querySelector(".btn-carrusel6").addEventListener("click", function(even
         </table>
         <h1 class="h1relleno2"></h1>
         <h1 class="h1relleno2"></h1>
-        <section class="contact-section">
-            <p class="contact-text">Si deseas más información sobre este proyecto, puedes comunicarte con la persona de referencia:</p>
-            <div class="phone-container">
-                <i class="Phone is-animating"></i>
-                <span class="phone-number">+52 55 2421 8886</span>
-            </div>
-            <p class="reference-name">Adela Ávila Franco</p>
-        </section>
+            <section class="contact-section">
+                <p class="contact-text">Si deseas más información sobre este proyecto, puedes comunicarte con la persona de referencia:</p>
+                
+                <div class="contact-options">
+                    <a href="https://wa.me/525524218886" class="whatsapp-btn" target="_blank">
+                        <span class="btn-icon">📱</span>
+                        <span class="btn-text">Enviar WhatsApp</span>
+                    </a>
+                    
+                    <a href="tel:+525524218886" class="call-btn">
+                        <span class="btn-icon">📞</span>
+                        <span class="btn-text">Llamar ahora</span>
+                    </a>
+                </div>
+                
+                <div class="contact-details">
+                    <p class="phone-number">+52 55 2421 8886</p>
+                    <p class="reference-name">Adela Ávila Franco</p>
+                </div>
+            </section>
     `;
 });
 
