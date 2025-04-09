@@ -15,6 +15,22 @@ body {
     color: rgb(40, 40, 40); /* Fondo oscuro */
 }
 
+/* Estilo para el enlace activo */
+.nav-links li a.active {
+    background-color: #4a4a4a; /* Fondo más oscuro */
+    color: #fff; /* Texto blanco */
+    font-weight: bold;
+    border-radius: 4px;
+    padding: 5px 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Opcional: Efecto hover para los enlaces */
+.nav-links li a:hover {
+    background-color: #333;
+    border-radius: 4px;
+}
+
 /* Navbar */
 .navbar {
     background-color: rgb(25, 25, 25);
