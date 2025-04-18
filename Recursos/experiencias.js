@@ -35,7 +35,7 @@ function closeModal() {
 }
 
 // Cerrar el modal si se hace clic fuera de la imagen
-window.onclick = function(event) {
+window.onclick = function (event) {
     var modal = document.getElementById("myModal");
     if (event.target == modal) {
         modal.style.display = "none";
@@ -43,7 +43,7 @@ window.onclick = function(event) {
 }
 
 // Evento para el botón .btn-carrusel1
-document.querySelector(".btn-carrusel1").addEventListener("click", function(event) {
+document.querySelector(".btn-carrusel1").addEventListener("click", function (event) {
     event.preventDefault();
     document.getElementById("contenido").innerHTML = `
         <ul>
@@ -64,48 +64,11 @@ document.querySelector(".btn-carrusel1").addEventListener("click", function(even
         <section id="slideshow">
             <div class="entire-content">
                 <div class="content-carrousel">
-                    <figure class="shadow" onclick="openModal('Recursos/experiencias/galerias/punto de venta/puntodeventa1.png')">
-                        <img src="Recursos/experiencias/galerias/punto de venta/puntodeventa1.png"/>
-                    </figure>
-                    <figure class="shadow" onclick="openModal('Recursos/experiencias/galerias/punto de venta/puntodeventa2.png')">
-                        <img src="Recursos/experiencias/galerias/punto de venta/puntodeventa2.png"/>
-                    </figure>
-                    <figure class="shadow" onclick="openModal('Recursos/experiencias/galerias/punto de venta/puntodeventa3.png')">
-                        <img src="Recursos/experiencias/galerias/punto de venta/puntodeventa3.png"/>
-                    </figure>
-                    <figure class="shadow" onclick="openModal('Recursos/experiencias/galerias/punto de venta/puntodeventa4.png')">
-                        <img src="Recursos/experiencias/galerias/punto de venta/puntodeventa4.png"/>
-                    </figure>
-                    <figure class="shadow" onclick="openModal('Recursos/experiencias/galerias/punto de venta/puntodeventa5.png')">
-                        <img src="Recursos/experiencias/galerias/punto de venta/puntodeventa5.png"/>
-                    </figure>
-                    <figure class="shadow" onclick="openModal('Recursos/experiencias/galerias/punto de venta/puntodeventa6.png')">
-                        <img src="Recursos/experiencias/galerias/punto de venta/puntodeventa6.png"/>
-                    </figure>
-                    <figure class="shadow" onclick="openModal('Recursos/experiencias/galerias/punto de venta/puntodeventa7.png')">
-                        <img src="Recursos/experiencias/galerias/punto de venta/puntodeventa7.png"/>
-                    </figure>
-                    <figure class="shadow" onclick="openModal('Recursos/experiencias/galerias/punto de venta/puntodeventa8.png')">
-                        <img src="Recursos/experiencias/galerias/punto de venta/puntodeventa8.png"/>
-                    </figure>
-                    <figure class="shadow" onclick="openModal('Recursos/experiencias/galerias/punto de venta/puntodeventa9.png')">
-                        <img src="Recursos/experiencias/galerias/punto de venta/puntodeventa9.png"/>
-                    </figure>
-                    <figure class="shadow" onclick="openModal('Recursos/experiencias/galerias/punto de venta/puntodeventa10.png')">
-                        <img src="Recursos/experiencias/galerias/punto de venta/puntodeventa10.png"/>
-                    </figure>
-                    <figure class="shadow" onclick="openModal('Recursos/experiencias/galerias/punto de venta/puntodeventa11.png')">
-                        <img src="Recursos/experiencias/galerias/punto de venta/puntodeventa11.png"/>
-                    </figure>
-                    <figure class="shadow" onclick="openModal('Recursos/experiencias/galerias/punto de venta/puntodeventa12.png')">
-                        <img src="Recursos/experiencias/galerias/punto de venta/puntodeventa12.png"/>
-                    </figure>
-                    <figure class="shadow" onclick="openModal('Recursos/experiencias/galerias/punto de venta/puntodeventa13.png')">
-                        <img src="Recursos/experiencias/galerias/punto de venta/puntodeventa13.png"/>
-                    </figure>
-                    <figure class="shadow" onclick="openModal('Recursos/experiencias/galerias/punto de venta/puntodeventa14.png')">
-                        <img src="Recursos/experiencias/galerias/punto de venta/puntodeventa14.png"/>
-                    </figure>
+                    ${[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14].map(i => `
+                        <figure class="shadow" onclick="openModal('Recursos/experiencias/galerias/punto de venta/puntodeventa${i}.png')">
+                            <img src="Recursos/experiencias/galerias/punto de venta/puntodeventa${i}.png"/>
+                        </figure>
+                    `).join('')}
                 </div>
             </div>
         </section>
@@ -155,9 +118,9 @@ document.querySelector(".btn-carrusel1").addEventListener("click", function(even
     `;
 });
 
-document.querySelector(".btn-carrusel2").addEventListener("click", function(event) {
-event.preventDefault();
-document.getElementById("contenido").innerHTML = `
+document.querySelector(".btn-carrusel2").addEventListener("click", function (event) {
+    event.preventDefault();
+    document.getElementById("contenido").innerHTML = `
     <p>
         • Colaboré en el área de laboratorio, apoyando en la gestión de equipos de cómputo y en la organización de los recursos tecnológicos, lo que incluyó el mantenimiento de sistemas y el soporte técnico a estudiantes y personal académico.
         <br>
@@ -168,9 +131,9 @@ document.getElementById("contenido").innerHTML = `
 });
 
 
-document.querySelector(".btn-carrusel3").addEventListener("click", function(event) {
-event.preventDefault();
-document.getElementById("contenido").innerHTML = `
+document.querySelector(".btn-carrusel3").addEventListener("click", function (event) {
+    event.preventDefault();
+    document.getElementById("contenido").innerHTML = `
     <p>
         Durante mi trayectoria en The Pixel Rocker, formé parte del área de desarrollo y tecnología, contribuyendo activamente en proyectos de alto impacto. Mi rol se centró en las siguientes actividades clave:
     </p>
@@ -207,9 +170,9 @@ document.getElementById("contenido").innerHTML = `
 });
 
 
-document.querySelector(".btn-carrusel4").addEventListener("click", function(event) {
-event.preventDefault();
-document.getElementById("contenido").innerHTML = `
+document.querySelector(".btn-carrusel4").addEventListener("click", function (event) {
+    event.preventDefault();
+    document.getElementById("contenido").innerHTML = `
     <p>
         Durante mi periodo como Becario de Sistemas Computacionales en Sky Leasing, formé parte de un equipo clave en la transformación digital de la empresa.
         Mi participación se destacó por el desarrollo de soluciones innovadoras y la implementación de estrategias tecnológicas orientadas a la optimización de procesos. Entre mis principales responsabilidades y logros se incluyen:
@@ -248,9 +211,9 @@ document.getElementById("contenido").innerHTML = `
 });
 
 
-document.querySelector(".btn-carrusel5").addEventListener("click", function(event) {
-event.preventDefault();
-document.getElementById("contenido").innerHTML = `
+document.querySelector(".btn-carrusel5").addEventListener("click", function (event) {
+    event.preventDefault();
+    document.getElementById("contenido").innerHTML = `
     <p>
         • Desempeñé un papel clave en la gestión y soporte técnico para el departamento, brindando soluciones informáticas y administrativas para mejorar los procesos internos.<br>
         • Implementé y coordiné el uso de herramientas tecnológicas para optimizar las operaciones de la oficina, incluyendo el soporte a usuarios y la resolución de problemas técnicos.<br>
@@ -258,7 +221,7 @@ document.getElementById("contenido").innerHTML = `
     </p>`;
 });
 
-document.querySelector(".btn-carrusel6").addEventListener("click", function(event) {
+document.querySelector(".btn-carrusel6").addEventListener("click", function (event) {
     event.preventDefault();
     document.getElementById("contenido").innerHTML = `
         <ul>
@@ -279,48 +242,11 @@ document.querySelector(".btn-carrusel6").addEventListener("click", function(even
         <section id="slideshow">
             <div class="entire-content">
                 <div class="content-carrousel">
-                    <figure class="shadow" onclick="openModal('Recursos/experiencias/galerias/TiendaRopa/ropa1.png')">
-                        <img src="Recursos/experiencias/galerias/TiendaRopa/ropa1.png"/>
-                    </figure>
-                    <figure class="shadow" onclick="openModal('Recursos/experiencias/galerias/TiendaRopa/ropa2.png')">
-                        <img src="Recursos/experiencias/galerias/TiendaRopa/ropa2.png"/>
-                    </figure>
-                    <figure class="shadow" onclick="openModal('Recursos/experiencias/galerias/TiendaRopa/ropa3.png')">
-                        <img src="Recursos/experiencias/galerias/TiendaRopa/ropa3.png"/>
-                    </figure>
-                    <figure class="shadow" onclick="openModal('Recursos/experiencias/galerias/TiendaRopa/ropa4.png')">
-                        <img src="Recursos/experiencias/galerias/TiendaRopa/ropa4.png"/>
-                    </figure>
-                    <figure class="shadow" onclick="openModal('Recursos/experiencias/galerias/TiendaRopa/ropa5.png')">
-                        <img src="Recursos/experiencias/galerias/TiendaRopa/ropa5.png"/>
-                    </figure>
-                    <figure class="shadow" onclick="openModal('Recursos/experiencias/galerias/TiendaRopa/ropa6.png')">
-                        <img src="Recursos/experiencias/galerias/TiendaRopa/ropa6.png"/>
-                    </figure>
-                    <figure class="shadow" onclick="openModal('Recursos/experiencias/galerias/TiendaRopa/ropa7.png')">
-                        <img src="Recursos/experiencias/galerias/TiendaRopa/ropa7.png"/>
-                    </figure>
-                    <figure class="shadow" onclick="openModal('Recursos/experiencias/galerias/TiendaRopa/ropa8.png')">
-                        <img src="Recursos/experiencias/galerias/TiendaRopa/ropa8.png"/>
-                    </figure>
-                    <figure class="shadow" onclick="openModal('Recursos/experiencias/galerias/TiendaRopa/ropa9.png')">
-                        <img src="Recursos/experiencias/galerias/TiendaRopa/ropa9.png"/>
-                    </figure>
-                    <figure class="shadow" onclick="openModal('Recursos/experiencias/galerias/TiendaRopa/ropa10.png')">
-                        <img src="Recursos/experiencias/galerias/TiendaRopa/ropa10.png"/>
-                    </figure>
-                    <figure class="shadow" onclick="openModal('Recursos/experiencias/galerias/TiendaRopa/ropa11.png')">
-                        <img src="Recursos/experiencias/galerias/TiendaRopa/ropa11.png"/>
-                    </figure>
-                    <figure class="shadow" onclick="openModal('Recursos/experiencias/galerias/TiendaRopa/ropa12.png')">
-                        <img src="Recursos/experiencias/galerias/TiendaRopa/ropa12.png"/>
-                    </figure>
-                    <figure class="shadow" onclick="openModal('Recursos/experiencias/galerias/TiendaRopa/ropa13.png')">
-                        <img src="Recursos/experiencias/galerias/TiendaRopa/ropa13.png"/>
-                    </figure>
-                    <figure class="shadow" onclick="openModal('Recursos/experiencias/galerias/TiendaRopa/ropa14.png')">
-                        <img src="Recursos/experiencias/galerias/TiendaRopa/ropa14.png"/>
-                    </figure>
+                    ${[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14].map(i => `
+                        <figure class="shadow" onclick="openModal('Recursos/experiencias/galerias/TiendaRopa/ropa${i}.png')">
+                            <img src="Recursos/experiencias/galerias/TiendaRopa/ropa${i}.png"/>
+                        </figure>
+                    `).join('')}
                 </div>
             </div>
         </section>
@@ -367,10 +293,81 @@ document.querySelector(".btn-carrusel6").addEventListener("click", function(even
     `;
 });
 
+document.querySelector(".btn-carrusel7").addEventListener("click", function (event) {
+    event.preventDefault();
+    document.getElementById("contenido").innerHTML = `
+        <ul>
+            <li>Consultoría integral especializada para desarrolladores de sistemas en áreas como desarrollo web, infraestructura de redes, automatización y soluciones backend.</li>
+            <li>Sistema de administración con opciones para activar o desactivar publicaciones, servicios, testimonios y contenido general sin necesidad de modificar código.</li>
+            <li>Panel de gestión donde se pueden registrar nuevos servicios, asignarles íconos, imágenes, descripciones y categorías.</li>
+            <li>Sección de clientes potenciales con opción para visualizar comentarios y testimonios, subir retroalimentación directamente al panel.</li>
+            <li>Gestión de nombre, logo, imagen institucional y presentación editable desde el sistema.</li>
+            <li>Incluye herramientas para administrar contenidos dinámicos, control de usuarios y asignación de roles.</li>
+            <li>Frontend moderno, responsivo, con enfoque profesional y animaciones sutiles.</li>
+            <li>Desarrollado con tecnologías como JavaScript, HTML, CSS y Supabase para el backend sin servidor.</li>
+            <li>Incluye documentación técnica y manual de usuario para facilitar futuras modificaciones.</li>
+        </ul>
+        <h1 class="h1relleno2"></h1>
+        <h1 class="h1relleno2"></h1>
+        <strong>Galería de imágenes:</strong> 
+        <section id="slideshow">
+            <div class="entire-content">
+                <div class="content-carrousel">
+                    ${[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14].map(i => `
+                        <figure class="shadow" onclick="openModal('Recursos/experiencias/galerias/consultoria/consultoria${i}.png')">
+                            <img src="Recursos/experiencias/galerias/consultoria/consultoria${i}.png"/>
+                        </figure>
+                    `).join('')}
+                </div>
+            </div>
+        </section>
+        <h1 class="h1relleno2"></h1>
+        <h1 class="h1relleno2"></h1>
+        <strong>VIDEO DEL PROYECTO:</strong> 
+        <table style="width: 100%; height: 100%;">
+            <tr>
+                <td style="text-align: center; vertical-align: middle;">
+                    <div style="display: flex; justify-content: center; align-items: center; width: 100%;">
+                        <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 80%; width: 80%;">
+                            <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" 
+                                    src="https://www.youtube.com/embed/ji0QgzrRtVw"
+                                    frameborder="0" 
+                                    allowfullscreen>
+                            </iframe>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <h1 class="h1relleno2"></h1>
+        <h1 class="h1relleno2"></h1>
+        <section class="contact-section">
+            <p class="contact-text">¿Te interesa conocer más sobre este sistema de consultoría para desarrolladores? Contáctanos directamente:</p>
+            
+            <div class="contact-options">
+                <a href="https://wa.me/525585067049" class="whatsapp-btn" target="_blank">
+                    <span class="btn-icon">📱</span>
+                    <span class="btn-text">Enviar WhatsApp</span>
+                </a>
+                
+                <a href="tel:+525585067049" class="call-btn">
+                    <span class="btn-icon">📞</span>
+                    <span class="btn-text">Llamar ahora</span>
+                </a>
+            </div>
+            
+            <div class="contact-details">
+                <p class="phone-number">+52 55 8506 7049</p>
+                <p class="reference-name">Uziel Sanchez Marin</p>
+            </div>
+        </section>
+    `;
+});
+
 
 
 document.querySelectorAll(".custom-arrow").forEach(arrow => {
-    arrow.addEventListener("click", function() {
+    arrow.addEventListener("click", function () {
         document.getElementById("contenido").innerHTML = "";
     });
 });
