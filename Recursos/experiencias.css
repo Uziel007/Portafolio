@@ -402,11 +402,13 @@ video {
 }
 
 #slideshow {
-margin: 0 auto;
-padding-top: 50px;
-height: 600px; 
-width: 100%;
-box-sizing: border-box;
+    margin: 0 auto;
+    padding-top: 50px;
+    height: 600px;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden; /* Esto evita el desplazamiento horizontal */
+    position: relative;
 }
 
 .slideshow-title {
