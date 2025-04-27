@@ -899,3 +899,10 @@ figure:hover .image-caption {
     border: 0 !important;
     pointer-events: auto !important; /* Importante para que funcione el hover */
 }
+/* Transiciones suaves para el contenido */
+#contenido {
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transform-origin: top center;
+    opacity: 0;
+    transform: translateY(30px) scale(0.98);
+}

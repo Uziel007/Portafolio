@@ -1,3 +1,13 @@
+// Añade esto al inicio de tu JavaScript
+document.addEventListener("DOMContentLoaded", function() {
+    // Estilos iniciales para el contenido
+    const contenido = document.getElementById("contenido");
+    if (contenido) {
+        contenido.style.transition = "all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)";
+        contenido.style.transformOrigin = "top center";
+    }
+});
+
 document.addEventListener("DOMContentLoaded", function () {
     const wrapper = document.querySelector(".custom-wrapper");
     const items = document.querySelectorAll(".custom-item");
@@ -5,14 +15,40 @@ document.addEventListener("DOMContentLoaded", function () {
     const next = document.querySelector(".custom-arrow-next");
     let index = 0;
 
-    // En tu código del carrusel, asegúrate de que active el hover al cambiar de slide
+    // Configuración inicial de la animación
+    const contenido = document.getElementById("contenido");
+    contenido.style.transition = "all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)";
+    contenido.style.transformOrigin = "top center";
+
+    function animateContent() {
+        // Reset para la animación
+        contenido.style.opacity = "0";
+        contenido.style.transform = "translateY(30px) scale(0.98)";
+        
+        // Pequeño delay para permitir el renderizado del nuevo contenido
+        setTimeout(() => {
+            contenido.style.opacity = "1";
+            contenido.style.transform = "translateY(0) scale(1)";
+        }, 50);
+    }
+
     function updateCarousel() {
+        // Primero vaciamos el contenido con animación
+        contenido.style.opacity = "0";
+        contenido.style.transform = "translateY(30px) scale(0.98)";
+        
+        // Cambiamos el slide
         wrapper.style.transform = `translateX(-${index * 100}%)`;
 
-        // Dispara evento hover en el slide actual
+        // Disparamos el evento hover en el slide actual
         const currentItem = items[index];
         const mouseEnterEvent = new Event('mouseenter');
         currentItem.dispatchEvent(mouseEnterEvent);
+        
+        // Esperamos un breve momento antes de animar el nuevo contenido
+        setTimeout(() => {
+            animateContent();
+        }, 100);
     }
 
     next.addEventListener("click", function () {
@@ -24,16 +60,34 @@ document.addEventListener("DOMContentLoaded", function () {
         index = (index - 1 + items.length) % items.length;
         updateCarousel();
     });
+
+    // Configuramos los eventos hover para los items del carrusel
+    items.forEach(item => {
+        const boton = item.querySelector('[class^="btn-carrusel"]');
+
+        if (boton) {
+            item.addEventListener('mouseenter', function () {
+                setTimeout(() => {
+                    boton.click();
+                }, 100);
+            });
+
+            item.addEventListener('touchstart', function () {
+                setTimeout(() => {
+                    boton.click();
+                }, 100);
+            }, { passive: true });
+        }
+    });
 });
 
 let currentDescription = "";
-// Función para abrir el modal y mostrar la imagen
+
 function openModalWithDescription(src, description) {
     var modal = document.getElementById("myModal");
     var modalImg = document.getElementById("img01");
     var modalDesc = document.querySelector(".modal-description");
 
-    // Si no existe el elemento de descripción, lo creamos
     if (!modalDesc) {
         modal.innerHTML = `
             <span class="close" onclick="closeModal()">&times;</span>
@@ -41,17 +95,12 @@ function openModalWithDescription(src, description) {
             <div class="modal-description"></div>
         `;
         modalDesc = document.querySelector(".modal-description");
-
-        // Reasignamos el evento de cerrar
         document.querySelector('.close').onclick = closeModal;
     }
 
-    // Configurar la nueva imagen y descripción
     modal.style.display = "block";
     document.getElementById("img01").src = src;
     modalDesc.textContent = description;
-
-    // Guardar la descripción actual
     currentDescription = description;
 }
 
@@ -61,7 +110,6 @@ function closeModal() {
     currentDescription = "";
 }
 
-// Cerrar el modal si se hace clic fuera de la imagen
 window.onclick = function (event) {
     var modal = document.getElementById("myModal");
     if (event.target == modal) {
@@ -69,9 +117,24 @@ window.onclick = function (event) {
     }
 }
 
-// Evento para el botón .btn-carrusel1
+// Animación para todos los btn-carrusel
+function animateContent() {
+    const contenido = document.getElementById("contenido");
+    
+    // Reset para asegurar que la animación se repita
+    contenido.style.opacity = "0";
+    contenido.style.transform = "translateY(30px) scale(0.98)";
+    
+    // Pequeño delay para permitir el renderizado
+    setTimeout(() => {
+        contenido.style.opacity = "1";
+        contenido.style.transform = "translateY(0) scale(1)";
+    }, 50);
+}
+
 document.querySelector(".btn-carrusel1").addEventListener("click", function (event) {
     event.preventDefault();
+    animateContent();
     document.getElementById("contenido").innerHTML = `
         <ul>
             <li>Desarrollé un sistema integral de punto de venta (POS) diseñado específicamente para empresas medianas y pequeñas, que incluye una amplia gama de funcionalidades como gestión de pagos, ventas y más de 20 reportes generados a partir de los datos.</li>
@@ -216,6 +279,7 @@ document.querySelector(".btn-carrusel1").addEventListener("click", function (eve
 
 document.querySelector(".btn-carrusel2").addEventListener("click", function (event) {
     event.preventDefault();
+    animateContent();
     document.getElementById("contenido").innerHTML = `
     <p>
         Durante mi periodo como Practicante en el Laboratorio de Química, desarrollé un rol multifuncional combinando mis conocimientos técnicos con las necesidades del laboratorio. Mis principales responsabilidades y logros incluyeron:
@@ -257,6 +321,7 @@ document.querySelector(".btn-carrusel2").addEventListener("click", function (eve
 
 document.querySelector(".btn-carrusel3").addEventListener("click", function (event) {
     event.preventDefault();
+    animateContent();
     document.getElementById("contenido").innerHTML = `
     <p>
         Durante mi trayectoria en The Pixel Rocker, formé parte del área de desarrollo y tecnología, contribuyendo activamente en proyectos de alto impacto. Mi rol se centró en las siguientes actividades clave:
@@ -293,9 +358,9 @@ document.querySelector(".btn-carrusel3").addEventListener("click", function (eve
     `;
 });
 
-
 document.querySelector(".btn-carrusel4").addEventListener("click", function (event) {
     event.preventDefault();
+    animateContent();
     document.getElementById("contenido").innerHTML = `
     <p>
         Durante mi periodo como Becario de Sistemas Computacionales en Sky Leasing, formé parte de un equipo clave en la transformación digital de la empresa.
@@ -334,9 +399,9 @@ document.querySelector(".btn-carrusel4").addEventListener("click", function (eve
     `;
 });
 
-
 document.querySelector(".btn-carrusel5").addEventListener("click", function (event) {
     event.preventDefault();
+    animateContent();
     document.getElementById("contenido").innerHTML = `
     <p>
         • Desempeñé un papel clave en la gestión y soporte técnico para el departamento, brindando soluciones informáticas y administrativas para mejorar los procesos internos.<br>
@@ -347,6 +412,7 @@ document.querySelector(".btn-carrusel5").addEventListener("click", function (eve
 
 document.querySelector(".btn-carrusel6").addEventListener("click", function (event) {
     event.preventDefault();
+    animateContent();
     document.getElementById("contenido").innerHTML = `
         <ul>
             <li>Desarrollé una tienda online de ropa completamente funcional con diseño responsivo y estéticamente atractivo.</li>
@@ -489,6 +555,7 @@ document.querySelector(".btn-carrusel6").addEventListener("click", function (eve
 
 document.querySelector(".btn-carrusel7").addEventListener("click", function (event) {
     event.preventDefault();
+    animateContent();
     document.getElementById("contenido").innerHTML = `
         <ul>
             <li>Consultoría integral especializada para desarrolladores de sistemas en áreas como desarrollo web, infraestructura de redes, automatización y soluciones backend.</li>
@@ -629,23 +696,18 @@ document.querySelector(".btn-carrusel7").addEventListener("click", function (eve
 });
 
 document.addEventListener("DOMContentLoaded", function () {
-    // Selecciona todos los ítems del carrusel
     const items = document.querySelectorAll('.custom-item');
 
     items.forEach(item => {
-        // Encuentra el botón dentro de cada ítem
         const boton = item.querySelector('[class^="btn-carrusel"]');
 
         if (boton) {
-            // Agrega eventos hover
             item.addEventListener('mouseenter', function () {
-                // Simula el click después de un pequeño delay (100ms)
                 setTimeout(() => {
                     boton.click();
                 }, 100);
             });
 
-            // Opcional: Para dispositivos táctiles
             item.addEventListener('touchstart', function () {
                 setTimeout(() => {
                     boton.click();
@@ -654,8 +716,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
-
-
 
 document.querySelectorAll(".custom-arrow").forEach(arrow => {
     arrow.addEventListener("click", function () {
