@@ -5,8 +5,14 @@ document.addEventListener("DOMContentLoaded", function () {
     const next = document.querySelector(".custom-arrow-next");
     let index = 0;
 
+    // En tu código del carrusel, asegúrate de que active el hover al cambiar de slide
     function updateCarousel() {
         wrapper.style.transform = `translateX(-${index * 100}%)`;
+
+        // Dispara evento hover en el slide actual
+        const currentItem = items[index];
+        const mouseEnterEvent = new Event('mouseenter');
+        currentItem.dispatchEvent(mouseEnterEvent);
     }
 
     next.addEventListener("click", function () {
@@ -619,6 +625,33 @@ document.querySelector(".btn-carrusel7").addEventListener("click", function (eve
                 desc
             );
         });
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    // Selecciona todos los ítems del carrusel
+    const items = document.querySelectorAll('.custom-item');
+
+    items.forEach(item => {
+        // Encuentra el botón dentro de cada ítem
+        const boton = item.querySelector('[class^="btn-carrusel"]');
+
+        if (boton) {
+            // Agrega eventos hover
+            item.addEventListener('mouseenter', function () {
+                // Simula el click después de un pequeño delay (100ms)
+                setTimeout(() => {
+                    boton.click();
+                }, 100);
+            });
+
+            // Opcional: Para dispositivos táctiles
+            item.addEventListener('touchstart', function () {
+                setTimeout(() => {
+                    boton.click();
+                }, 100);
+            }, { passive: true });
+        }
     });
 });
 
