@@ -5,621 +5,1904 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="Recursos/habilidades.css">
-    <link rel="stylesheet" href="Recursos/styles.css">
     <link rel="stylesheet" href="Recursos/contactos.css">
     <link rel="icon" href="Recursos/iconos/gato.png" type="image/png" sizes="16x16">
     <link rel="icon" href="Recursos/iconos/gato.png" type="image/png" sizes="32x32">
     <link rel="icon" href="Recursos/iconos/gato.png" type="image/png" sizes="48x48">
     <link rel="icon" href="Recursos/iconos/gato.png" type="image/png" sizes="64x64">
     <title>Habilidades - Portafolio de Uziel Sánchez Marín</title>
+    
+    <style>
+        /* Reset y estilos base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+            transition: all 0.3s ease;
+        }
+
+        /* Tema oscuro */
+        body.dark-theme {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+        }
+
+        /* Floating Action Buttons */
+        .floating-buttons {
+            position: fixed;
+            right: 30px;
+            bottom: 30px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .fab {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .fab::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .fab:hover::before {
+            left: 100%;
+        }
+
+        .fab:hover {
+            transform: scale(1.1) translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+        }
+
+        .fab-tooltip {
+            position: absolute;
+            right: 70px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .fab:hover .fab-tooltip {
+            opacity: 1;
+            right: 75px;
+        }
+
+        /* Modal para CV */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 600px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            transform: scale(0.8);
+            animation: modalSlide 0.3s ease forwards;
+        }
+
+        @keyframes modalSlide {
+            to {
+                transform: scale(1);
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+            transition: color 0.3s ease;
+        }
+
+        .modal-close:hover {
+            color: #ff6b6b;
+        }
+
+        .download-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .download-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Filtros de certificaciones */
+        .filter-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.3);
+        }
+
+        /* Calculadora de skills */
+        .skills-calculator {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 40px auto;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        .skill-level-display {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 20px 0;
+        }
+
+        .skill-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .skill-category {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        .skill-count {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #4ecdc4;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        /* Timeline de experiencia */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 60px auto;
+            padding: 20px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(to bottom, #ff6b6b, #4ecdc4);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin: 40px 0;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.6s ease;
+        }
+
+        .timeline-item.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            margin-left: calc(50% + 30px);
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-right: calc(50% + 30px);
+            text-align: right;
+        }
+
+        .timeline-content {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+        }
+
+        .timeline-date {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Estadísticas */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin: 60px auto;
+            max-width: 1000px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: rotate 6s linear infinite;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .stat-card:hover::before {
+            opacity: 1;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        /* Búsqueda de certificaciones */
+        .search-container {
+            max-width: 500px;
+            margin: 0 auto 40px;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 15px 50px 15px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            color: white;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            border-color: #4ecdc4;
+            box-shadow: 0 0 20px rgba(78, 205, 196, 0.3);
+        }
+
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.6);
+            pointer-events: none;
+        }
+
+        /* Botón volver arriba */
+        .scroll-top {
+            position: fixed;
+            bottom: 120px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border: none;
+            color: white;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .scroll-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Partículas de fondo animadas */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            50% { transform: translateY(-20px) rotate(180deg); opacity: 0.3; }
+        }
+
+        /* Main content */
+        main {
+            position: relative;
+            z-index: 2;
+            padding-top: 100px;
+        }
+
+        /* Sección de formación académica modernizada */
+        .academic-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            padding: 40px;
+            margin: 60px auto;
+            max-width: 900px;
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.1);
+            transform: translateY(50px);
+            opacity: 0;
+            transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .academic-container.animate {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .academic-title {
+            font-size: 2.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ff6b6b, #ffd93d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .academic-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #ff6b6b, #ffd93d);
+            border-radius: 2px;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { box-shadow: 0 0 10px rgba(255, 107, 107, 0.5); }
+            to { box-shadow: 0 0 20px rgba(255, 217, 61, 0.8); }
+        }
+
+        .academic-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .academic-item {
+            background: rgba(255, 255, 255, 0.05);
+            margin: 20px 0;
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 5px solid #ff6b6b;
+            transform: translateX(-30px);
+            opacity: 0;
+            transition: all 0.6s ease;
+            color: white;
+            font-size: 1.1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .academic-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(255, 107, 107, 0.1), rgba(255, 217, 61, 0.1));
+            transition: width 0.6s ease;
+            z-index: -1;
+        }
+
+        .academic-item:hover::before {
+            width: 100%;
+        }
+
+        .academic-item.animate {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .academic-item:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(255, 107, 107, 0.3);
+        }
+
+        /* Sección de conocimientos */
+        .knowledge-section {
+            background: rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(15px);
+            border-radius: 30px;
+            padding: 60px 40px;
+            margin: 80px auto;
+            max-width: 1200px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .knowledge-title {
+            font-size: 3rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 50px;
+            background: linear-gradient(135deg, #667eea, #764ba2, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient-shift 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes gradient-shift {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(60deg); }
+        }
+
+        .knowledge-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .knowledge-item {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 30px;
+            border-radius: 20px;
+            color: white;
+            font-size: 1.1rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .knowledge-item::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: rotate 4s linear infinite;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .knowledge-item:hover::before {
+            opacity: 1;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .knowledge-item:hover {
+            transform: translateY(-15px) scale(1.05);
+            box-shadow: 0 25px 50px rgba(102, 126, 234, 0.3);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        /* Sección de aptitudes */
+        .skills-section {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 60px;
+            margin: 80px auto;
+            max-width: 1400px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .skills-title {
+            font-size: 3rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 60px;
+            background: linear-gradient(45deg, #ff6b6b, #ffd93d, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .skills-column {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s ease;
+        }
+
+        .skills-column:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .skills-column ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .skills-column li {
+            color: white;
+            font-size: 1.1rem;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            padding-left: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .skills-column li::before {
+            content: '▶';
+            position: absolute;
+            left: 0;
+            color: #ff6b6b;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .skills-column li:hover {
+            padding-left: 35px;
+            color: #ffd93d;
+        }
+
+        .skills-column li:hover::before {
+            color: #4ecdc4;
+            transform: scale(1.2);
+        }
+
+        /* Certificaciones */
+        .certificates-section {
+            padding: 80px 20px;
+            margin: 80px 0;
+        }
+
+        .certificates-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 80px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .certificates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 40px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .certificate-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            padding: 30px;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .certificate-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .certificate-card:hover::before {
+            left: 100%;
+        }
+
+        .certificate-card:hover {
+            transform: translateY(-20px) scale(1.05);
+            box-shadow: 0 30px 60px rgba(102, 126, 234, 0.4);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .certificate-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            transition: all 0.4s ease;
+        }
+
+        .certificate-card:hover .certificate-image {
+            transform: scale(1.1);
+        }
+
+        .certificate-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #ffd93d;
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+
+        .certificate-description {
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        /* Idiomas */
+        .language-section {
+            background: rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 60px;
+            margin: 80px auto;
+            max-width: 800px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .language-title {
+            font-size: 3rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 50px;
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .progress-item {
+            margin: 30px 0;
+        }
+
+        .progress-label {
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 25px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            border-radius: 25px;
+            position: relative;
+            overflow: hidden;
+            animation: progress-glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes progress-glow {
+            0% { box-shadow: 0 0 10px rgba(255, 107, 107, 0.5); }
+            100% { box-shadow: 0 0 20px rgba(78, 205, 196, 0.8); }
+        }
+
+        .progress-fill::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        /* Tecnologías */
+        .tech-section {
+            padding: 80px 20px;
+            margin: 80px 0;
+        }
+
+        .tech-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 50px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .tech-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 25px;
+            padding: 40px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tech-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #ffd93d, #667eea);
+            border-radius: 25px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+            animation: gradient-rotate 4s linear infinite;
+        }
+
+        @keyframes gradient-rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .tech-card:hover::before {
+            opacity: 1;
+        }
+
+        .tech-card:hover {
+            transform: translateY(-15px) scale(1.05);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .tech-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 30px;
+            border-radius: 20px;
+            transition: all 0.4s ease;
+        }
+
+        .tech-card:hover .tech-icon {
+            transform: rotate(10deg) scale(1.1);
+        }
+
+        .tech-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 25px;
+        }
+
+        .tech-list {
+            text-align: left;
+        }
+
+        .tech-list li {
+            color: rgba(255, 255, 255, 0.9);
+            margin: 12px 0;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            padding-left: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .tech-list li::before {
+            content: '●';
+            position: absolute;
+            left: 0;
+            color: #4ecdc4;
+            transition: all 0.3s ease;
+        }
+
+        .tech-list li:hover {
+            color: #ffd93d;
+            padding-left: 30px;
+        }
+
+        .tech-list li:hover::before {
+            color: #ff6b6b;
+            transform: scale(1.3);
+        }
+
+        .tech-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .tech-table td {
+            padding: 15px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .tech-table td:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffd93d;
+            transform: scale(1.05);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .skills-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .certificates-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tech-container {
+                grid-template-columns: 1fr;
+            }
+
+            .academic-title, .knowledge-title, .skills-title, .language-title, .certificates-title {
+                font-size: 2.2rem;
+            }
+        }
+
+        /* Animaciones de entrada */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .stagger-1 { animation-delay: 0.2s; }
+        .stagger-2 { animation-delay: 0.4s; }
+        .stagger-3 { animation-delay: 0.6s; }
+        .stagger-4 { animation-delay: 0.8s; }
+        .stagger-5 { animation-delay: 1s; }
+        .stagger-6 { animation-delay: 1.2s; }
+    </style>
 </head>
 
-<body>
-    <header class="header">
-        <nav class="navbar">
-            <div class="cat">
-                <div class="ear ear--left"></div>
-                <div class="ear ear--right"></div>
-                <div class="face">
-                    <div class="eye eye--left">
-                        <div class="eye-pupil"></div>
-                    </div>
-                    <div class="eye eye--right">
-                        <div class="eye-pupil"></div>
-                    </div>
-                    <div class="muzzle"></div>
+<body id="habilidades-body">
+    <!-- Partículas animadas -->
+    <div class="particles" id="habilidades-particles"></div>
+
+<header class="modern-header">
+    <nav class="modern-navigation">
+        <div class="cat">
+            <div class="ear ear--left"></div>
+            <div class="ear ear--right"></div>
+            <div class="face">
+                <div class="eye eye--left">
+                    <div class="eye-pupil"></div>
                 </div>
+                <div class="eye eye--right">
+                    <div class="eye-pupil"></div>
+                </div>
+                <div class="muzzle"></div>
             </div>
-            <h1 class="h1relleno">Hol</h1>
-            <div class="logo">Uziel Sánchez Marín</div>
-            <ul class="nav-links">
-                <li><a href="index.html">Perfil</a></li>
-                <li><a href="habilidades.html#habilidades">Habilidades</a></li>
-                <li><a href="experiencia.html#experiencia">Experiencia</a></li>
-                <li><a href="hobbies.html#hobbies">Hobbies</a></li>
-            </ul>
-        </nav>
-    </header>
+        </div>
+        <div class="brand-title">Uziel Sánchez Marín</div>
+        <ul class="navigation-menu">
+            <li><a href="index.html" class="nav-item">Perfil</a></li>
+            <li><a href="habilidades.html#habilidades" class="nav-item">Habilidades</a></li>
+            <li><a href="experiencia.html#experiencia" class="nav-item">Experiencia</a></li>
+            <li><a href="hobbies.html#hobbies" class="nav-item">Hobbies</a></li>
+        </ul>
+    </nav>
+</header>
 
     <main>
-        <!-- Sección de Habilidades -->
         <section id="habilidades" class="section">
+            <!-- Contacto superior (sin cambios) -->
             <div class="contacto_superior">
                 <div class="container_contacto">
-                  <a href="#" class="contactame">Contáctame</a>
-                  <div class="moc">
-                    <div class="moj">
-                        <div>
-                            <a href='https://www.linkedin.com/in/uziel-sánchez-marin-146436339' target="_blank" style="background-image: url('Recursos/redes/iconos/linkedin.png'); background-repeat: no-repeat; background-size: contain;"></a>
-                            <a href='https://github.com/Uziel007' target="_blank" style="background-image: url('Recursos/redes/iconos/github.png'); background-repeat: no-repeat; background-size: contain;"></a>
-                        </div>
-                        <div>
-                            <a href='https://wa.me/5585067049' target="_blank" style="background-image: url('Recursos/redes/iconos/whatsap.png'); background-repeat: no-repeat; background-size: contain;"></a>
-                            <a href='https://x.com/chuchelongo' target="_blank" style="background-image: url('Recursos/redes/iconos/x.png'); background-repeat: no-repeat; background-size: contain;"></a>
-                        </div>
-                        <div>
-                            <a href='mailto:uzielsanchez007@gmail.com' target="_blank" style="background-image: url('Recursos/redes/iconos/gmail.png'); background-repeat: no-repeat; background-size: contain;"></a>
-                            <a href='tel:+5585067049' target="_blank" style="background-image: url('Recursos/redes/iconos/telefono.png'); background-repeat: no-repeat; background-size: contain;"></a>
-                        </div>
-                        <div>
-                            <a href='https://www.facebook.com/uziel.marin.7?locale=es_LA' target="_blank" style="background-image: url('Recursos/redes/iconos/facebook.png'); background-repeat: no-repeat; background-size: contain;"></a>
-                            <a href='https://www.instagram.com/uziel_0902/' target="_blank" style="background-image: url('Recursos/redes/iconos/instagram.png'); background-repeat: no-repeat; background-size: contain;"></a>
-                        </div>                        
-                    </div>
-                  </div>
-                </div>
-              </div>  
-              <h1 class="h1relleno2">Hol</h1>
-              <h1 class="h1relleno2">Hol</h1>
-              <h1 class="h1relleno2">Hol</h1>
-              <h1 class="h1relleno2">Hol</h1>
-            <div class="academic-container">
-                <h2 class="academic-title" style="text-align: left;">Formación Académica</h2>
-                <div class="academic-content">
-                    <ul class="academic-list">
-                        <li class="academic-item">
-                            <strong>Ingeniería en Sistemas:</strong> Universidad Bancaria de México (2021-2025)
-                        </li>
-                        <li class="academic-item">
-                            <strong>Técnico en Programación:</strong> Universidad Bancaria de México (2016-2019)
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            </div>
-            <h1 class="h1relleno2">Hol</h1>
-            <h1 class="h1relleno2">Hol</h1>
-            <h1 class="h1relleno2">Hol</h1>
-                            <!-- Columna con la figura (circle) -->
-                            <div class="column figure" style="display: flex; justify-content: center; align-items: center; height: 100%;">
-                                <div class="view" style="display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;">
-                                    <div class="plane main" style="display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;">
-                                        <!-- Genera los círculos mediante un bucle en JavaScript -->
-                                        <script>
-                                            for (var x = 0; x < 6; x++) {
-                                                document.write('<div class="circle"></div>');
-                                            }
-                                        </script>
-                                    </div>
-                                </div>
+                    <a href="#" class="contactame">Contáctame</a>
+                    <div class="moc">
+                        <div class="moj">
+                            <div>
+                                <a href='https://www.linkedin.com/in/uziel-sánchez-marin-146436339' target="_blank" style="background-image: url('Recursos/redes/iconos/linkedin.png'); background-repeat: no-repeat; background-size: contain;"></a>
+                                <a href='https://github.com/Uziel007' target="_blank" style="background-image: url('Recursos/redes/iconos/github.png'); background-repeat: no-repeat; background-size: contain;"></a>
                             </div>
-            <h1 class="h1relleno2">Hol</h1>
-
-            <!-- Sección de Conocimientos -->
-            <h2>Conocimientos</h2>
-            <ul style="text-align: center; list-style: none; padding: 0;">
-                <li style="color: white;">Lenguajes de Programación: C++, Java, Python, PHP, JavaScript</li>
-                <li style="color: white;">Desarrollo Web: HTML, CSS, JavaScript</li>
-                <li style="color: white;">Frameworks: React, Angular, Bootstrap</li>
-                <li style="color: white;">Bases de Datos: MySQL, PostgreSQL</li>
-                <li style="color: white;">Herramientas de Desarrollo: Git, Visual Studio Code, IntelliJ IDEA</li>
-                <li style="color: white;">Administración de Sistemas: Linux, Windows Server</li>
-                <li style="color: white;">Metodologías Ágiles: Scrum</li>
-                <li style="color: white;">Marketing Digital: Certificación en Marketing Digital</li>
-            </ul>
-            
-            
-                    <div class="conocimientos-figure">
-                        <div class="view">
-                            <div class="plane main">
-                                <div style="flex: 1; text-align: center;">
-                                    <svg id="svg" width="200" height="200" viewBox="0 0 200 200">
-                                        <path id="circle-path" d="M10,100a90,90 0 1,0 180,0a90,90 0 1,0 -180,0" />
-                                        <path id="rect-path" d="M90,10 110,10 110,190 90,190 90,10" />
-                                        <path id="triangle-path" d="M100,40 170,160 30,160 100,40" />
-                                    </svg>
-                                    <canvas id="canvas" width="200" height="200"></canvas>
+                            <div>
+                                <a href='https://wa.me/5585067049' target="_blank" style="background-image: url('Recursos/redes/iconos/whatsap.png'); background-repeat: no-repeat; background-size: contain;"></a>
+                                <a href='https://x.com/chuchelongo' target="_blank" style="background-image: url('Recursos/redes/iconos/x.png'); background-repeat: no-repeat; background-size: contain;"></a>
                             </div>
+                            <div>
+                                <a href='mailto:uzielsanchez007@gmail.com' target="_blank" style="background-image: url('Recursos/redes/iconos/gmail.png'); background-repeat: no-repeat; background-size: contain;"></a>
+                                <a href='tel:+5585067049' target="_blank" style="background-image: url('Recursos/redes/iconos/telefono.png'); background-repeat: no-repeat; background-size: contain;"></a>
+                            </div>
+                            <div>
+                                <a href='https://www.facebook.com/uziel.marin.7?locale=es_LA' target="_blank" style="background-image: url('Recursos/redes/iconos/facebook.png'); background-repeat: no-repeat; background-size: contain;"></a>
+                                <a href='https://www.instagram.com/uziel_952/' target="_blank" style="background-image: url('Recursos/redes/iconos/instagram.png'); background-repeat: no-repeat; background-size: contain;"></a>
+                            </div>                        
                         </div>
                     </div>
                 </div>
-
-            <style>
-                body {
-                    background: #fafafa;
-                }
-
-                svg {
-                    stroke: none;
-                    fill: none;
-                    display: block;
-                    /* Lo hace visible */
-                    position: relative;
-                    /* Posición normal dentro del flujo del documento */
-                }
-
-                canvas {
-                    position: relative;
-                    /* Posición normal */
-                    display: block;
-                    /* Asegura que se muestra correctamente */
-                    margin: 0;
-                    /* Elimina el margen negativo */
-                }
-                .containercard a {
-                    text-decoration: none;
-                }
-
-            </style>
-
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-
-            <script>
-                var colors = ["#EDEEC0", "#ED7B84", "#7397C3", "#7EB77F"];
-
-                var canvas = document.getElementById("canvas");
-                var ctx = canvas.getContext("2d");
-                var pathPointsFrom, pathPointsTo, pathPointsNow;
-                var steps = 200;
-                var offset = 0;
-                var pathCount = 0;
-                var interpolationPoint = { percentage: 0 };
-                ctx.lineWidth = 4;
-                ctx.lineCap = "round";
-
-                function drawPathToCanvas() {
-                    var thisColor, lastColor = getColorSegment(0);
-                    ctx.strokeStyle = lastColor;
-                    ctx.beginPath();
-                    for (var i = 0, l = pathPointsNow.length; i < l; i++) {
-                        if (pathPointsNow[i + 1]) {
-                            ctx.moveTo(pathPointsNow[i].x, pathPointsNow[i].y);
-                            ctx.lineTo(pathPointsNow[i + 1].x, pathPointsNow[i + 1].y);
-                        } else {
-                            ctx.lineTo(pathPointsNow[i].x, pathPointsNow[i].y);
-                        }
-                        thisColor = getColorSegment(i);
-                        if (thisColor) {
-                            if (thisColor != lastColor) {
-                                ctx.closePath();
-                                ctx.stroke();
-                                ctx.beginPath();
-                                ctx.strokeStyle = thisColor;
-                                lastColor = thisColor;
-                            }
-                        }
-                    }
-                    ctx.closePath();
-                    ctx.stroke();
-                }
-
-                function samplePath(pathSelector) {
-                    var path = document.getElementById(pathSelector);
-                    var length = path.getTotalLength();
-                    var points = [];
-                    for (var i = 0; i <= steps; i++) {
-                        points.push(path.getPointAtLength(length * i / steps));
-                    }
-                    return points;
-                }
-
-                function interpolatePaths() {
-                    var points = [];
-                    for (var i = 0; i <= steps; i++) {
-                        points.push({
-                            x: pathPointsFrom[i].x + (pathPointsTo[i].x - pathPointsFrom[i].x) * interpolationPoint.percentage,
-                            y: pathPointsFrom[i].y + (pathPointsTo[i].y - pathPointsFrom[i].y) * interpolationPoint.percentage
-                        });
-                    }
-                    return points;
-                }
-
-                function getColorSegment(i) {
-                    var p = i / steps + offset;
-                    if (p > 1) p = p - 1;
-                    var point = Math.floor(p * 4);
-                    return colors[point];
-                }
-
-                var paths = [samplePath("circle-path"), samplePath("rect-path"), samplePath("triangle-path")];
-
-                function loop() {
-                    ctx.clearRect(0, 0, 200, 200);
-                    offset = offset + 0.009;
-                    pathPointsNow = interpolatePaths();
-                    if (offset >= 1) offset = 0;
-                    drawPathToCanvas();
-                    requestAnimationFrame(loop);
-                }
-
-                function tweenPaths() {
-                    pathPointsFrom = paths[pathCount];
-                    if (pathCount + 1 <= 2) pathPointsTo = paths[pathCount + 1];
-                    else pathPointsTo = paths[0];
-
-                    gsap.to(interpolationPoint, {
-                        percentage: 1,
-                        duration: 0.7,
-                        ease: "power2.inOut",
-                        delay: 0.4,
-                        onComplete: function () {
-                            interpolationPoint.percentage = 0;
-                            pathCount++;
-                            if (pathCount > 2) {
-                                pathCount = 0;
-                            }
-                            tweenPaths();
-                        }
-                    });
-                }
-
-                tweenPaths();
-                loop();
-            </script>
             </div>
+
+            <!-- Formación Académica -->
+            <div class="academic-container fade-in-up" id="habilidades-academic">
+                <h2 class="academic-title" id="habilidades-academic-title">Formación Académica</h2>
+                <ul class="academic-list" id="habilidades-academic-list">
+                    <li class="academic-item fade-in-up stagger-1" id="habilidades-academic-item-1">
+                        <strong>Ingeniería en Sistemas:</strong> Universidad Bancaria de México (2021-2025)
+                    </li>
+                    <li class="academic-item fade-in-up stagger-2" id="habilidades-academic-item-2">
+                        <strong>Técnico en Programación:</strong> Universidad Bancaria de México (2016-2019)
+                    </li>
+                </ul>
             </div>
+
+            <!-- Conocimientos -->
+            <div class="knowledge-section fade-in-up stagger-3" id="habilidades-knowledge-section">
+                <h2 class="knowledge-title" id="habilidades-knowledge-title">Conocimientos</h2>
+                <div class="knowledge-grid" id="habilidades-knowledge-grid">
+                    <div class="knowledge-item fade-in-up stagger-1" id="habilidades-knowledge-programming">
+                        Lenguajes de Programación: C++, Java, Python, PHP, JavaScript
+                    </div>
+                    <div class="knowledge-item fade-in-up stagger-2" id="habilidades-knowledge-web">
+                        Desarrollo Web: HTML, CSS, JavaScript
+                    </div>
+                    <div class="knowledge-item fade-in-up stagger-3" id="habilidades-knowledge-frameworks">
+                        Frameworks: React, Angular, Bootstrap
+                    </div>
+                    <div class="knowledge-item fade-in-up stagger-4" id="habilidades-knowledge-databases">
+                        Bases de Datos: MySQL, PostgreSQL
+                    </div>
+                    <div class="knowledge-item fade-in-up stagger-5" id="habilidades-knowledge-tools">
+                        Herramientas de Desarrollo: Git, Visual Studio Code, IntelliJ IDEA
+                    </div>
+                    <div class="knowledge-item fade-in-up stagger-6" id="habilidades-knowledge-systems">
+                        Administración de Sistemas: Linux, Windows Server
+                    </div>
+                    <div class="knowledge-item fade-in-up stagger-1" id="habilidades-knowledge-methodologies">
+                        Metodologías Ágiles: Scrum
+                    </div>
+                    <div class="knowledge-item fade-in-up stagger-2" id="habilidades-knowledge-marketing">
+                        Marketing Digital: Certificación en Marketing Digital
+                    </div>
+                </div>
+            </div>
+
             <!-- Aptitudes -->
-            <section style="text-align: center;">
-                <h2>Aptitudes</h2>
-                <div style="display: flex; flex-wrap: wrap;">
-                    <ul style="flex: 1; padding-right: 20px;">
-                        <li>Trabajo en equipo</li>
-                        <li>Resolución de problemas</li>
-                        <li>Comunicación efectiva</li>
-                        <li>Adaptabilidad a entornos dinámicos</li>
-                        <li>Capacidad de análisis</li>
-                        <li>Enfoque en resultados</li>
-                        <li>Creatividad</li>
-                        <li>Gestión del tiempo</li>
-                        <li>Empatía</li>
-                        <li>Liderazgo</li>
-                    </ul>
-                    <ul style="flex: 1; padding-right: 20px;">
-                        <li>Capacidad para resolver conflictos</li>
-                        <li>Trabajo en red (networking)</li>
-                        <li>Persuasión</li>
-                        <li>Planificación estratégica</li>
-                        <li>Gestión de recursos</li>
-                        <li>Priorización</li>
-                        <li>Manejo de proyectos</li>
-                        <li>Capacidad para delegar</li>
-                        <li>Pensamiento crítico</li>
-                        <li>Resolución de problemas complejos</li>
-                    </ul>
-                    <ul style="flex: 1;">
-                        <li>Toma de decisiones informada</li>
-                        <li>Aprendizaje rápido</li>
-                        <li>Innovación</li>
-                        <li>Dominio de herramientas tecnológicas</li>
-                        <li>Análisis de datos</li>
-                        <li>Redacción profesional</li>
-                        <li>Habilidades de presentación</li>
-                        <li>Conocimientos financieros</li>
-                        <li>Autonomía</li>
-                        <li>Resiliencia</li>
-                    </ul>
+            <div class="skills-section fade-in-up" id="habilidades-skills-section">
+                <h2 class="skills-title" id="habilidades-skills-title">Aptitudes</h2>
+                <div class="skills-container" id="habilidades-skills-container">
+                    <div class="skills-column fade-in-up stagger-1" id="habilidades-skills-column-1">
+                        <ul>
+                            <li>Trabajo en equipo</li>
+                            <li>Resolución de problemas</li>
+                            <li>Comunicación efectiva</li>
+                            <li>Adaptabilidad a entornos dinámicos</li>
+                            <li>Capacidad de análisis</li>
+                            <li>Enfoque en resultados</li>
+                            <li>Creatividad</li>
+                            <li>Gestión del tiempo</li>
+                            <li>Empatía</li>
+                            <li>Liderazgo</li>
+                        </ul>
+                    </div>
+                    <div class="skills-column fade-in-up stagger-2" id="habilidades-skills-column-2">
+                        <ul>
+                            <li>Capacidad para resolver conflictos</li>
+                            <li>Trabajo en red (networking)</li>
+                            <li>Persuasión</li>
+                            <li>Planificación estratégica</li>
+                            <li>Gestión de recursos</li>
+                            <li>Priorización</li>
+                            <li>Manejo de proyectos</li>
+                            <li>Capacidad para delegar</li>
+                            <li>Pensamiento crítico</li>
+                            <li>Resolución de problemas complejos</li>
+                        </ul>
+                    </div>
+                    <div class="skills-column fade-in-up stagger-3" id="habilidades-skills-column-3">
+                        <ul>
+                            <li>Toma de decisiones informada</li>
+                            <li>Aprendizaje rápido</li>
+                            <li>Innovación</li>
+                            <li>Dominio de herramientas tecnológicas</li>
+                            <li>Análisis de datos</li>
+                            <li>Redacción profesional</li>
+                            <li>Habilidades de presentación</li>
+                            <li>Conocimientos financieros</li>
+                            <li>Autonomía</li>
+                            <li>Resiliencia</li>
+                        </ul>
+                    </div>
                 </div>
-            </section>
-            <h1 class="h1relleno2">Hol</h1>
+            </div>
 
-            
-                <!-- Columna con la figura (circle) -->
-                <div class="column figure" style="display: flex; justify-content: center; align-items: center; height: 100%;">
-                    <div class="view" style="display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;">
-                        <div class="plane main" style="display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;">
-                            <!-- Genera los círculos mediante un bucle en JavaScript -->
-                            <script>
-                                for (var x = 0; x < 6; x++) {
-                                    document.write('<div class="circle"></div>');
-                                }
-                            </script>
-                        </div>
+            <!-- Certificaciones -->
+            <div class="certificates-section" id="habilidades-certificates-section">
+                <h2 class="certificates-title fade-in-up" id="habilidades-certificates-title">Certificaciones</h2>
+                
+                <!-- Estadísticas de certificaciones -->
+                <div class="stats-container fade-in-up" id="habilidades-stats-container">
+                    <div class="stat-card" id="habilidades-stat-certificates">
+                        <span class="stat-number" id="habilidades-totalCertificates">12</span>
+                        <span class="stat-label">Certificaciones</span>
+                    </div>
+                    <div class="stat-card" id="habilidades-stat-hours">
+                        <span class="stat-number" id="habilidades-totalHours">500+</span>
+                        <span class="stat-label">Horas de Estudio</span>
+                    </div>
+                    <div class="stat-card" id="habilidades-stat-completion">
+                        <span class="stat-number" id="habilidades-completionRate">100%</span>
+                        <span class="stat-label">Tasa de Finalización</span>
                     </div>
                 </div>
 
-            <div class="center-wrapper">
-                <div class="containercard">
-                    <!-- Certificación SCRUM -->
-                    <a href="https://www.scrumstudy.com/certification/verify?type=SFC&number=1056186" target="_blank">
-                        <div class="card">
-                            <div class="imgBx">
-                                <img src="Recursos/Certificaciones/scrumfundamentals.png" alt="Certificación SCRUM">
-                            </div>
-                            <div class="contentcard">
-                                <h2>Certificación de SCRUM FUNDAMENTALS (2024)</h2>
-                                <p>Obtuve la Certificación Scrum Fundamentals, que me proporcionó una base sólida en la
-                                    metodología ágil Scrum. Aprendí a gestionar proyectos de manera eficiente,
-                                    trabajando en equipos colaborativos para entregar valor rápido y de forma continua.
-                                </p>
-                            </div>
-                        </div>
+                <!-- Buscador de certificaciones -->
+                <div class="search-container fade-in-up" id="habilidades-search-container">
+                    <input type="text" class="search-input" placeholder="Buscar certificaciones..." id="habilidades-searchInput">
+                    <span class="search-icon">🔍</span>
+                </div>
+
+                <!-- Filtros de certificaciones -->
+                <div class="filter-container fade-in-up" id="habilidades-filter-container">
+                    <button class="filter-btn active" data-filter="all" id="habilidades-filter-all">Todas</button>
+                    <button class="filter-btn" data-filter="programming" id="habilidades-filter-programming">Programación</button>
+                    <button class="filter-btn" data-filter="database" id="habilidades-filter-database">Base de Datos</button>
+                    <button class="filter-btn" data-filter="marketing" id="habilidades-filter-marketing">Marketing</button>
+                    <button class="filter-btn" data-filter="frameworks" id="habilidades-filter-frameworks">Frameworks</button>
+                </div>
+                
+                <div class="certificates-grid" id="habilidades-certificatesGrid">
+                    <a href="https://www.scrumstudy.com/certification/verify?type=SFC&number=1056186" target="_blank" class="certificate-card fade-in-up stagger-1" data-category="frameworks">
+                        <img src="Recursos/Certificaciones/scrumfundamentals.png" alt="Certificación SCRUM" class="certificate-image">
+                        <h3 class="certificate-title">Certificación de SCRUM FUNDAMENTALS (2024)</h3>
+                        <p class="certificate-description">Obtuve la Certificación Scrum Fundamentals, que me proporcionó una base sólida en la metodología ágil Scrum. Aprendí a gestionar proyectos de manera eficiente, trabajando en equipos colaborativos para entregar valor rápido y de forma continua.</p>
                     </a>
 
-                    <a href="https://www.udemy.com/certificate/UC-c19c8edd-de0c-4ee6-b192-738afacc1ad9/" target="_blank">
-                        <div class="card">
-                            <div class="imgBx">
-                                <img src="Recursos/Certificaciones/Escuela de JavaScript 2025 - De cero a Master en JavaScript.jpg" alt="Escuela de JavaScript 2025">
-                            </div>
-                            <div class="contentcard">
-                                <h2>Escuela de JavaScript 2025 - De cero a Master en JavaScript</h2>
-                                <p>La Escuela de JavaScript te lleva en una ruta completa para convertirte en FullStack Developer. Aprenderás desde los fundamentos del lenguaje hasta desarrollar sitios web interactivos y trabajar con JavaScript en el backend usando Node.js, Express y MongoDB. Ideal para quienes desean aprender JavaScript de forma profesional y aplicar sus habilidades en proyectos reales.</p>
-                            </div>
-                        </div>
+                    <a href="https://www.udemy.com/certificate/UC-c19c8edd-de0c-4ee6-b192-738afacc1ad9/" target="_blank" class="certificate-card fade-in-up stagger-2" data-category="programming">
+                        <img src="Recursos/Certificaciones/Escuela de JavaScript 2025 - De cero a Master en JavaScript.jpg" alt="Escuela de JavaScript 2025" class="certificate-image">
+                        <h3 class="certificate-title">Escuela de JavaScript 2025 - De cero a Master en JavaScript</h3>
+                        <p class="certificate-description">La Escuela de JavaScript te lleva en una ruta completa para convertirte en FullStack Developer. Aprenderás desde los fundamentos del lenguaje hasta desarrollar sitios web interactivos y trabajar con JavaScript en el backend usando Node.js, Express y MongoDB.</p>
                     </a>
 
-                    <!-- Certificación Google Analytics -->
-                    <a href="https://skillshop.credential.net/b52f8295-7bf4-4760-9dae-c189130d9a9f#acc.jZBeV19Q"
-                        target="_blank">
-                        <div class="card">
-                            <div class="imgBx">
-                                <img src="Recursos/Certificaciones/GoogleAnalytics.png"
-                                    alt="Certificación Google Analytics">
-                            </div>
-                            <div class="contentcard">
-                                <h2>Certificación en Google Analytics</h2>
-                                <p>Certificación otorgada por Google que avala conocimientos en análisis de datos web,
-                                    interpretación de métricas clave y optimización del rendimiento digital. Incluye el
-                                    uso de informes, segmentación avanzada y configuración de eventos para tomar
-                                    decisiones basadas en datos.</p>
-                            </div>
-                        </div>
+                    <a href="https://skillshop.credential.net/b52f8295-7bf4-4760-9dae-c189130d9a9f#acc.jZBeV19Q" target="_blank" class="certificate-card fade-in-up stagger-3" data-category="marketing">
+                        <img src="Recursos/Certificaciones/GoogleAnalytics.png" alt="Certificación Google Analytics" class="certificate-image">
+                        <h3 class="certificate-title">Certificación en Google Analytics</h3>
+                        <p class="certificate-description">Certificación otorgada por Google que avala conocimientos en análisis de datos web, interpretación de métricas clave y optimización del rendimiento digital. Incluye el uso de informes, segmentación avanzada y configuración de eventos.</p>
                     </a>
 
-                    <!-- Certificación en Marketing -->
-                    <a href="https://c46e136a583f7e334124-ac22991740ab4ff17e21daf2ed577041.ssl.cf1.rackcdn.com/Certificate/DigitalMarketingFundamentals-UzielSanchezMarin-611988.pdf"
-                        target="_blank">
-                        <div class="card">
-                            <div class="imgBx">
-                                <img src="Recursos/Certificaciones/marketing.png" alt="Certificación Marketing">
-                            </div>
-                            <div class="contentcard">
-                                <h2>Certificación Digital Marketing Fundamentals</h2>
-                                <p>Con la Certificación en Marketing, adquirí habilidades en estrategias digitales,
-                                    gestión de campañas y análisis de mercado. Aprendí a conectar marcas con su
-                                    audiencia a través de tácticas efectivas y orientadas a resultados.</p>
-                            </div>
-                        </div>
+                    <a href="https://c46e136a583f7e334124-ac22991740ab4ff17e21daf2ed577041.ssl.cf1.rackcdn.com/Certificate/DigitalMarketingFundamentals-UzielSanchezMarin-611988.pdf" target="_blank" class="certificate-card fade-in-up stagger-4" data-category="marketing">
+                        <img src="Recursos/Certificaciones/marketing.png" alt="Certificación Marketing" class="certificate-image">
+                        <h3 class="certificate-title">Certificación Digital Marketing Fundamentals</h3>
+                        <p class="certificate-description">Con la Certificación en Marketing, adquirí habilidades en estrategias digitales, gestión de campañas y análisis de mercado. Aprendí a conectar marcas con su audiencia a través de tácticas efectivas y orientadas a resultados.</p>
                     </a>
 
-                    <a href="https://www.udemy.com/certificate/UC-65101205-8c2c-453d-a6bb-03d6e2466af5/" target="_blank">
-                        <div class="card">
-                            <div class="imgBx">
-                                <img src="Recursos/Certificaciones/certificadodatabasecourse6coursesin1.jpg" alt="Card Three">
-                            </div>
-                            <div class="contentcard">
-                                <h2>Practical Database Course for Beginners</h2>
-                                <p>He completado este curso sobre bases de datos, donde aprendí a estructurar, gestionar y optimizar información utilizando SQL. También desarrollé habilidades en normalización y consultas avanzadas, adquiriendo una base sólida para la administración eficiente de bases de datos.</p>
-                            </div>
-                        </div>
+                    <a href="https://www.udemy.com/certificate/UC-65101205-8c2c-453d-a6bb-03d6e2466af5/" target="_blank" class="certificate-card fade-in-up stagger-5" data-category="database">
+                        <img src="Recursos/Certificaciones/certificadodatabasecourse6coursesin1.jpg" alt="Database Course" class="certificate-image">
+                        <h3 class="certificate-title">Practical Database Course for Beginners</h3>
+                        <p class="certificate-description">He completado este curso sobre bases de datos, donde aprendí a estructurar, gestionar y optimizar información utilizando SQL. También desarrollé habilidades en normalización y consultas avanzadas.</p>
                     </a>
                     
-                    <a href="https://www.udemy.com/certificate/UC-223436ce-99ef-4fa5-88c4-4c687f9512c1/" target="_blank">
-                        <div class="card">
-                            <div class="imgBx">
-                                <img src="Recursos/Certificaciones/phpmasterproyectosavanzados.jpg" alt="Card Four">
-                            </div>
-                            <div class="contentcard">
-                                <h2>PHP Masterclass: Desarrollo de Proyectos Complejos y Avanzados</h2>
-                                <p>Certificación en desarrollo avanzado con PHP, donde trabajé en la creación de aplicaciones web escalables. Aprendí sobre patrones de diseño, seguridad y optimización de código, además de desarrollar proyectos completos aplicando buenas prácticas y arquitectura eficiente.</p>
-                            </div>
-                        </div>
+                    <a href="https://www.udemy.com/certificate/UC-223436ce-99ef-4fa5-88c4-4c687f9512c1/" target="_blank" class="certificate-card fade-in-up stagger-6" data-category="programming">
+                        <img src="Recursos/Certificaciones/phpmasterproyectosavanzados.jpg" alt="PHP Master" class="certificate-image">
+                        <h3 class="certificate-title">PHP Masterclass: Desarrollo de Proyectos Complejos y Avanzados</h3>
+                        <p class="certificate-description">Certificación en desarrollo avanzado con PHP, donde trabajé en la creación de aplicaciones web escalables. Aprendí sobre patrones de diseño, seguridad y optimización de código.</p>
                     </a>          
                     
-                    <a href="https://www.udemy.com/certificate/UC-b9e3657c-1bdf-4c20-a5c5-afb735076931/" target="_blank">
-                        <div class="card">
-                            <div class="imgBx">
-                                <img src="Recursos/Certificaciones/Universidad Java - Cero a Experto - Actualizado (+150 hrs).jpg" alt="Card Four">
-                            </div>
-                            <div class="contentcard">
-                                <h2>Universidad Java - De Cero a Experto (+150 hrs)</h2>
-                                <p>El curso más completo de Java en Udemy, actualizado a 2025. Con más de 150 horas de contenido, cubre desde los fundamentos hasta tecnologías avanzadas como Spring Boot, Hibernate, Jakarta EE y desarrollo FullStack con Angular y React. Ideal para quienes buscan dominar Java y aplicar conocimientos en proyectos del mundo real.</p>                                
-                            </div>
-                        </div>
+                    <a href="https://www.udemy.com/certificate/UC-b9e3657c-1bdf-4c20-a5c5-afb735076931/" target="_blank" class="certificate-card fade-in-up stagger-1" data-category="programming">
+                        <img src="Recursos/Certificaciones/Universidad Java - Cero a Experto - Actualizado (+150 hrs).jpg" alt="Universidad Java" class="certificate-image">
+                        <h3 class="certificate-title">Universidad Java - De Cero a Experto (+150 hrs)</h3>
+                        <p class="certificate-description">El curso más completo de Java en Udemy, actualizado a 2025. Con más de 150 horas de contenido, cubre desde los fundamentos hasta tecnologías avanzadas como Spring Boot, Hibernate, Jakarta EE y desarrollo FullStack.</p>
                     </a>
 
-                    <a href="https://data-flair.training/verify/75B547582A-75AF51C5AE-7591D036BD/" target="_blank">
-                        <div class="card">
-                            <div class="imgBx">
-                                <img src="Recursos/Certificaciones/Introduction to Python Certificate.png" alt="Certificación en Python">
-                            </div>
-                            <div class="contentcard">
-                                <h2>Introduction to Python</h2>
-                                <p>Certificación que valida conocimientos fundamentales en Python, incluyendo variables, estructuras de control, funciones y manipulación de datos. Proporciona una base sólida para el desarrollo de software y análisis de datos.</p>
-                            </div>
-                        </div>
+                    <a href="https://data-flair.training/verify/75B547582A-75AF51C5AE-7591D036BD/" target="_blank" class="certificate-card fade-in-up stagger-2" data-category="programming">
+                        <img src="Recursos/Certificaciones/Introduction to Python Certificate.png" alt="Certificación en Python" class="certificate-image">
+                        <h3 class="certificate-title">Introduction to Python</h3>
+                        <p class="certificate-description">Certificación que valida conocimientos fundamentales en Python, incluyendo variables, estructuras de control, funciones y manipulación de datos. Proporciona una base sólida para el desarrollo de software y análisis de datos.</p>
                     </a>
 
-                    <a href="https://www.udemy.com/certificate/UC-70e496be-05ff-4552-be0f-8039291c9bca/" target="_blank">
-                        <div class="card">
-                            <div class="imgBx">
-                                <img src="Recursos/Certificaciones/dominajquery.jpg" alt="Card Four">
-                            </div>
-                            <div class="contentcard">
-                                <h2>Dominar los conceptos básicos de jQuery</h2>
-                                <p>He completado esta certificación en jQuery, donde aprendí a manipular el DOM, crear animaciones, manejar eventos y realizar peticiones AJAX. También reforcé mis habilidades en JavaScript, optimizando la interactividad y dinamismo en aplicaciones web.</p>
-                            </div>
-                        </div>
+                    <a href="https://www.udemy.com/certificate/UC-70e496be-05ff-4552-be0f-8039291c9bca/" target="_blank" class="certificate-card fade-in-up stagger-3" data-category="programming">
+                        <img src="Recursos/Certificaciones/dominajquery.jpg" alt="jQuery" class="certificate-image">
+                        <h3 class="certificate-title">Dominar los conceptos básicos de jQuery</h3>
+                        <p class="certificate-description">He completado esta certificación en jQuery, donde aprendí a manipular el DOM, crear animaciones, manejar eventos y realizar peticiones AJAX. También reforcé mis habilidades en JavaScript.</p>
                     </a>                    
 
-                    <a href="https://www.udemy.com/certificate/UC-4f4d3aa4-df56-421f-b30e-28ba6d6d6649/" target="_blank">
-                        <div class="card">
-                            <div class="imgBx">
-                                <img src="Recursos/Certificaciones/LearnSpringModulithMonolithtoMicroservicesSeamlessly.jpg" alt="Card Four">
-                            </div>
-                            <div class="contentcard">
-                                <h2>Learn Spring Modulith: Monolith to Microservices Seamlessly</h2>
-                                <p>Certificación enfocada en la transformación de arquitecturas monolíticas a microservicios con 
-                                   Spring Modulith y Spring Boot 3. Se abordaron temas como modularización de aplicaciones, 
-                                   integración con Spring Data JPA y Spring MVC, despliegue con Docker y Kubernetes, optimización 
-                                   con GraalVM y prácticas de CI/CD para desarrollo escalable y eficiente.</p>
-                            </div>
-                        </div>
+                    <a href="https://www.udemy.com/certificate/UC-4f4d3aa4-df56-421f-b30e-28ba6d6d6649/" target="_blank" class="certificate-card fade-in-up stagger-4" data-category="frameworks">
+                        <img src="Recursos/Certificaciones/LearnSpringModulithMonolithtoMicroservicesSeamlessly.jpg" alt="Spring Modulith" class="certificate-image">
+                        <h3 class="certificate-title">Learn Spring Modulith: Monolith to Microservices Seamlessly</h3>
+                        <p class="certificate-description">Certificación enfocada en la transformación de arquitecturas monolíticas a microservicios con Spring Modulith y Spring Boot 3. Se abordaron temas como modularización de aplicaciones, integración con Spring Data JPA y despliegue con Docker y Kubernetes.</p>
                     </a>                    
 
-                    <a href="https://www.udemy.com/certificate/UC-dbd5a0ed-9985-4889-89b7-d70143143514/" target="_blank">
-                        <div class="card">
-                            <div class="imgBx">
-                                <img src="Recursos/Certificaciones/JavaFX Database Management System! Database Design In JavaFX.jpg" alt="JavaFX Database Management System">
-                            </div>
-                            <div class="contentcard">
-                                <h2>JavaFX Database Management System! Database Design In JavaFX</h2>
-                                <p>Este curso te enseña cómo crear un sistema completo de gestión de bases de datos en JavaFX, incluyendo la creación de una página de inicio de sesión, conexión con bases de datos SQLite, y la creación de una aplicación independiente en JavaFX. Aprende a gestionar datos de estudiantes, crear tablas en bases de datos y mucho más.</p>
-                            </div>
-                        </div>
+                    <a href="https://www.udemy.com/certificate/UC-dbd5a0ed-9985-4889-89b7-d70143143514/" target="_blank" class="certificate-card fade-in-up stagger-5" data-category="database">
+                        <img src="Recursos/Certificaciones/JavaFX Database Management System! Database Design In JavaFX.jpg" alt="JavaFX Database Management System" class="certificate-image">
+                        <h3 class="certificate-title">JavaFX Database Management System! Database Design In JavaFX</h3>
+                        <p class="certificate-description">Este curso enseña cómo crear un sistema completo de gestión de bases de datos en JavaFX, incluyendo la creación de una página de inicio de sesión, conexión con bases de datos SQLite, y la creación de una aplicación independiente.</p>
+                    </a>
+                    <a href="https://www.udemy.com/certificate/UC-223436ce-99ef-4fa5-88c4-4c687f9512c1/" target="_blank" class="certificate-card fade-in-up stagger-6" data-category="programming">
+                        <img src="Recursos/Certificaciones/phpmasterproyectosavanzados.jpg" alt="PHP Master" class="certificate-image">
+                        <h3 class="certificate-title">PHP Masterclass: Desarrollo de Proyectos Complejos y Avanzados</h3>
+                        <p class="certificate-description">Certificación en desarrollo avanzado con PHP, donde trabajé en la creación de aplicaciones web escalables. Aprendí sobre patrones de diseño, seguridad y optimización de código.</p>
+                    </a>             
+
+                    <a href="https://www.udemy.com/certificate/UC-b9e3657c-1bdf-4c20-a5c5-afb735076931/" target="_blank" class="certificate-card fade-in-up stagger-1">
+                        <img src="Recursos/Certificaciones/Universidad Java - Cero a Experto - Actualizado (+150 hrs).jpg" alt="Universidad Java" class="certificate-image">
+                        <h3 class="certificate-title">Universidad Java - De Cero a Experto (+150 hrs)</h3>
+                        <p class="certificate-description">El curso más completo de Java en Udemy, actualizado a 2025. Con más de 150 horas de contenido, cubre desde los fundamentos hasta tecnologías avanzadas como Spring Boot, Hibernate, Jakarta EE y desarrollo FullStack.</p>
+                    </a>
+
+                    <a href="https://data-flair.training/verify/75B547582A-75AF51C5AE-7591D036BD/" target="_blank" class="certificate-card fade-in-up stagger-2">
+                        <img src="Recursos/Certificaciones/Introduction to Python Certificate.png" alt="Certificación en Python" class="certificate-image">
+                        <h3 class="certificate-title">Introduction to Python</h3>
+                        <p class="certificate-description">Certificación que valida conocimientos fundamentales en Python, incluyendo variables, estructuras de control, funciones y manipulación de datos. Proporciona una base sólida para el desarrollo de software y análisis de datos.</p>
+                    </a>
+
+                    <a href="https://www.udemy.com/certificate/UC-70e496be-05ff-4552-be0f-8039291c9bca/" target="_blank" class="certificate-card fade-in-up stagger-3">
+                        <img src="Recursos/Certificaciones/dominajquery.jpg" alt="jQuery" class="certificate-image">
+                        <h3 class="certificate-title">Dominar los conceptos básicos de jQuery</h3>
+                        <p class="certificate-description">He completado esta certificación en jQuery, donde aprendí a manipular el DOM, crear animaciones, manejar eventos y realizar peticiones AJAX. También reforcé mis habilidades en JavaScript.</p>
                     </a>                    
 
+                    <a href="https://www.udemy.com/certificate/UC-4f4d3aa4-df56-421f-b30e-28ba6d6d6649/" target="_blank" class="certificate-card fade-in-up stagger-4">
+                        <img src="Recursos/Certificaciones/LearnSpringModulithMonolithtoMicroservicesSeamlessly.jpg" alt="Spring Modulith" class="certificate-image">
+                        <h3 class="certificate-title">Learn Spring Modulith: Monolith to Microservices Seamlessly</h3>
+                        <p class="certificate-description">Certificación enfocada en la transformación de arquitecturas monolíticas a microservicios con Spring Modulith y Spring Boot 3. Se abordaron temas como modularización de aplicaciones, integración con Spring Data JPA y despliegue con Docker y Kubernetes.</p>
+                    </a>                    
+
+                    <a href="https://www.udemy.com/certificate/UC-dbd5a0ed-9985-4889-89b7-d70143143514/" target="_blank" class="certificate-card fade-in-up stagger-5">
+                        <img src="Recursos/Certificaciones/JavaFX Database Management System! Database Design In JavaFX.jpg" alt="JavaFX Database Management System" class="certificate-image">
+                        <h3 class="certificate-title">JavaFX Database Management System! Database Design In JavaFX</h3>
+                        <p class="certificate-description">Este curso enseña cómo crear un sistema completo de gestión de bases de datos en JavaFX, incluyendo la creación de una página de inicio de sesión, conexión con bases de datos SQLite, y la creación de una aplicación independiente.</p>
+                    </a>
                 </div>
             </div>
 
-            <h1 class="h1relleno2">Hol</h1>
-                <!-- Inglés -->
-                <div id="dividiomaingles" class="idioma" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; width: 50%; margin: auto;">
-                    <h2>Inglés</h2>
-                
-                    <div class="barra-individual ingles" style="margin: 15px 0; width: 100%;">
-                        <div class="barra-progreso" style="width: 100%;">
-                            <div class="barra-progreso-color ingles-color" style="width: 75%;"></div>
-                        </div>
-                        <p>Vocabulario básico: 75%</p>
+            <!-- Calculadora de Skills -->
+            <div class="skills-calculator fade-in-up">
+                <h3 style="color: white; font-size: 1.8rem; margin-bottom: 20px;">Resumen de Competencias</h3>
+                <div class="skill-level-display" id="overallLevel">Experto</div>
+                <div class="skill-categories">
+                    <div class="skill-category">
+                        <span class="skill-count" id="programmingCount">10</span>
+                        <span>Lenguajes</span>
                     </div>
-                
-                    <div class="barra-individual ingles" style="margin: 15px 0; width: 100%;">
-                        <div class="barra-progreso" style="width: 100%;">
-                            <div class="barra-progreso-color ingles-color" style="width: 90%;"></div>
-                        </div>
-                        <p>Pronunciación: 90%</p>
+                    <div class="skill-category">
+                        <span class="skill-count" id="frameworksCount">8</span>
+                        <span>Frameworks</span>
                     </div>
-                
-                    <div class="barra-individual ingles" style="margin: 15px 0; width: 100%;">
-                        <div class="barra-progreso" style="width: 100%;">
-                            <div class="barra-progreso-color ingles-color" style="width: 70%;"></div>
-                        </div>
-                        <p>Gramática básica: 70%</p>
+                    <div class="skill-category">
+                        <span class="skill-count" id="databasesCount">6</span>
+                        <span>Bases de Datos</span>
                     </div>
-                
-                    <div class="barra-individual ingles" style="margin: 15px 0; width: 100%;">
-                        <div class="barra-progreso" style="width: 100%;">
-                            <div class="barra-progreso-color ingles-color" style="width: 85%;"></div>
-                        </div>
-                        <p>Comprensión auditiva: 85%</p>
+                    <div class="skill-category">
+                        <span class="skill-count" id="toolsCount">12</span>
+                        <span>Herramientas</span>
                     </div>
-                
-                    <div class="barra-individual ingles" style="margin: 15px 0; width: 100%;">
-                        <div class="barra-progreso" style="width: 100%;">
-                            <div class="barra-progreso-color ingles-color" style="width: 90%;"></div>
-                        </div>
-                        <p>Escritura y lectura: 90%</p>
-                    </div>
-                </div>                
-            <h1 class="h1relleno2">Hol</h1>
+                </div>
+            </div>
 
-            <section
-                style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; align-items: flex-start;">
-                <div style="flex: 1; min-width: 300px; text-align: center;">
-                    <img src="Recursos/iconos/lenguajes.png" alt="Imagen Lenguajes" class="imagenlenguajes"
-                        style="max-width: 70%; height: auto;">
-                    <h2>Lenguajes de Programación</h2>
-                    <section style="text-align: center; margin-top: 20px;">
-                        <table style="width: 80%; margin: 0 auto; border-spacing: 0;">
+
+            <!-- Timeline de experiencia -->
+            <div class="timeline fade-in-up" id="habilidades-timeline">
+                <h2 style="text-align: center; color: white; font-size: 2.5rem; margin-bottom: 50px;" id="habilidades-timeline-title">Timeline Académico</h2>
+                <div class="timeline-item" id="habilidades-timeline-item-1">
+                    <div class="timeline-content" id="habilidades-timeline-content-1">
+                        <h3 style="color: #ffd93d; margin-bottom: 10px;">Técnico en Programación</h3>
+                        <p style="color: rgba(255,255,255,0.9);">Universidad Bancaria de México - Fundamentos sólidos en programación y desarrollo de software</p>
+                    </div>
+                    <div class="timeline-date" id="habilidades-timeline-date-1">2016-2019</div>
+                </div>
+                <div class="timeline-item" id="habilidades-timeline-item-2">
+                    <div class="timeline-content" id="habilidades-timeline-content-2">
+                        <h3 style="color: #ffd93d; margin-bottom: 10px;">Certificaciones Especializadas</h3>
+                        <p style="color: rgba(255,255,255,0.9);">Múltiples certificaciones en tecnologías modernas, marketing digital y metodologías ágiles</p>
+                    </div>
+                    <div class="timeline-date" id="habilidades-timeline-date-2">2020-2024</div>
+                </div>
+                <div class="timeline-item" id="habilidades-timeline-item-3">
+                    <div class="timeline-content" id="habilidades-timeline-content-3">
+                        <h3 style="color: #ffd93d; margin-bottom: 10px;">Ingeniería en Sistemas</h3>
+                        <p style="color: rgba(255,255,255,0.9);">Universidad Bancaria de México - Especialización en desarrollo full-stack y arquitectura de sistemas</p>
+                    </div>
+                    <div class="timeline-date" id="habilidades-timeline-date-3">2021-2025</div>
+                </div>
+            </div>
+
+            <!-- Idiomas -->
+            <div class="language-section fade-in-up" id="habilidades-language-section">
+                <h2 class="language-title" id="habilidades-language-title">Inglés</h2>
+                <div class="progress-item fade-in-up stagger-1" id="habilidades-progress-vocabulary">
+                    <div class="progress-label" id="habilidades-vocabulary-label">
+                        <span>Vocabulario básico</span>
+                        <span>75%</span>
+                    </div>
+                    <div class="progress-bar" id="habilidades-vocabulary-bar">
+                        <div class="progress-fill" style="width: 75%;" id="habilidades-vocabulary-fill"></div>
+                    </div>
+                </div>
+
+                <div class="progress-item fade-in-up stagger-2" id="habilidades-progress-pronunciation">
+                    <div class="progress-label" id="habilidades-pronunciation-label">
+                        <span>Pronunciación</span>
+                        <span>90%</span>
+                    </div>
+                    <div class="progress-bar" id="habilidades-pronunciation-bar">
+                        <div class="progress-fill" style="width: 90%;" id="habilidades-pronunciation-fill"></div>
+                    </div>
+                </div>
+
+                <div class="progress-item fade-in-up stagger-3" id="habilidades-progress-grammar">
+                    <div class="progress-label" id="habilidades-grammar-label">
+                        <span>Gramática básica</span>
+                        <span>70%</span>
+                    </div>
+                    <div class="progress-bar" id="habilidades-grammar-bar">
+                        <div class="progress-fill" style="width: 70%;" id="habilidades-grammar-fill"></div>
+                    </div>
+                </div>
+
+                <div class="progress-item fade-in-up stagger-4" id="habilidades-progress-listening">
+                    <div class="progress-label" id="habilidades-listening-label">
+                        <span>Comprensión auditiva</span>
+                        <span>85%</span>
+                    </div>
+                    <div class="progress-bar" id="habilidades-listening-bar">
+                        <div class="progress-fill" style="width: 85%;" id="habilidades-listening-fill"></div>
+                    </div>
+                </div>
+
+                <div class="progress-item fade-in-up stagger-5" id="habilidades-progress-writing">
+                    <div class="progress-label" id="habilidades-writing-label">
+                        <span>Escritura y lectura</span>
+                        <span>90%</span>
+                    </div>
+                    <div class="progress-bar" id="habilidades-writing-bar">
+                        <div class="progress-fill" style="width: 90%;" id="habilidades-writing-fill"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tecnologías -->
+            <div class="tech-section" id="habilidades-tech-section">
+                <div class="tech-container" id="habilidades-tech-container">
+                    <div class="tech-card fade-in-up stagger-1" id="habilidades-tech-programming">
+                        <img src="Recursos/iconos/lenguajes.png" alt="Lenguajes de Programación" class="tech-icon" id="habilidades-tech-programming-icon">
+                        <h2 class="tech-title" id="habilidades-tech-programming-title">Lenguajes de Programación</h2>
+                        <table class="tech-table" id="habilidades-tech-programming-table">
                             <tr>
-                                <td style="padding: 10px; text-align: center;">Python</td>
-                                <td style="padding: 10px; text-align: center;">C#</td>
+                                <td>Python</td>
+                                <td>C#</td>
                             </tr>
                             <tr>
-                                <td style="padding: 10px; text-align: center;">C++</td>
-                                <td style="padding: 10px; text-align: center;">Java</td>
+                                <td>C++</td>
+                                <td>Java</td>
                             </tr>
                             <tr>
-                                <td style="padding: 10px; text-align: center;">C</td>
-                                <td style="padding: 10px; text-align: center;">Octave</td>
+                                <td>C</td>
+                                <td>Octave</td>
                             </tr>
                             <tr>
-                                <td style="padding: 10px; text-align: center;">JavaScript</td>
-                                <td style="padding: 10px; text-align: center;">PHP</td>
+                                <td>JavaScript</td>
+                                <td>PHP</td>
                             </tr>
                             <tr>
-                                <td style="padding: 10px; text-align: center;">SQL</td>
-                                <td style="padding: 10px; text-align: center;">Kotlin</td>
+                                <td>SQL</td>
+                                <td>Kotlin</td>
                             </tr>
                         </table>
-                    </section>
-                </div>
-                <div style="flex: 1; min-width: 300px; text-align: center;">
-                    <img src="Recursos/iconos/escritorio.png" alt="Imagen Desarrollo" class="imagenlenguajes"
-                        style="max-width: 70%; height: auto;">
-                    <h2>Desarrollo y Programación</h2>
-                    <ul
-                        style="list-style-type: none; padding: 0; text-align: left; display: flex; flex-direction: column; align-items: center;">
-                        <li>Programación orientada a objetos</li>
-                        <li>Diseño y desarrollo de aplicaciones móviles (Android, iOS)</li>
-                        <li>Desarrollo web (HTML, CSS, JavaScript, React, Angular, Vue.js)</li>
-                        <li>Control de versiones (Git, GitHub, Bitbucket)</li>
-                        <li>Desarrollo de APIs RESTful</li>
-                        <li>Arquitectura de microservicios</li>
-                        <li>Principios de diseño (SOLID, MVC)</li>
-                    </ul>
-                </div>
-                <div style="flex: 1; min-width: 300px; text-align: center;">
-                    <img src="Recursos/iconos/sql.png" alt="Imagen Bases de Datos" class="imagenlenguajes"
-                        style="max-width: 70%; height: auto;">
-                    <h2>Manejo de Bases de Datos</h2>
-                    <ul
-                        style="list-style-type: none; padding: 0; text-align: left; display: flex; flex-direction: column; align-items: center;">
-                        <li>MySQL</li>
-                        <li>Oracle</li>
-                        <li>SQL Server</li>
-                        <li>PostgreSQL</li>
-                        <li>MongoDB</li>
-                        <li>Diseño y optimización de bases de datos</li>
-                    </ul>
-                </div>
-            </section>
+                    </div>
 
+                    <div class="tech-card fade-in-up stagger-2" id="habilidades-tech-development">
+                        <img src="Recursos/iconos/escritorio.png" alt="Desarrollo y Programación" class="tech-icon" id="habilidades-tech-development-icon">
+                        <h2 class="tech-title" id="habilidades-tech-development-title">Desarrollo y Programación</h2>
+                        <ul class="tech-list" id="habilidades-tech-development-list">
+                            <li>Programación orientada a objetos</li>
+                            <li>Desarrollo de aplicaciones móviles (Android, iOS)</li>
+                            <li>Desarrollo web (HTML, CSS, JavaScript, React, Angular, Vue.js)</li>
+                            <li>Control de versiones (Git, GitHub, Bitbucket)</li>
+                            <li>Desarrollo de APIs RESTful</li>
+                            <li>Arquitectura de microservicios</li>
+                            <li>Principios de diseño (SOLID, MVC)</li>
+                        </ul>
+                    </div>
 
+                    <div class="tech-card fade-in-up stagger-3" id="habilidades-tech-databases">
+                        <img src="Recursos/iconos/sql.png" alt="Bases de Datos" class="tech-icon" id="habilidades-tech-databases-icon">
+                        <h2 class="tech-title" id="habilidades-tech-databases-title">Manejo de Bases de Datos</h2>
+                        <ul class="tech-list" id="habilidades-tech-databases-list">
+                            <li>MySQL</li>
+                            <li>Oracle</li>
+                            <li>SQL Server</li>
+                            <li>PostgreSQL</li>
+                            <li>MongoDB</li>
+                            <li>Diseño y optimización de bases de datos</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <p>&copy; 2025 Uziel Sánchez Marín. Todos los derechos reservados.</p>
+    <!-- Floating Action Buttons -->
+    <div class="floating-buttons" id="habilidades-floating-buttons">
+        <button class="fab" onclick="toggleTheme()" id="habilidades-fab-theme">
+            <span id="habilidades-themeIcon">🌙</span>
+            <div class="fab-tooltip">Cambiar tema</div>
+        </button>
+        <button class="fab" onclick="openCVModal()" id="habilidades-fab-cv">
+            📄
+            <div class="fab-tooltip">Descargar CV</div>
+        </button>
+        <button class="fab" onclick="shareProfile()" id="habilidades-fab-share">
+            🔗
+            <div class="fab-tooltip">Compartir perfil</div>
+        </button>
+        <!-- Botón volver arriba -->
+        <button class="fab" onclick="scrollToTop()" id="habilidades-scroll-top">
+            ↑
+        </button>
+    </div>
+
+    <!-- Modal para CV -->
+    <div class="modal" id="habilidades-cvModal">
+        <div class="modal-content" id="habilidades-modal-content">
+            <button class="modal-close" onclick="closeCVModal()" id="habilidades-modal-close">×</button>
+            <h2 style="margin-bottom: 20px; color: #333;" id="habilidades-modal-title">Descargar Curriculum Vitae</h2>
+            <p style="color: #666; margin-bottom: 30px;" id="habilidades-modal-description">Selecciona el formato que prefieras:</p>
+            <div class="download-options" id="habilidades-download-options">
+                <button class="download-btn" onclick="downloadCV('pdf')" id="habilidades-download-pdf">
+                    📄 PDF Profesional
+                </button>
+                <button class="download-btn" onclick="downloadCV('word')" id="habilidades-download-word">
+                    📝 Word Editable
+                </button>
+                <button class="download-btn" onclick="downloadCV('simple')" id="habilidades-download-simple">
+                    📋 Versión Simple
+                </button>
+            </div>
+        </div>
+    </div>
+
+   <!-- Footer moderno -->
+    <footer class="modern-footer">
+        <p class="footer-copyright">&copy; 2025 Uziel Sánchez Marín. Todos los derechos reservados.</p>
     </footer>
 
     <script>
-        // Función para animar el título y los elementos de la lista
-        function animateAcademicSection() {
-            const title = document.querySelector('.academic-title');
-            const items = document.querySelectorAll('.academic-item');
+        // Variables globales con IDs únicos para habilidades
+        let isDarkTheme = false;
+        const habilidadesCertificates = document.querySelectorAll('.certificate-card');
 
-            // Animación para el título
+        // Crear partículas animadas
+        function createParticles() {
+            const particlesContainer = document.getElementById('habilidades-particles');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Cambiar tema
+        function toggleTheme() {
+            isDarkTheme = !isDarkTheme;
+            document.getElementById('habilidades-body').classList.toggle('dark-theme');
+            document.getElementById('habilidades-themeIcon').textContent = isDarkTheme ? '☀️' : '🌙';
+            localStorage.setItem('habilidades-darkTheme', isDarkTheme);
+            
+            // Efecto de transición suave
+            document.getElementById('habilidades-body').style.transition = 'all 0.5s ease';
             setTimeout(() => {
-                title.style.opacity = '1';
-                title.style.transition = 'opacity 1s ease-in-out';
+                document.getElementById('habilidades-body').style.transition = '';
             }, 500);
+        }
 
-            // Animación para los elementos de la lista
-            items.forEach((item, index) => {
-                setTimeout(() => {
-                    item.style.opacity = '1';
-                    item.style.transform = 'translateY(0)';
-                    item.style.transition = 'opacity 0.5s ease-in-out, transform 0.5s ease-in-out';
-                }, 800 + index * 200); // Retraso escalonado para cada elemento
+        // Modal del CV
+        function openCVModal() {
+            document.getElementById('habilidades-cvModal').classList.add('show');
+        }
+
+        function closeCVModal() {
+            document.getElementById('habilidades-cvModal').classList.remove('show');
+        }
+
+        function downloadCV(format) {
+            // Rutas a los archivos CV en tu proyecto (GitHub Pages compatible)
+            const cvFiles = {
+                pdf: 'Recursos/CV/CV.pdf',
+                word: 'Recursos/CV/CV.docx',
+                simple: 'Recursos/CV/CV.txt'
+            };
+            
+            const messages = {
+                pdf: '📄 Descargando CV en formato PDF profesional...',
+                word: '📝 Descargando CV en formato Word editable...',
+                simple: '📋 Descargando versión simple del CV...'
+            };
+            
+            // Mostrar mensaje
+            alert(messages[format]);
+            
+            // Descargar archivo si existe
+            const link = document.createElement('a');
+            link.href = cvFiles[format];
+            link.download = `Uziel_Sanchez_CV_${format.toUpperCase()}.${format === 'word' ? 'docx' : format === 'simple' ? 'txt' : 'pdf'}`;            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            closeCVModal();
+        }
+
+        // Compartir perfil
+        function shareProfile() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Portafolio de Uziel Sánchez Marín - Habilidades',
+                    text: 'Conoce mis habilidades y certificaciones como Ingeniero en Sistemas',
+                    url: window.location.href
+                });
+            } else {
+                // Fallback para navegadores que no soportan Web Share API
+                navigator.clipboard.writeText(window.location.href).then(() => {
+                    alert('🔗 URL copiada al portapapeles');
+                });
+            }
+        }
+
+        // Filtros de certificaciones
+        function setupFilters() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const certificates = document.querySelectorAll('.certificate-card');
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Remover clase active de todos los botones
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    // Agregar clase active al botón clickeado
+                    button.classList.add('active');
+                    
+                    const filter = button.getAttribute('data-filter');
+                    
+                    certificates.forEach(cert => {
+                        if (filter === 'all' || cert.getAttribute('data-category') === filter) {
+                            cert.style.display = 'block';
+                            cert.style.animation = 'fadeInUp 0.5s ease forwards';
+                        } else {
+                            cert.style.display = 'none';
+                        }
+                    });
+                    
+                    updateHabilidadesStats(filter);
+                });
             });
         }
 
-        // Ejecutar la animación cuando la página cargue
-        window.addEventListener('load', animateAcademicSection);
+        // Buscador de certificaciones
+        function setupSearch() {
+            const searchInput = document.getElementById('habilidades-searchInput');
+            const certificates = document.querySelectorAll('.certificate-card');
+            
+            searchInput.addEventListener('input', (e) => {
+                const searchTerm = e.target.value.toLowerCase();
+                
+                certificates.forEach(cert => {
+                    const title = cert.querySelector('.certificate-title').textContent.toLowerCase();
+                    const description = cert.querySelector('.certificate-description').textContent.toLowerCase();
+                    
+                    if (title.includes(searchTerm) || description.includes(searchTerm)) {
+                        cert.style.display = 'block';
+                        cert.style.animation = 'fadeInUp 0.5s ease forwards';
+                    } else {
+                        cert.style.display = 'none';
+                    }
+                });
+            });
+        }
+
+        // Actualizar estadísticas específicas de habilidades
+        function updateHabilidadesStats(filter) {
+            const visibleCerts = document.querySelectorAll(`.certificate-card[style*="display: block"], .certificate-card:not([style*="display: none"])`);
+            const totalElement = document.getElementById('habilidades-totalCertificates');
+            
+            if (filter === 'all') {
+                totalElement.textContent = '12';
+            } else {
+                totalElement.textContent = visibleCerts.length;
+            }
+        }
+
+        // Contador animado para estadísticas
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat-number');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const counter = entry.target;
+                        const target = parseInt(counter.textContent.replace(/\D/g, ''));
+                        let count = 0;
+                        const increment = target / 100;
+                        
+                        const updateCounter = () => {
+                            if (count < target) {
+                                count += increment;
+                                counter.textContent = Math.ceil(count) + (counter.textContent.includes('%') ? '%' : counter.textContent.includes('+') ? '+' : '');
+                                requestAnimationFrame(updateCounter);
+                            } else {
+                                counter.textContent = counter.textContent.includes('%') ? target + '%' : counter.textContent.includes('+') ? target + '+' : target;
+                            }
+                        };
+                        
+                        updateCounter();
+                    }
+                });
+            });
+            
+            counters.forEach(counter => observer.observe(counter));
+        }
+
+        // Scroll to top
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Mostrar/ocultar botón de scroll
+        function setupScrollButton() {
+            const scrollBtn = document.getElementById('habilidades-scroll-top');
+            
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    scrollBtn.classList.add('show');
+                } else {
+                    scrollBtn.classList.remove('show');
+                }
+            });
+        }
+
+        // Animación de scroll
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.fade-in-up');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationPlayState = 'running';
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            elements.forEach(element => {
+                element.style.animationPlayState = 'paused';
+                observer.observe(element);
+            });
+        }
+
+        // Animación de barras de progreso
+        function animateProgressBars() {
+            const progressBars = document.querySelectorAll('.progress-fill');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const progressBar = entry.target;
+                        const width = progressBar.style.width;
+                        progressBar.style.width = '0%';
+                        setTimeout(() => {
+                            progressBar.style.transition = 'width 2s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                            progressBar.style.width = width;
+                        }, 200);
+                    }
+                });
+            }, {
+                threshold: 0.5
+            });
+
+            progressBars.forEach(bar => observer.observe(bar));
+        }
+
+        // Timeline animation
+        function setupTimeline() {
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate');
+                    }
+                });
+            }, {
+                threshold: 0.3
+            });
+
+            timelineItems.forEach(item => observer.observe(item));
+        }
+
+        // Efecto de mouse sobre las cards
+        function setupMouseEffects() {
+            const cards = document.querySelectorAll('.certificate-card, .tech-card, .skills-column');
+            
+            cards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    
+                    const rotateX = (y - centerY) / 10;
+                    const rotateY = (centerX - x) / 10;
+                    
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(20px)`;
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
+                });
+            });
+        }
+
+        // Cerrar modal al hacer click fuera
+        document.addEventListener('click', (e) => {
+            const modal = document.getElementById('habilidades-cvModal');
+            if (e.target === modal) {
+                closeCVModal();
+            }
+        });
+
+        // Atajos de teclado específicos para habilidades
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeCVModal();
+            }
+            if (e.ctrlKey && e.key === 'd') {
+                e.preventDefault();
+                openCVModal();
+            }
+            if (e.ctrlKey && e.key === 't') {
+                e.preventDefault();
+                toggleTheme();
+            }
+        });
+
+        // Inicializar todas las funciones específicas de habilidades
+        document.addEventListener('DOMContentLoaded', () => {
+            // Restaurar tema guardado específico para habilidades
+            const savedTheme = localStorage.getItem('habilidades-darkTheme');
+            if (savedTheme === 'true') {
+                toggleTheme();
+            }
+            
+            createParticles();
+            animateOnScroll();
+            animateProgressBars();
+            setupMouseEffects();
+            setupFilters();
+            setupSearch();
+            animateCounters();
+            setupScrollButton();
+            setupTimeline();
+        });
+
+        // Smooth scrolling para navegación interna
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
     </script>
+
+    <!-- Scripts originales -->
     <script src="Recursos/navbar.js" defer></script>
 </body>
-
 </html>

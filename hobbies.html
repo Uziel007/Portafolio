@@ -1,306 +1,2942 @@
 <!DOCTYPE html>
 <html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="Recursos/styles.css" />
+    <link rel="stylesheet" href="Recursos/hobbies.css" />
+    <link rel="stylesheet" href="Recursos/contactos2.css" />
+    <link
+      rel="icon"
+      href="Recursos/iconos/gato.png"
+      type="image/png"
+      sizes="16x16"
+    />
+    <link
+      rel="icon"
+      href="Recursos/iconos/gato.png"
+      type="image/png"
+      sizes="32x32"
+    />
+    <link
+      rel="icon"
+      href="Recursos/iconos/gato.png"
+      type="image/png"
+      sizes="48x48"
+    />
+    <link
+      rel="icon"
+      href="Recursos/iconos/gato.png"
+      type="image/png"
+      sizes="64x64"
+    />
+    <title>Hobbies - Portafolio de Uziel Sánchez Marín</title>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="Recursos/styles.css">
-    <link rel="stylesheet" href="Recursos/hobbies.css">
-    <link rel="stylesheet" href="Recursos/contactos2.css">
-    <link rel="icon" href="Recursos/iconos/gato.png" type="image/png" sizes="16x16">
-    <link rel="icon" href="Recursos/iconos/gato.png" type="image/png" sizes="32x32">
-    <link rel="icon" href="Recursos/iconos/gato.png" type="image/png" sizes="48x48">
-    <link rel="icon" href="Recursos/iconos/gato.png" type="image/png" sizes="64x64">
-    <title>Habilidades - Portafolio de Uziel Sánchez Marín</title>
-</head>
+    <style>
+      /* === SECCIÓN DE ACUARISMO === */
+      .aquarium-section {
+        background: linear-gradient(
+          135deg,
+          #001122 0%,
+          #003366 50%,
+          #004488 100%
+        );
+        border-radius: 20px;
+        padding: 2rem;
+        margin: 2rem 0;
+        position: relative;
+        overflow: hidden;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto auto;
+        grid-template-areas:
+          "header header"
+          "sidebar carousel"
+          "text text";
+        gap: 2rem;
+        min-height: 600px;
+      }
 
-<body>
-    <header class="header">
-        <nav class="navbar">
-            <div class="cat">
-                <div class="ear ear--left"></div>
-                <div class="ear ear--right"></div>
-                <div class="face">
-                    <div class="eye eye--left">
-                        <div class="eye-pupil"></div>
-                    </div>
-                    <div class="eye eye--right">
-                        <div class="eye-pupil"></div>
-                    </div>
-                    <div class="muzzle"></div>
-                </div>
+      .header-acuario {
+        grid-area: header;
+        font-size: 2.5rem;
+        font-weight: bold;
+        text-align: center;
+        text-shadow: 0 0 20px rgba(78, 205, 196, 0.8);
+      }
+
+      .sidebar-acuario {
+        grid-area: sidebar;
+        padding: 1rem;
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 15px;
+        backdrop-filter: blur(10px);
+      }
+
+      .bubbles-background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .bubble {
+        position: absolute;
+        background: radial-gradient(
+          circle,
+          rgba(78, 205, 196, 0.6),
+          rgba(78, 205, 196, 0.1)
+        );
+        border-radius: 50%;
+        animation: bubble-float 8s infinite linear;
+      }
+
+      .bubble:nth-child(1) {
+        width: 20px;
+        height: 20px;
+        left: 10%;
+        animation-delay: 0s;
+      }
+      .bubble:nth-child(2) {
+        width: 15px;
+        height: 15px;
+        left: 20%;
+        animation-delay: 1s;
+      }
+      .bubble:nth-child(3) {
+        width: 25px;
+        height: 25px;
+        left: 30%;
+        animation-delay: 2s;
+      }
+      .bubble:nth-child(4) {
+        width: 18px;
+        height: 18px;
+        left: 40%;
+        animation-delay: 3s;
+      }
+      .bubble:nth-child(5) {
+        width: 22px;
+        height: 22px;
+        left: 50%;
+        animation-delay: 4s;
+      }
+      .bubble:nth-child(6) {
+        width: 16px;
+        height: 16px;
+        left: 60%;
+        animation-delay: 5s;
+      }
+      .bubble:nth-child(7) {
+        width: 24px;
+        height: 24px;
+        left: 70%;
+        animation-delay: 6s;
+      }
+      .bubble:nth-child(8) {
+        width: 19px;
+        height: 19px;
+        left: 80%;
+        animation-delay: 7s;
+      }
+      .bubble:nth-child(9) {
+        width: 21px;
+        height: 21px;
+        left: 15%;
+        animation-delay: 1.5s;
+      }
+      .bubble:nth-child(10) {
+        width: 17px;
+        height: 17px;
+        left: 85%;
+        animation-delay: 0.5s;
+      }
+
+      @keyframes bubble-float {
+        0% {
+          transform: translateY(100vh) rotate(0deg);
+          opacity: 0;
+        }
+        10% {
+          opacity: 1;
+        }
+        90% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(-100px) rotate(360deg);
+          opacity: 0;
+        }
+      }
+
+      .water-waves {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100px;
+        pointer-events: none;
+      }
+
+      .wave {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 200%;
+        height: 100px;
+        background: linear-gradient(
+          135deg,
+          rgba(78, 205, 196, 0.3),
+          rgba(52, 152, 219, 0.3)
+        );
+        border-radius: 50%;
+        animation: wave-motion 6s infinite linear;
+      }
+
+      .wave:nth-child(2) {
+        animation-delay: -3s;
+        opacity: 0.5;
+      }
+
+      @keyframes wave-motion {
+        0% {
+          transform: translateX(-50%) rotate(0deg);
+        }
+        100% {
+          transform: translateX(-50%) rotate(360deg);
+        }
+      }
+
+      .aqua-plants {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 150px;
+        pointer-events: none;
+      }
+
+      .plant {
+        position: absolute;
+        bottom: 0;
+        width: 10px;
+        background: linear-gradient(to top, #2d5016, #4a7c59);
+        border-radius: 50% 50% 0 0;
+        animation: plant-sway 4s infinite ease-in-out;
+      }
+
+      .plant:nth-child(1) {
+        left: 10%;
+        height: 80px;
+        animation-delay: 0s;
+      }
+      .plant:nth-child(2) {
+        left: 25%;
+        height: 60px;
+        animation-delay: 1s;
+      }
+      .plant:nth-child(3) {
+        left: 75%;
+        height: 90px;
+        animation-delay: 2s;
+      }
+      .plant:nth-child(4) {
+        left: 90%;
+        height: 70px;
+        animation-delay: 1.5s;
+      }
+
+      @keyframes plant-sway {
+        0%,
+        100% {
+          transform: rotate(0deg);
+        }
+        25% {
+          transform: rotate(2deg);
+        }
+        75% {
+          transform: rotate(-2deg);
+        }
+      }
+
+      /* === SECCIÓN DE JARDINERÍA Y TERRARIOS === */
+      .gardening-section {
+        background: linear-gradient(
+          135deg,
+          #2d5016 0%,
+          #4a7c59 50%,
+          #6ab04c 100%
+        );
+        border-radius: 20px;
+        padding: 2rem;
+        margin: 2rem 0;
+        position: relative;
+        overflow: hidden;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto auto;
+        grid-template-areas:
+          "header header"
+          "sidebar carousel"
+          "text text";
+        gap: 2rem;
+        min-height: 600px;
+      }
+
+      .header-gardening {
+        grid-area: header;
+        font-size: 2.5rem;
+        font-weight: bold;
+        text-align: center;
+        color: white;
+        text-shadow: 0 0 20px rgba(106, 176, 76, 0.8);
+      }
+
+      .sidebar-gardening {
+        grid-area: sidebar;
+        padding: 1rem;
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 15px;
+        backdrop-filter: blur(10px);
+        color: white;
+      }
+
+      .garden-particles {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .leaf-particle {
+        position: absolute;
+        width: 15px;
+        height: 15px;
+        background: linear-gradient(45deg, #4a7c59, #6ab04c);
+        border-radius: 0 100% 0 100%;
+        animation: leaf-fall 10s infinite linear;
+      }
+
+      .leaf-particle:nth-child(1) {
+        left: 10%;
+        animation-delay: 0s;
+      }
+      .leaf-particle:nth-child(2) {
+        left: 20%;
+        animation-delay: 2s;
+      }
+      .leaf-particle:nth-child(3) {
+        left: 30%;
+        animation-delay: 4s;
+      }
+      .leaf-particle:nth-child(4) {
+        left: 40%;
+        animation-delay: 6s;
+      }
+      .leaf-particle:nth-child(5) {
+        left: 50%;
+        animation-delay: 8s;
+      }
+      .leaf-particle:nth-child(6) {
+        left: 60%;
+        animation-delay: 1s;
+      }
+      .leaf-particle:nth-child(7) {
+        left: 70%;
+        animation-delay: 3s;
+      }
+      .leaf-particle:nth-child(8) {
+        left: 80%;
+        animation-delay: 5s;
+      }
+
+      @keyframes leaf-fall {
+        0% {
+          transform: translateY(-100px) rotate(0deg);
+          opacity: 0;
+        }
+        10% {
+          opacity: 1;
+        }
+        90% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(calc(100vh + 100px)) rotate(720deg);
+          opacity: 0;
+        }
+      }
+
+      .garden-roots {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100px;
+        pointer-events: none;
+      }
+
+      .root {
+        position: absolute;
+        bottom: 0;
+        width: 3px;
+        background: linear-gradient(to top, #8b4513, #a0522d);
+        border-radius: 50% 50% 0 0;
+        animation: root-grow 8s infinite ease-in-out;
+      }
+
+      .root:nth-child(1) {
+        left: 15%;
+        height: 60px;
+        animation-delay: 0s;
+      }
+      .root:nth-child(2) {
+        left: 35%;
+        height: 40px;
+        animation-delay: 2s;
+      }
+      .root:nth-child(3) {
+        left: 55%;
+        height: 70px;
+        animation-delay: 4s;
+      }
+      .root:nth-child(4) {
+        left: 75%;
+        height: 50px;
+        animation-delay: 6s;
+      }
+
+      @keyframes root-grow {
+        0%,
+        100% {
+          transform: scaleY(0.8);
+        }
+        50% {
+          transform: scaleY(1.2);
+        }
+      }
+
+      /* === DIGITAL ENTERTAINMENT === */
+      .digital-entertainment {
+        background: linear-gradient(
+          135deg,
+          #0f0f23 0%,
+          #1a1a2e 50%,
+          #16213e 100%
+        );
+        border-radius: 20px;
+        padding: 2rem;
+        margin: 2rem 0;
+        position: relative;
+        overflow: hidden;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto auto;
+        grid-template-areas:
+          "header header"
+          "sidebar carousel"
+          "text text";
+        gap: 2rem;
+        min-height: 600px;
+      }
+
+      .header-digital {
+        grid-area: header;
+        font-size: 2.5rem;
+        font-weight: bold;
+        text-align: center;
+        color: white;
+        text-shadow: 0 0 20px rgba(255, 107, 107, 0.8);
+        position: relative;
+      }
+
+      .sidebar-digital {
+        grid-area: sidebar;
+        padding: 1rem;
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 15px;
+        backdrop-filter: blur(10px);
+        color: white;
+        position: relative;
+        z-index: 2;
+      }
+
+      /* Partículas pixeladas para gaming */
+      .pixel-particles {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .pixel {
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        background: #ff6b6b;
+        animation: pixel-glow 3s infinite alternate;
+      }
+
+      .pixel:nth-child(1) {
+        left: 10%;
+        top: 20%;
+        background: #4ecdc4;
+        animation-delay: 0s;
+      }
+      .pixel:nth-child(2) {
+        left: 30%;
+        top: 40%;
+        background: #45b7d1;
+        animation-delay: 0.5s;
+      }
+      .pixel:nth-child(3) {
+        left: 50%;
+        top: 15%;
+        background: #96ceb4;
+        animation-delay: 1s;
+      }
+      .pixel:nth-child(4) {
+        left: 70%;
+        top: 35%;
+        background: #feca57;
+        animation-delay: 1.5s;
+      }
+      .pixel:nth-child(5) {
+        left: 90%;
+        top: 60%;
+        background: #ff9ff3;
+        animation-delay: 2s;
+      }
+      .pixel:nth-child(6) {
+        left: 20%;
+        top: 70%;
+        background: #54a0ff;
+        animation-delay: 0.3s;
+      }
+      .pixel:nth-child(7) {
+        left: 60%;
+        top: 80%;
+        background: #5f27cd;
+        animation-delay: 0.8s;
+      }
+      .pixel:nth-child(8) {
+        left: 80%;
+        top: 10%;
+        background: #ff6348;
+        animation-delay: 1.3s;
+      }
+
+      @keyframes pixel-glow {
+        0% {
+          opacity: 0.3;
+          transform: scale(1);
+          box-shadow: 0 0 5px currentColor;
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1.5);
+          box-shadow: 0 0 20px currentColor;
+        }
+      }
+
+      /* Líneas de código matrix */
+      .code-rain {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .code-line {
+        position: absolute;
+        top: -20px;
+        color: #00ff00;
+        font-family: "Courier New", monospace;
+        font-size: 12px;
+        opacity: 0.7;
+        animation: matrix-fall 8s infinite linear;
+      }
+
+      .code-line:nth-child(1) {
+        left: 5%;
+        animation-delay: 0s;
+      }
+      .code-line:nth-child(2) {
+        left: 15%;
+        animation-delay: 2s;
+      }
+      .code-line:nth-child(3) {
+        left: 25%;
+        animation-delay: 4s;
+      }
+      .code-line:nth-child(4) {
+        left: 35%;
+        animation-delay: 6s;
+      }
+      .code-line:nth-child(5) {
+        left: 45%;
+        animation-delay: 1s;
+      }
+      .code-line:nth-child(6) {
+        left: 55%;
+        animation-delay: 3s;
+      }
+      .code-line:nth-child(7) {
+        left: 65%;
+        animation-delay: 5s;
+      }
+      .code-line:nth-child(8) {
+        left: 75%;
+        animation-delay: 7s;
+      }
+      .code-line:nth-child(9) {
+        left: 85%;
+        animation-delay: 0.5s;
+      }
+      .code-line:nth-child(10) {
+        left: 95%;
+        animation-delay: 1.5s;
+      }
+
+      @keyframes matrix-fall {
+        0% {
+          transform: translateY(-100px);
+          opacity: 0;
+        }
+        10% {
+          opacity: 0.7;
+        }
+        90% {
+          opacity: 0.7;
+        }
+        100% {
+          transform: translateY(calc(100vh + 100px));
+          opacity: 0;
+        }
+      }
+
+      /* Controlador de juego animado */
+      .game-controller {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        width: 60px;
+        height: 40px;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        border-radius: 10px 10px 30px 30px;
+        animation: controller-pulse 3s infinite;
+      }
+
+      .game-controller::before,
+      .game-controller::after {
+        content: "";
+        position: absolute;
+        width: 15px;
+        height: 15px;
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        top: 10px;
+      }
+
+      .game-controller::before {
+        left: 8px;
+      }
+      .game-controller::after {
+        right: 8px;
+      }
+
+      @keyframes controller-pulse {
+        0%,
+        100% {
+          transform: scale(1);
+          box-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
+        }
+        50% {
+          transform: scale(1.1);
+          box-shadow: 0 0 20px rgba(118, 75, 162, 0.8);
+        }
+      }
+
+      /* === CARRUSELES === */
+      .carrusel {
+        position: relative;
+        width: 100%;
+        max-width: 500px;
+        height: 300px;
+        overflow: hidden;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        z-index: 2;
+      }
+
+      .carrusel-vertical {
+        grid-area: carousel;
+      }
+
+      .carrusel-horizontal {
+        grid-area: carousel;
+      }
+
+      .carrusel-gardening {
+        grid-area: carousel;
+      }
+
+      .carrusel-imagenes {
+        display: flex;
+        transition: transform 0.5s ease;
+        height: 100%;
+      }
+
+      .carrusel-imagenes img {
+        min-width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 15px;
+      }
+
+      .carrusel-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(0, 0, 0, 0.7);
+        color: white;
+        border: none;
+        padding: 15px 20px;
+        cursor: pointer;
+        font-size: 18px;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+        z-index: 10;
+      }
+
+      .carrusel-btn:hover {
+        background: rgba(0, 0, 0, 0.9);
+        transform: translateY(-50%) scale(1.1);
+      }
+
+      .carrusel-btn.prev {
+        left: 10px;
+      }
+
+      .carrusel-btn.next {
+        right: 10px;
+      }
+
+      .carrusel-texto {
+        grid-area: text;
+        background: rgba(0, 0, 0, 0.3);
+        padding: 1rem;
+        border-radius: 15px;
+        backdrop-filter: blur(10px);
+        margin-top: 1rem;
+        font-size: 1.1rem;
+        line-height: 1.6;
+      }
+
+      /* Carrusel automático para jardinería */
+      .auto-carousel {
+        position: relative;
+        width: 100%;
+        max-width: 500px;
+        height: 300px;
+        overflow: hidden;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        z-index: 2;
+      }
+
+      .auto-slides {
+        display: flex;
+        transition: transform 0.8s ease;
+        height: 100%;
+      }
+
+      .auto-slide {
+        min-width: 100%;
+        height: 100%;
+      }
+
+      .auto-slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 15px;
+      }
+
+      /* Indicadores del carrusel */
+      .carousel-indicators {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 10px;
+        z-index: 10;
+      }
+
+      .indicator {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.5);
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .indicator.active {
+        background: white;
+        transform: scale(1.2);
+      }
+
+      /* === OTRAS SECCIONES === */
+      .dual-section-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        margin: 2rem 0;
+      }
+
+      .mentoring-section,
+      .projects-section {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 20px;
+        padding: 2rem;
+        position: relative;
+        overflow: hidden;
+        color: white;
+      }
+
+      .mentoring-header,
+      .projects-header {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      .mentoring-header h2,
+      .projects-header h2 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+      }
+
+      .mentor-icon,
+      .project-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+      }
+
+      .mentoring-content,
+      .projects-content {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        z-index: 2;
+        position: relative;
+      }
+
+      .mentor-card,
+      .project-card {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 1.5rem;
+        border-radius: 15px;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        transition: transform 0.3s ease;
+      }
+
+      .mentor-card:hover,
+      .project-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .card-icon {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+      }
+
+      .mentor-card h4,
+      .project-card h4 {
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+      }
+
+      /* Animaciones de fondo */
+      .brain-animation,
+      .code-particles {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .knowledge-particle,
+      .code-particle {
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        background: rgba(255, 255, 255, 0.6);
+        border-radius: 50%;
+        animation: particle-float 4s infinite ease-in-out;
+      }
+
+      .knowledge-particle:nth-child(1) {
+        left: 10%;
+        top: 20%;
+        animation-delay: 0s;
+      }
+      .knowledge-particle:nth-child(2) {
+        left: 80%;
+        top: 30%;
+        animation-delay: 1s;
+      }
+      .knowledge-particle:nth-child(3) {
+        left: 20%;
+        top: 70%;
+        animation-delay: 2s;
+      }
+      .knowledge-particle:nth-child(4) {
+        left: 70%;
+        top: 80%;
+        animation-delay: 3s;
+      }
+
+      .code-particle:nth-child(1) {
+        left: 15%;
+        top: 25%;
+        animation-delay: 0s;
+      }
+      .code-particle:nth-child(2) {
+        left: 85%;
+        top: 35%;
+        animation-delay: 0.5s;
+      }
+      .code-particle:nth-child(3) {
+        left: 25%;
+        top: 65%;
+        animation-delay: 1s;
+      }
+      .code-particle:nth-child(4) {
+        left: 75%;
+        top: 75%;
+        animation-delay: 1.5s;
+      }
+      .code-particle:nth-child(5) {
+        left: 45%;
+        top: 15%;
+        animation-delay: 2s;
+      }
+      .code-particle:nth-child(6) {
+        left: 65%;
+        top: 45%;
+        animation-delay: 2.5s;
+      }
+      .code-particle:nth-child(7) {
+        left: 35%;
+        top: 85%;
+        animation-delay: 3s;
+      }
+
+      @keyframes particle-float {
+        0%,
+        100% {
+          transform: translateY(0px) rotate(0deg);
+          opacity: 0.6;
+        }
+        25% {
+          transform: translateY(-20px) rotate(90deg);
+          opacity: 1;
+        }
+        50% {
+          transform: translateY(0px) rotate(180deg);
+          opacity: 0.6;
+        }
+        75% {
+          transform: translateY(-10px) rotate(270deg);
+          opacity: 1;
+        }
+      }
+
+      /* === OTRAS SECCIONES CONTINUACIÓN === */
+      .automation-section {
+        background: linear-gradient(
+          135deg,
+          #2c3e50 0%,
+          #34495e 50%,
+          #2c3e50 100%
+        );
+        border-radius: 20px;
+        padding: 2rem;
+        margin: 2rem 0;
+        position: relative;
+        overflow: hidden;
+        color: white;
+      }
+
+      .circuit-background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .circuit-line {
+        position: absolute;
+        background: linear-gradient(90deg, #3498db, #e74c3c);
+        height: 2px;
+        animation: circuit-pulse 3s infinite;
+      }
+
+      .circuit-line:nth-child(1) {
+        top: 20%;
+        left: 10%;
+        width: 80%;
+      }
+      .circuit-line:nth-child(2) {
+        top: 50%;
+        left: 5%;
+        width: 90%;
+        animation-delay: 1s;
+      }
+      .circuit-line:nth-child(3) {
+        top: 80%;
+        left: 15%;
+        width: 70%;
+        animation-delay: 2s;
+      }
+
+      @keyframes circuit-pulse {
+        0%,
+        100% {
+          opacity: 0.3;
+        }
+        50% {
+          opacity: 1;
+          box-shadow: 0 0 10px currentColor;
+        }
+      }
+
+      .circuit-node {
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        background: #e74c3c;
+        border-radius: 50%;
+        animation: node-blink 2s infinite;
+      }
+
+      .circuit-node:nth-child(4) {
+        top: 18%;
+        left: 50%;
+      }
+      .circuit-node:nth-child(5) {
+        top: 48%;
+        left: 30%;
+        animation-delay: 0.7s;
+      }
+      .circuit-node:nth-child(6) {
+        top: 78%;
+        left: 70%;
+        animation-delay: 1.4s;
+      }
+
+      @keyframes node-blink {
+        0%,
+        50% {
+          opacity: 0.5;
+          transform: scale(1);
+        }
+        25% {
+          opacity: 1;
+          transform: scale(1.5);
+          box-shadow: 0 0 15px #e74c3c;
+        }
+      }
+
+      .automation-header {
+        text-align: center;
+        margin-bottom: 2rem;
+        z-index: 2;
+        position: relative;
+      }
+
+      .automation-header h2 {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+        text-shadow: 0 0 20px rgba(52, 152, 219, 0.8);
+      }
+
+      .automation-subtitle {
+        font-size: 1.2rem;
+        opacity: 0.8;
+      }
+
+      .automation-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        z-index: 2;
+        position: relative;
+      }
+
+      .automation-text {
+        background: rgba(0, 0, 0, 0.3);
+        padding: 2rem;
+        border-radius: 15px;
+        backdrop-filter: blur(10px);
+      }
+
+      .automation-text h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        color: #3498db;
+      }
+
+      .automation-text p {
+        margin-bottom: 1rem;
+        line-height: 1.6;
+      }
+
+      .automation-carousel {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .video-carousel {
+        position: relative;
+        width: 100%;
+        max-width: 500px;
+        height: 300px;
+        overflow: hidden;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      }
+
+      .video-slides {
+        display: flex;
+        transition: transform 0.8s ease;
+        height: 100%;
+      }
+
+      .video-slide {
+        min-width: 100%;
+        height: 100%;
+        position: relative;
+      }
+
+      .video-slide video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 15px;
+      }
+
+      .video-caption {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+        color: white;
+        padding: 1rem;
+        font-size: 0.9rem;
+      }
+
+      .video-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(0, 0, 0, 0.7);
+        color: white;
+        border: none;
+        padding: 15px 20px;
+        cursor: pointer;
+        font-size: 18px;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+        z-index: 10;
+      }
+
+      .video-btn:hover {
+        background: rgba(0, 0, 0, 0.9);
+        transform: translateY(-50%) scale(1.1);
+      }
+
+      .video-btn.prev {
+        left: 10px;
+      }
+      .video-btn.next {
+        right: 10px;
+      }
+
+      /* === LEARNING SECTION === */
+      .learning-section {
+        background: linear-gradient(135deg, #8e44ad 0%, #3498db 100%);
+        border-radius: 20px;
+        padding: 2rem;
+        margin: 2rem 0;
+        position: relative;
+        overflow: hidden;
+        color: white;
+      }
+
+      .floating-books {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .book {
+        position: absolute;
+        width: 20px;
+        height: 25px;
+        background: linear-gradient(135deg, #f39c12, #e74c3c);
+        border-radius: 2px;
+        animation: book-float 6s infinite ease-in-out;
+      }
+
+      .book:nth-child(1) {
+        left: 10%;
+        top: 20%;
+        animation-delay: 0s;
+      }
+      .book:nth-child(2) {
+        left: 80%;
+        top: 30%;
+        animation-delay: 1.2s;
+        background: linear-gradient(135deg, #2ecc71, #27ae60);
+      }
+      .book:nth-child(3) {
+        left: 20%;
+        top: 70%;
+        animation-delay: 2.4s;
+        background: linear-gradient(135deg, #3498db, #2980b9);
+      }
+      .book:nth-child(4) {
+        left: 70%;
+        top: 15%;
+        animation-delay: 3.6s;
+        background: linear-gradient(135deg, #9b59b6, #8e44ad);
+      }
+      .book:nth-child(5) {
+        left: 50%;
+        top: 60%;
+        animation-delay: 4.8s;
+        background: linear-gradient(135deg, #e67e22, #d35400);
+      }
+
+      @keyframes book-float {
+        0%,
+        100% {
+          transform: translateY(0px) rotate(0deg);
+        }
+        25% {
+          transform: translateY(-30px) rotate(5deg);
+        }
+        50% {
+          transform: translateY(0px) rotate(0deg);
+        }
+        75% {
+          transform: translateY(-15px) rotate(-5deg);
+        }
+      }
+
+      .learning-header {
+        text-align: center;
+        margin-bottom: 2rem;
+        z-index: 2;
+        position: relative;
+      }
+
+      .learning-header h2 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+      }
+
+      .brain-icon {
+        font-size: 3rem;
+      }
+
+      .learning-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        z-index: 2;
+        position: relative;
+      }
+
+      .learning-text {
+        background: rgba(0, 0, 0, 0.3);
+        padding: 2rem;
+        border-radius: 15px;
+        backdrop-filter: blur(10px);
+      }
+
+      .learning-text h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        color: #f39c12;
+      }
+
+      .learning-text p {
+        margin-bottom: 1rem;
+        line-height: 1.6;
+      }
+
+      .cert-carousel {
+        position: relative;
+        width: 100%;
+        max-width: 400px;
+        overflow: hidden;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        margin: 0 auto;
+      }
+
+      .cert-slides {
+        display: flex;
+        transition: transform 0.8s ease;
+        height: 300px;
+      }
+
+      .cert-slides img {
+        min-width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 15px;
+      }
+
+      .cert-btn {
+        position: absolute;
+        top: 20%; /* Cambiado de 50% a 20% para mover las flechas hacia arriba */
+        transform: translateY(-50%);
+        background: rgba(0, 0, 0, 0.7);
+        color: white;
+        border: none;
+        padding: 15px 20px;
+        cursor: pointer;
+        font-size: 18px;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+        z-index: 10;
+      }
+
+      .cert-btn:hover {
+        background: rgba(0, 0, 0, 0.9);
+        transform: translateY(-50%) scale(1.1);
+      }
+
+      .cert-btn.prev {
+        left: 10px;
+      }
+
+      .cert-btn.next {
+        right: 10px;
+      }
+
+      .cert-caption {
+        background: rgba(0, 0, 0, 0.3);
+        padding: 1rem;
+        border-radius: 15px;
+        backdrop-filter: blur(10px);
+        margin-top: 1rem;
+        text-align: center;
+        font-size: 0.9rem;
+        line-height: 1.4;
+      }
+
+      /* === PROGRAMMING PASSION === */
+      .programming-passion {
+        background: linear-gradient(
+          135deg,
+          #0c0c0c 0%,
+          #1a1a2e 50%,
+          #16213e 100%
+        );
+        border-radius: 20px;
+        padding: 3rem;
+        margin: 2rem 0;
+        position: relative;
+        overflow: hidden;
+        color: white;
+      }
+
+      .code-particles-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .particle-bg {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        background: #4ecdc4;
+        border-radius: 50%;
+        animation: particle-bg-float 8s infinite linear;
+      }
+
+      .particle-bg:nth-child(1) {
+        left: 10%;
+        animation-delay: 0s;
+      }
+      .particle-bg:nth-child(2) {
+        left: 30%;
+        animation-delay: 1.6s;
+        background: #ff6b6b;
+      }
+      .particle-bg:nth-child(3) {
+        left: 50%;
+        animation-delay: 3.2s;
+        background: #4ecdc4;
+      }
+      .particle-bg:nth-child(4) {
+        left: 70%;
+        animation-delay: 4.8s;
+        background: #45b7d1;
+      }
+      .particle-bg:nth-child(5) {
+        left: 90%;
+        animation-delay: 6.4s;
+        background: #96ceb4;
+      }
+
+      @keyframes particle-bg-float {
+        0% {
+          transform: translateY(100vh);
+          opacity: 0;
+        }
+        10% {
+          opacity: 1;
+        }
+        90% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(-100px);
+          opacity: 0;
+        }
+      }
+
+      .programming-header {
+        text-align: center;
+        margin-bottom: 3rem;
+        z-index: 2;
+        position: relative;
+      }
+
+      .programming-title {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        background: linear-gradient(135deg, #4ecdc4, #ff6b6b);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-shadow: 0 0 30px rgba(78, 205, 196, 0.5);
+      }
+
+      .programming-subtitle {
+        font-size: 1.3rem;
+        opacity: 0.8;
+        font-style: italic;
+      }
+
+      .code-matrix {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-bottom: 3rem;
+        z-index: 2;
+        position: relative;
+      }
+
+      .code-block {
+        background: rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(78, 205, 196, 0.3);
+        border-radius: 15px;
+        padding: 2rem;
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+      }
+
+      .code-block:hover {
+        transform: translateY(-10px);
+        border-color: rgba(78, 205, 196, 0.7);
+        box-shadow: 0 15px 35px rgba(78, 205, 196, 0.2);
+      }
+
+      .code-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1rem;
+      }
+
+      .code-icon {
+        width: 40px;
+        height: 40px;
+        background: linear-gradient(135deg, #4ecdc4, #ff6b6b);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        margin-right: 1rem;
+        font-size: 0.9rem;
+      }
+
+      .code-title {
+        font-size: 1.2rem;
+        color: #4ecdc4;
+        margin: 0;
+      }
+
+      .code-content {
+        line-height: 1.6;
+        opacity: 0.9;
+      }
+
+      .skills-terminal {
+        background: #1a1a1a;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        z-index: 2;
+        position: relative;
+      }
+
+      .terminal-header {
+        background: #333;
+        padding: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .terminal-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+      }
+
+      .dot-red {
+        background: #ff5f56;
+      }
+      .dot-yellow {
+        background: #ffbd2e;
+      }
+      .dot-green {
+        background: #27ca3f;
+      }
+
+      .terminal-title {
+        margin-left: 1rem;
+        color: #ccc;
+        font-family: "Courier New", monospace;
+      }
+
+      .terminal-content {
+        padding: 2rem;
+        font-family: "Courier New", monospace;
+        color: #00ff00;
+        line-height: 1.6;
+        background: #000;
+      }
+
+      .cursor {
+        animation: cursor-blink 1s infinite;
+      }
+
+      @keyframes cursor-blink {
+        0%,
+        50% {
+          opacity: 1;
+        }
+        51%,
+        100% {
+          opacity: 0;
+        }
+      }
+
+      /* === MEDIA QUERIES RESPONSIVAS === */
+      @media (max-width: 1200px) {
+        .container {
+          padding: 1rem;
+        }
+
+        .aquarium-section,
+        .gardening-section,
+        .digital-entertainment {
+          grid-template-columns: 1fr;
+          grid-template-areas:
+            "header"
+            "sidebar"
+            "carousel"
+            "text";
+          min-height: auto;
+        }
+
+        .dual-section-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .automation-content,
+        .learning-content {
+          grid-template-columns: 1fr;
+        }
+
+        .code-matrix {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .navbar {
+          flex-direction: column;
+          gap: 1rem;
+          padding: 1rem;
+        }
+
+        .nav-links {
+          flex-direction: column;
+          width: 100%;
+          text-align: center;
+          gap: 1rem;
+        }
+
+        .logo {
+          font-size: 1.2rem;
+        }
+
+        .header-acuario,
+        .header-gardening,
+        .header-digital {
+          font-size: 2rem;
+        }
+
+        .programming-title {
+          font-size: 2rem;
+        }
+
+        .carrusel,
+        .auto-carousel,
+        .video-carousel,
+        .cert-carousel {
+          max-width: 100%;
+          height: 250px;
+        }
+
+        .carrusel-btn,
+        .video-btn,
+        .cert-btn {
+          padding: 10px 15px;
+          font-size: 14px;
+        }
+
+        .automation-text,
+        .learning-text {
+          padding: 1rem;
+        }
+
+        .code-block {
+          padding: 1.5rem;
+        }
+
+        .terminal-content {
+          padding: 1rem;
+          font-size: 0.9rem;
+        }
+
+        .moj {
+          grid-template-columns: repeat(4, 1fr);
+          gap: 0.5rem;
+        }
+
+        .moj a {
+          width: 40px;
+          height: 40px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .container {
+          padding: 0.5rem;
+        }
+
+        .aquarium-section,
+        .gardening-section,
+        .digital-entertainment,
+        .mentoring-section,
+        .projects-section,
+        .automation-section,
+        .learning-section,
+        .programming-passion {
+          padding: 1rem;
+          margin: 1rem 0;
+        }
+
+        .header-acuario,
+        .header-gardening,
+        .header-digital {
+          font-size: 1.5rem;
+        }
+
+        .programming-title {
+          font-size: 1.8rem;
+        }
+
+        .carrusel,
+        .auto-carousel,
+        .video-carousel,
+        .cert-carousel {
+          height: 200px;
+        }
+
+        .loading-text {
+          font-size: 1.5rem;
+        }
+
+        .pacman div {
+          width: 15px;
+          height: 15px;
+        }
+
+        table {
+          padding: 1rem;
+        }
+
+        .moj {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header class="modern-header">
+      <nav class="modern-navigation">
+        <div class="cat">
+          <div class="ear ear--left"></div>
+          <div class="ear ear--right"></div>
+          <div class="face">
+            <div class="eye eye--left">
+              <div class="eye-pupil"></div>
             </div>
-            <h1 class="h1relleno">Hol</h1>
-            <div class="logo">Uziel Sánchez Marín</div>
-            <ul class="nav-links">
-                <li><a href="index.html">Perfil</a></li>
-                <li><a href="habilidades.html#habilidades">Habilidades</a></li>
-                <li><a href="experiencia.html#experiencia">Experiencia</a></li>
-                <li><a href="hobbies.html#hobbies">Hobbies</a></li>
-            </ul>
-        </nav>
+            <div class="eye eye--right">
+              <div class="eye-pupil"></div>
+            </div>
+            <div class="muzzle"></div>
+          </div>
+        </div>
+        <div class="brand-title">Uziel Sánchez Marín</div>
+        <ul class="navigation-menu">
+          <li><a href="index.html" class="nav-item">Perfil</a></li>
+          <li>
+            <a href="habilidades.html#habilidades" class="nav-item"
+              >Habilidades</a
+            >
+          </li>
+          <li>
+            <a href="experiencia.html#experiencia" class="nav-item"
+              >Experiencia</a
+            >
+          </li>
+          <li><a href="hobbies.html#hobbies" class="nav-item">Hobbies</a></li>
+        </ul>
+      </nav>
     </header>
 
     <main>
-        <!-- Sección de carga -->
-        <section id="loading" class="section">
-            <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-            <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-            <!-- Google Font Import -->
-            <div class="centered">
-                <div class="pacman">
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                </div>
-                <div class="loading-text">Loading</div>
+      <!-- Sección de carga -->
+      <section id="loading" class="section">
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1"
+        />
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+          rel="stylesheet"
+        />
+        <div class="centered">
+          <div class="pacman">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+          <div class="loading-text">Loading</div>
+        </div>
+      </section>
+
+      <!-- Sección de Hobbies -->
+      <section id="hobbies" class="section" style="display: none">
+        <div class="container">
+          <!-- Sección de Acuarismo con Animaciones Avanzadas -->
+          <div class="aquarium-section">
+            <div class="bubbles-background">
+              <div class="bubble"></div>
+              <div class="bubble"></div>
+              <div class="bubble"></div>
+              <div class="bubble"></div>
+              <div class="bubble"></div>
+              <div class="bubble"></div>
+              <div class="bubble"></div>
+              <div class="bubble"></div>
+              <div class="bubble"></div>
+              <div class="bubble"></div>
             </div>
-            <h1 class="h1relleno2">Hol</h1>
-            <h1 class="h1relleno2">Hol</h1>
-            <h1 class="h1relleno2">Hol</h1>
-            <h1 class="h1relleno2">Hol</h1>
-            <h1 class="h1relleno2">Hol</h1>
-            <h1 class="h1relleno2">Hol</h1>
-            <h1 class="h1relleno2">Hol</h1>
-            <h1 class="h1relleno2">Hol</h1>
-            <h1 class="h1relleno2">Hol</h1>
-            <h1 class="h1relleno2">Hol</h1>
-            <h1 class="h1relleno2">Hol</h1>
-            <h1 class="h1relleno2">Hol</h1>
-            <h1 class="h1relleno2">Hol</h1>
-            <h1 class="h1relleno2">Hol</h1>
-            <h1 class="h1relleno2">Hol</h1>
-        </section>
 
-        <!-- Sección de Hobbies -->
-        <section id="hobbies" class="section" style="display: none;">
-            <div class="container">
-                <div class="item header-acuario" style="color: white;">Acuarismo</div>
-                <div class="item sidebar-acuario" style="color: white;">
-                    <h3>Cómo me gusta el acuarismo</h3>
-                    <p>El acuarismo me ha enseñado paciencia, responsabilidad y dedicación. Me ha ayudado a organizarme
-                        mejor, tanto en mi vida personal como en mi trabajo profesional. Me encanta cuidar de mis
-                        acuarios, que son de ajolotes, gambas y peces amazónicos plantados, porque me permiten conectar
-                        con la naturaleza y me enseñan sobre los ecosistemas acuáticos.</p>
+            <div class="water-waves">
+              <div class="wave"></div>
+              <div class="wave"></div>
+            </div>
+
+            <div class="aqua-plants">
+              <div class="plant"></div>
+              <div class="plant"></div>
+              <div class="plant"></div>
+              <div class="plant"></div>
+            </div>
+
+            <div class="header-acuario">Acuarismo</div>
+            <div class="sidebar-acuario">
+              <h3>Cómo me gusta el acuarismo</h3>
+              <p>
+                El acuarismo me ha enseñado paciencia, responsabilidad y
+                dedicación. Me ha ayudado a organizarme mejor, tanto en mi vida
+                personal como en mi trabajo profesional. Me encanta cuidar de
+                mis acuarios, que son de ajolotes, gambas y peces amazónicos
+                plantados, porque me permiten conectar con la naturaleza y me
+                enseñan sobre los ecosistemas acuáticos.
+              </p>
+            </div>
+
+            <!-- Carrusel de Acuarismo -->
+            <div class="carrusel carrusel-vertical">
+              <div class="carrusel-imagenes" id="imagenes-vertical">
+                <img
+                  src="Recursos/hobbies/acuarios/calciferentronco.jpg"
+                  alt="Calcifer, mi ajolote, descansando sobre su tronco favorito. Me gusta ver cómo explora su entorno con curiosidad."
+                />
+                <img
+                  src="Recursos/hobbies/acuarios/calcifermirando.jpg"
+                  alt="Calcifer observando todo a su alrededor. Es increíble cómo este pequeño ser tiene tanta personalidad y energía."
+                />
+                <img
+                  src="Recursos/hobbies/acuarios/colisaroja.jpg"
+                  alt="Mi colisa roja, un pez con colores vibrantes y una actitud tranquila que aporta belleza y equilibrio a mi acuario."
+                />
+                <img
+                  src="Recursos/hobbies/acuarios/escalarnegro.jpg"
+                  alt="Uno de mis escalares negros. Me gusta su elegancia y la forma en que se desliza suavemente por el agua."
+                />
+                <img
+                  src="Recursos/hobbies/acuarios/escritorio.jpg"
+                  alt="Mi escritorio de trabajo, donde conviven mis pasiones: la acuariofilia, la programación y los videojuegos."
+                />
+                <img
+                  src="Recursos/hobbies/acuarios/gamba.jpg"
+                  alt="Una de mis gambas en el acuario, siempre activa y ayudando a mantener el ecosistema limpio."
+                />
+                <img
+                  src="Recursos/hobbies/acuarios/gambaembarazada.jpg"
+                  alt="Gamba embarazada con huevos visibles. Me gusta ver cómo se desarrolla la vida en mi acuario y cómo crecen las nuevas generaciones."
+                />
+                <img
+                  src="Recursos/hobbies/acuarios/otocinclo.jpg"
+                  alt="Mi pez otocinclus, un trabajador incansable que ayuda a mantener el acuario libre de algas de forma natural."
+                />
+                <img
+                  src="Recursos/hobbies/acuarios/puestadehuevos.jpg"
+                  alt="Un momento especial en mi acuario: la puesta de huevos. Me encanta ver cómo mis peces crean vida y cuidan su descendencia."
+                />
+                <img
+                  src="Recursos/hobbies/acuarios/tertraneonambiente.jpg"
+                  alt="Un tetra neón nadando entre las plantas. Me gusta su color brillante y cómo añade movimiento y vida al acuario."
+                />
+                <img
+                  src="Recursos/hobbies/acuarios/troncoconplantas.jpg"
+                  alt="Tronco con plantas acuáticas, un elemento clave en mi acuario para proporcionar refugio y equilibrio natural."
+                />
+              </div>
+              <button
+                class="carrusel-btn prev"
+                onclick="moverCarrusel('vertical', -1)"
+              >
+                &#10094;
+              </button>
+              <button
+                class="carrusel-btn next"
+                onclick="moverCarrusel('vertical', 1)"
+              >
+                &#10095;
+              </button>
+            </div>
+            <div class="carrusel-texto" id="texto-vertical"></div>
+          </div>
+
+          <!-- Sección de Jardinería y Terrarios -->
+          <div class="gardening-section">
+            <div class="garden-particles">
+              <div class="leaf-particle"></div>
+              <div class="leaf-particle"></div>
+              <div class="leaf-particle"></div>
+              <div class="leaf-particle"></div>
+              <div class="leaf-particle"></div>
+              <div class="leaf-particle"></div>
+              <div class="leaf-particle"></div>
+              <div class="leaf-particle"></div>
+            </div>
+
+            <div class="garden-roots">
+              <div class="root"></div>
+              <div class="root"></div>
+              <div class="root"></div>
+              <div class="root"></div>
+            </div>
+
+            <div class="header-gardening">Jardinería & Terrarios</div>
+            <div class="sidebar-gardening">
+              <h3>Mi conexión con la naturaleza</h3>
+              <p>
+                La jardinería y el mundo de los terrarios representan mi lado
+                más contemplativo y creativo. Me fascina crear pequeños
+                ecosistemas autosuficientes donde cada planta tiene su papel
+                específico. Desde suculentas resistentes hasta delicados musgos,
+                cada terrario cuenta una historia única. Esta pasión me ha
+                enseñado sobre el equilibrio natural, la paciencia y la belleza
+                de los procesos orgánicos.
+              </p>
+            </div>
+
+            <!-- Carrusel Automático de Jardinería -->
+            <div class="auto-carousel carrusel-gardening">
+              <div class="auto-slides" id="garden-slides">
+                <
+                <div class="auto-slide">
+                  <img
+                    src="Recursos/hobbies/jardineria/jardineria1.jpg"
+                    alt="Fotografía de mi terrario en el que habita mi serpiente pitón bola. En la imagen se aprecia cómo el espacio está cuidadosamente diseñado para brindarle comodidad, seguridad y un entorno controlado. El terrario está decorado con detalles naturales que recrean de manera visual un hábitat lo más parecido posible a su ambiente original."
+                  />
                 </div>
-                <style>
-                    * {
-                        box-sizing: border-box;
-                        margin: 0;
-                        padding: 0;
-                    }
-            
-                    .container {
-                        display: flex;
-                        flex-direction: column;
-                        align-items: center;
-                        justify-content: center;
-                        width: 100%;
-                        padding: 20px;
-                    }
-            
-                    /* Estilos generales para los carruseles */
-                    .carrusel {
-                        position: relative;
-                        overflow: hidden;
-                        border-radius: 10px;
-                        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-                        margin-bottom: 30px;
-                    }
-            
-                    .carrusel-imagenes {
-                        display: flex;
-                        transition: transform 0.5s ease-in-out;
-                    }
-            
-                    .carrusel-imagenes img {
-                        width: 100%;
-                        border-radius: 10px;
-                    }
-            
-                    .carrusel-btn {
-                        position: absolute;
-                        top: 50%;
-                        transform: translateY(-50%);
-                        background: rgba(0, 0, 0, 0.5);
-                        color: white;
-                        border: none;
-                        padding: 10px;
-                        cursor: pointer;
-                        font-size: 18px;
-                        border-radius: 50%;
-                    }
-            
-                    .carrusel-btn:hover {
-                        background: rgba(0, 0, 0, 0.8);
-                    }
-            
-                    .prev {
-                        left: 10px;
-                    }
-            
-                    .next {
-                        right: 10px;
-                    }
-            
-                    .carrusel-texto {
-                        margin-top: 10px;
-                        font-size: 16px;
-                        color: #333;
-                        text-align: center;
-                        font-weight: bold;
-                    }
-            
-                    /* Primer carrusel (Vertical estándar) */
-                    .carrusel-vertical {
-                        width: 100%;
-                        max-width: 600px;
-                    }
-            
-                    /* Carrusel horizontal */
-                    .carrusel-horizontal {
-                        width: 100%;
-                        max-width: 900px; /* Ajuste de ancho */
-                    }
 
-                    @media (max-width: 768px) {
-                        .carrusel-horizontal {
-                            max-width: 100%;
-                        }
-                    }   
-                    table {
-                        width: 100%;
-                        border-collapse: collapse;
-                    }
-                    td {
-                        width: 50%;
-                        padding: 10px;
-                        vertical-align: top;
-                    }
-                    
-                </style>
-            <body>
-            
-                <div class="container">
-                    <!-- Primer Carrusel (Normal) -->
-                    <div class="carrusel carrusel-vertical">
-                        <div class="carrusel-imagenes" id="imagenes-vertical">
-                            <img src="Recursos/hobbies/acuarios/calciferentronco.jpg" alt="Calcifer, mi ajolote, descansando sobre su tronco favorito. Me gusta ver cómo explora su entorno con curiosidad.">
-                            <img src="Recursos/hobbies/acuarios/calcifermirando.jpg" alt="Calcifer observando todo a su alrededor. Es increíble cómo este pequeño ser tiene tanta personalidad y energía.">
-                            <img src="Recursos/hobbies/acuarios/colisaroja.jpg" alt="Mi colisa roja, un pez con colores vibrantes y una actitud tranquila que aporta belleza y equilibrio a mi acuario.">
-                            <img src="Recursos/hobbies/acuarios/escalarnegro.jpg" alt="Uno de mis escalares negros. Me gusta su elegancia y la forma en que se desliza suavemente por el agua.">
-                            <img src="Recursos/hobbies/acuarios/escritorio.jpg" alt="Mi escritorio de trabajo, donde conviven mis pasiones: la acuariofilia, la programación y los videojuegos.">
-                            <img src="Recursos/hobbies/acuarios/gamba.jpg" alt="Una de mis gambas en el acuario, siempre activa y ayudando a mantener el ecosistema limpio.">
-                            <img src="Recursos/hobbies/acuarios/gambaembarazada.jpg" alt="Gamba embarazada con huevos visibles. Me gusta ver cómo se desarrolla la vida en mi acuario y cómo crecen las nuevas generaciones.">
-                            <img src="Recursos/hobbies/acuarios/otocinclo.jpg" alt="Mi pez otocinclus, un trabajador incansable que ayuda a mantener el acuario libre de algas de forma natural.">
-                            <img src="Recursos/hobbies/acuarios/puestadehuevos.jpg" alt="Un momento especial en mi acuario: la puesta de huevos. Me encanta ver cómo mis peces crean vida y cuidan su descendencia.">
-                            <img src="Recursos/hobbies/acuarios/tertraneonambiente.jpg" alt="Un tetra neón nadando entre las plantas. Me gusta su color brillante y cómo añade movimiento y vida al acuario.">
-                            <img src="Recursos/hobbies/acuarios/troncoconplantas.jpg" alt="Tronco con plantas acuáticas, un elemento clave en mi acuario para proporcionar refugio y equilibrio natural.">
-                            
-                        </div>
-                        <button class="carrusel-btn prev" onclick="moverCarrusel('vertical', -1)">&#10094;</button>
-                        <button class="carrusel-btn next" onclick="moverCarrusel('vertical', 1)">&#10095;</button>
-                    </div>
-                    <div class="carrusel-texto" id="texto-vertical" style="color: white;"></div>
-                    <h1 class="h1relleno2">Hol</h1>
-                    <h1 class="h1relleno2">Hol</h1>
-                    <div class="item header-digital" style="color: white;">DIGITAL ENTERTAINMENT</div>
-                    <div class="item sidebar-digital" style="color: white;">
-                        <h3>Mi pasión por el Digital Entertainment</h3>
-                        <p>El Digital Entertainment, especialmente los videojuegos, me ha enseñado mucho más que entretenimiento. Me ha ayudado a mejorar mi capacidad de resolver problemas, a pensar estratégicamente y a trabajar bajo presión. Disfruto profundamente sumergiéndome en diferentes mundos virtuales, lo que me permite explorar nuevos retos y situaciones que me enseñan a ser más creativo y perseverante. Además, me ha permitido conectar con personas de todo el mundo y comprender diversas perspectivas, lo cual enriquece tanto mi vida personal como profesional.</p>                        
-                    </div>
-
-                    <!-- Segundo Carrusel (Horizontal) -->
-                    <div class="carrusel carrusel-horizontal">
-                        <div class="carrusel-imagenes" id="imagenes-horizontal">
-                            <img src="Recursos/hobbies/videojuegos/perfil.jpg" alt="Este es mi perfil de PlayStation, donde guardo mis mejores momentos y logros en los videojuegos que más disfruto.">
-                            <img src="Recursos/hobbies/acuarios/escritorio.jpg" alt="Mi escritorio de trabajo, donde paso el tiempo entre programación, juegos y mis otros hobbies.">
-                            <img src="Recursos/hobbies/videojuegos/chras2.jpg" alt="Crash Bandicoot 2: Cortex Strikes Back, uno de los juegos de mi infancia. Me encanta su jugabilidad, el diseño de niveles y el desafío que ofrece.">
-                            <img src="Recursos/hobbies/videojuegos/crashuno.jpg" alt="Crash Bandicoot 1, el inicio de una saga que marcó mi amor por los videojuegos. Me gusta por su dificultad y la nostalgia que me trae.">
-                            <img src="Recursos/hobbies/videojuegos/cuphed.jpg" alt="Cuphead, un juego que me ha enseñado paciencia y precisión. Sus jefes son desafiantes y cada victoria se siente como un gran logro.">
-                            <img src="Recursos/hobbies/videojuegos/howard.jpg" alt="Hogwarts Legacy, un sueño hecho realidad para cualquier fan de Harry Potter. Me encanta explorar el mundo mágico y perderme en cada detalle.">
-                            <img src="Recursos/hobbies/videojuegos/ittakestwo.jpg" alt="It Takes Two, un juego que me ha hecho valorar el trabajo en equipo. Cada nivel tiene mecánicas únicas que hacen que nunca se vuelva repetitivo.">
-                            <img src="Recursos/hobbies/videojuegos/minecraft.jpg" alt="Minecraft, mi escape creativo. Me gusta construir, explorar y relajarme en un mundo sin límites.">
-                            <img src="Recursos/hobbies/videojuegos/piterman2.jpg" alt="Spider-Man 2, porque me encanta la sensación de balancearme por Nueva York. La historia y el combate me mantienen enganchado.">
-                            <img src="Recursos/hobbies/videojuegos/playstation.jpg" alt="Mi colección de juegos de PlayStation, que representa mi pasión por los videojuegos y todas las experiencias que me han dejado.">
-                            <img src="Recursos/hobbies/videojuegos/starwars.jpg" alt="Star Wars Jedi: Survivor, un juego que combina acción y exploración en un universo que me fascina. Me gusta la libertad de combate y la historia.">
-                            <img src="Recursos/hobbies/videojuegos/stray.jpg" alt="Stray, un juego diferente que me atrapó por su atmósfera y la forma en que logra contar una historia sin necesidad de diálogos.">
-                            <img src="Recursos/hobbies/videojuegos/uncharted.jpg" alt="Uncharted, una saga que disfruto por su acción y exploración. Me hace sentir como un verdadero aventurero en busca de tesoros.">
-                            <img src="Recursos/hobbies/videojuegos/godofwar.jpg" alt="God of War: Ragnarok, una historia impresionante con personajes profundos. Me gusta por su combate brutal y su narrativa emocional.">
-                        </div>
-                        <button class="carrusel-btn prev" onclick="moverCarrusel('horizontal', -1)">&#10094;</button>
-                        <button class="carrusel-btn next" onclick="moverCarrusel('horizontal', 1)">&#10095;</button>
-                    </div>
-                    <div class="carrusel-texto" id="texto-horizontal" style="color: white;"></div>
+                <div class="auto-slide">
+                  <img
+                    src="Recursos/hobbies/jardineria/jardineria2.jpg"
+                    alt="Terrario construido y diseñado especialmente para mi serpiente pitón bola. Se puede observar que la estructura está pensada para cubrir tanto sus necesidades básicas como su bienestar, con un acomodo estratégico que imita un ecosistema real, permitiendo que el animal se sienta en un ambiente natural y tranquilo."
+                  />
                 </div>
-            
-                <script>
-                    let indices = { 
-                        vertical: 0, 
-                        horizontal: 0 
-                    };
-            
-                    function actualizarTexto(tipo) {
-                        const imagenes = document.querySelectorAll(`#imagenes-${tipo} img`);
-                        document.getElementById(`texto-${tipo}`).textContent = imagenes[indices[tipo]].alt;
-                    }
-            
-                    function moverCarrusel(tipo, direccion) {
-                        const imagenes = document.querySelectorAll(`#imagenes-${tipo} img`);
-                        const totalImagenes = imagenes.length;
-            
-                        indices[tipo] = (indices[tipo] + direccion + totalImagenes) % totalImagenes;
-                        document.getElementById(`imagenes-${tipo}`).style.transform = `translateX(${-indices[tipo] * 100}%)`;
-                        
-                        actualizarTexto(tipo);
-                    }
-            
-                    // Cargar textos iniciales
-                    actualizarTexto("vertical");
-                    actualizarTexto("horizontal");
-                </script>    
-                <h1 class="h1relleno2">Hol</h1>
-                    <table>
-                        <tr>
-                            <tr>Si te interesa conocer más sobre mi trabajo o deseas estar al tanto de mis proyectos y actualizaciones, te invito a seguirme en mis redes sociales. Puedes encontrarme en LinkedIn, GitHub, Twitter (X), Facebook e Instagram, donde comparto contenido relacionado con mis proyectos, logros y pensamientos sobre el desarrollo. Además, si prefieres un contacto más directo, puedes comunicarte conmigo a través de WhatsApp. Estoy siempre dispuesto a conectar con profesionales y personas que compartan intereses similares. ¡Espero verte pronto en mis redes!</tr>
-                            <tr>
-                                <h3 style="text-align: center; font-size: 24px; color: #fdfdfd;">Contáctame</h3>
-                                <div style="display: flex; align-items: center; justify-content: center; gap: 5px;">
-                                    <div class='moc'>
-                                        <div class='moj'>
-                                            <div>
-                                                <a href='https://www.linkedin.com/in/uziel-sánchez-marin-146436339' target="_blank" style="background-image: url('Recursos/redes/iconos/linkedin.png'); background-repeat: no-repeat; background-size: contain;"></a>
-                                                <a href='https://github.com/Uziel007' target="_blank" style="background-image: url('Recursos/redes/iconos/github.png'); background-repeat: no-repeat; background-size: contain;"></a>
-                                            </div>
-                                            <div>
-                                                <a href='https://wa.me/5585067049' target="_blank" style="background-image: url('Recursos/redes/iconos/whatsap.png'); background-repeat: no-repeat; background-size: contain;"></a>
-                                                <a href='https://x.com/chuchelongo' target="_blank" style="background-image: url('Recursos/redes/iconos/x.png'); background-repeat: no-repeat; background-size: contain;"></a>
-                                            </div>
-                                            <div>
-                                                <a href='mailto:uzielsanchez007@gmail.com' target="_blank" style="background-image: url('Recursos/redes/iconos/gmail.png'); background-repeat: no-repeat; background-size: contain;"></a>
-                                                <a href='tel:+5585067049' target="_blank" style="background-image: url('Recursos/redes/iconos/telefono.png'); background-repeat: no-repeat; background-size: contain;"></a>
-                                            </div>
-                                            <div>
-                                                <a href='https://www.facebook.com/uziel.marin.7?locale=es_LA' target="_blank" style="background-image: url('Recursos/redes/iconos/facebook.png'); background-repeat: no-repeat; background-size: contain;"></a>
-                                                <a href='https://www.instagram.com/uziel_0902/' target="_blank" style="background-image: url('Recursos/redes/iconos/instagram.png'); background-repeat: no-repeat; background-size: contain;"></a>
-                                            </div>                                                       
-                                        </div>
-                                    </div>
-                            </tr>
-                        </tr>
-                    </table>      
-        </section>
+
+                <div class="auto-slide">
+                  <img
+                    src="Recursos/hobbies/jardineria/jardineria3.jpg"
+                    alt="Paludario de tamaño pequeño con una ambientación inspirada en Pokémon y decorado con plantas naturales vivas. Este ecosistema se encuentra diseñado para ser autosuficiente, de manera que las plantas y elementos que lo integran mantienen un equilibrio natural sin necesidad de una intervención constante, logrando un espacio visualmente atractivo y funcional al mismo tiempo."
+                  />
+                </div>
+
+                <div class="auto-slide">
+                  <img
+                    src="Recursos/hobbies/jardineria/jardineria4.jpg"
+                    alt="Helechos y musgos cuidadosamente adheridos a un tronco dentro del terrario, los cuales fueron añadidos durante un cambio especial de la decoración. Estos elementos vegetales aportan frescura, humedad y un toque natural, ayudando a generar un ambiente que simula un ecosistema vivo y en constante evolución."
+                  />
+                </div>
+
+                <div class="auto-slide">
+                  <img
+                    src="Recursos/hobbies/jardineria/jardineria5.jpg"
+                    alt="Fotografía de una cueva dentro del terrario en la que se desarrolló musgo de manera natural. El crecimiento del musgo aporta una textura suave y verde al entorno, reforzando el aspecto orgánico del hábitat y contribuyendo a la estética y equilibrio del ecosistema."
+                  />
+                </div>
+
+                <div class="auto-slide">
+                  <img
+                    src="Recursos/hobbies/jardineria/jardineria6.jpg"
+                    alt="Imagen de mi serpiente pitón bola en su fase conocida como 'Fire Pastel'. En esta fotografía se distinguen claramente los patrones característicos de su piel, con tonalidades que resaltan y hacen única a esta variación genética de la especie, mostrando tanto su belleza natural como la singularidad de su morfología."
+                  />
+                </div>
+
+                <div class="auto-slide">
+                  <img
+                    src="Recursos/hobbies/jardineria/jardineria7.jpg"
+                    alt="Planta de Zamioculca en la que se observan sus tallos de reproducción. Estos tallos surgen de manera natural y son una muestra del crecimiento y propagación de la planta, reflejando la resistencia y capacidad de esta especie ornamental para desarrollarse incluso en condiciones poco exigentes."
+                  />
+                </div>
+
+                <div class="auto-slide">
+                  <img
+                    src="Recursos/hobbies/jardineria/jardineria8.jpg"
+                    alt="Terrario dedicado al cuidado y reproducción de isópodos, pequeños organismos que cumplen una función importante en la preservación y el equilibrio de los ecosistemas en miniatura. Este espacio está destinado a mantener sus condiciones de vida adecuadas y favorecer su reproducción controlada."
+                  />
+                </div>
+              </div>
+              <button
+                class="carrusel-btn prev"
+                onclick="moverGardenCarrusel(-1)"
+              >
+                &#10094;
+              </button>
+              <button
+                class="carrusel-btn next"
+                onclick="moverGardenCarrusel(1)"
+              >
+                &#10095;
+              </button>
+
+              <!-- Indicadores -->
+              <div class="carousel-indicators" id="garden-indicators">
+                <span class="indicator active" onclick="irASlide(0)"></span>
+                <span class="indicator" onclick="irASlide(1)"></span>
+                <span class="indicator" onclick="irASlide(2)"></span>
+                <span class="indicator" onclick="irASlide(3)"></span>
+                <span class="indicator" onclick="irASlide(4)"></span>
+                <span class="indicator" onclick="irASlide(5)"></span>
+                <span class="indicator" onclick="irASlide(6)"></span>
+                <span class="indicator" onclick="irASlide(7)"></span>
+              </div>
+            </div>
+            <div class="carrusel-texto" id="texto-gardening"></div>
+          </div>
+
+          <!-- Grid de Dos Columnas para Mentoring y Side Projects -->
+          <div class="dual-section-grid">
+            <!-- Sección de Mentoring con Cerebro Animado -->
+            <div class="mentoring-section">
+              <div class="brain-animation">
+                <div class="brain">
+                  <div class="brain-part brain-left"></div>
+                  <div class="brain-part brain-right"></div>
+                  <div class="neural-connection"></div>
+                  <div class="neural-connection"></div>
+                  <div class="neural-connection"></div>
+                  <div class="neural-connection"></div>
+                </div>
+              </div>
+
+              <div class="knowledge-particles">
+                <div class="knowledge-particle"></div>
+                <div class="knowledge-particle"></div>
+                <div class="knowledge-particle"></div>
+                <div class="knowledge-particle"></div>
+              </div>
+
+              <div class="mentoring-header">
+                <h2>MENTORING & TEACHING</h2>
+                <div class="mentor-icon">👨‍🏫</div>
+              </div>
+              <div class="mentoring-content">
+                <div class="mentor-card">
+                  <div class="card-icon">💡</div>
+                  <h4>Clases Personalizadas</h4>
+                  <p>
+                    En mis períodos libres, disfruto enormemente enseñando
+                    programación a personas que desean adentrarse en este
+                    fascinante mundo tecnológico.
+                  </p>
+                </div>
+                <div class="mentor-card">
+                  <div class="card-icon">🎯</div>
+                  <h4>Metodología Práctica</h4>
+                  <p>
+                    Mi enfoque se basa en proyectos reales y resolución de
+                    problemas, adaptando cada lección a las necesidades
+                    específicas del estudiante.
+                  </p>
+                </div>
+                <div class="mentor-card">
+                  <div class="card-icon">🌟</div>
+                  <h4>Impacto Real</h4>
+                  <p>
+                    He guiado a más de 15 estudiantes desde cero hasta conseguir
+                    sus primeros trabajos como developers, lo cual es mi mayor
+                    satisfacción.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Sección de Side Projects con Partículas de Código -->
+            <div class="projects-section">
+              <div class="code-particles">
+                <div class="code-particle"></div>
+                <div class="code-particle"></div>
+                <div class="code-particle"></div>
+                <div class="code-particle"></div>
+                <div class="code-particle"></div>
+                <div class="code-particle"></div>
+                <div class="code-particle"></div>
+              </div>
+
+              <div class="projects-header">
+                <h2>SIDE PROJECTS</h2>
+                <div class="project-icon">🚀</div>
+              </div>
+              <div class="projects-content">
+                <div class="project-card">
+                  <div class="card-icon">💻</div>
+                  <h4>Desarrollo Personal</h4>
+                  <p>
+                    Creo aplicaciones innovadoras en mi tiempo libre,
+                    experimentando con nuevas tecnologías y arquitecturas
+                    modernas.
+                  </p>
+                </div>
+                <div class="project-card">
+                  <div class="card-icon">⚡</div>
+                  <h4>Portafolio Activo</h4>
+                  <p>
+                    Mantengo +20 proyectos personales que demuestran mi
+                    versatilidad técnica y pasión por la programación.
+                  </p>
+                </div>
+                <div class="project-card">
+                  <div class="card-icon">🏆</div>
+                  <h4>Reconocimiento</h4>
+                  <p>
+                    Mis proyectos han sido destacados en comunidades de
+                    developers y utilizados como referencia por otros
+                    profesionales.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sección de Digital Entertainment Mejorada -->
+          <div class="digital-entertainment">
+            <!-- Partículas pixeladas para gaming -->
+            <div class="pixel-particles">
+              <div class="pixel"></div>
+              <div class="pixel"></div>
+              <div class="pixel"></div>
+              <div class="pixel"></div>
+              <div class="pixel"></div>
+              <div class="pixel"></div>
+              <div class="pixel"></div>
+              <div class="pixel"></div>
+            </div>
+
+            <!-- Líneas de código matrix -->
+            <div class="code-rain">
+              <div class="code-line">01001000</div>
+              <div class="code-line">11010011</div>
+              <div class="code-line">00110101</div>
+              <div class="code-line">10101010</div>
+              <div class="code-line">01110010</div>
+              <div class="code-line">11001001</div>
+              <div class="code-line">00011101</div>
+              <div class="code-line">10110100</div>
+              <div class="code-line">01100110</div>
+              <div class="code-line">11000011</div>
+            </div>
+
+            <!-- Controlador de juego animado -->
+            <div class="game-controller"></div>
+
+            <div class="header-digital">DIGITAL ENTERTAINMENT</div>
+            <div class="sidebar-digital">
+              <h3>Mi pasión por el Digital Entertainment</h3>
+              <p>
+                El Digital Entertainment, especialmente los videojuegos, me ha
+                enseñado mucho más que entretenimiento. Me ha ayudado a mejorar
+                mi capacidad de resolver problemas, a pensar estratégicamente y
+                a trabajar bajo presión. Disfruto profundamente sumergiéndome en
+                diferentes mundos virtuales, lo que me permite explorar nuevos
+                retos y situaciones que me enseñan a ser más creativo y
+                perseverante. Además, me ha permitido conectar con personas de
+                todo el mundo y comprender diversas perspectivas, lo cual
+                enriquece tanto mi vida personal como profesional.
+              </p>
+            </div>
+
+            <div class="carrusel carrusel-horizontal">
+              <div class="carrusel-imagenes" id="imagenes-horizontal">
+                <img
+                  src="Recursos/hobbies/videojuegos/perfil.jpg"
+                  alt="Este es mi perfil de PlayStation, donde guardo mis mejores momentos y logros en los videojuegos que más disfruto."
+                />
+                <img
+                  src="Recursos/hobbies/acuarios/escritorio.jpg"
+                  alt="Mi escritorio de trabajo, donde paso el tiempo entre programación, juegos y mis otros hobbies."
+                />
+                <img
+                  src="Recursos/hobbies/videojuegos/chras2.jpg"
+                  alt="Crash Bandicoot 2: Cortex Strikes Back, uno de los juegos de mi infancia. Me encanta su jugabilidad, el diseño de niveles y el desafío que ofrece."
+                />
+                <img
+                  src="Recursos/hobbies/videojuegos/crashuno.jpg"
+                  alt="Crash Bandicoot 1, el inicio de una saga que marcó mi amor por los videojuegos. Me gusta por su dificultad y la nostalgia que me trae."
+                />
+                <img
+                  src="Recursos/hobbies/videojuegos/cuphed.jpg"
+                  alt="Cuphead, un juego que me ha enseñado paciencia y precisión. Sus jefes son desafiantes y cada victoria se siente como un gran logro."
+                />
+                <img
+                  src="Recursos/hobbies/videojuegos/howard.jpg"
+                  alt="Hogwarts Legacy, un sueño hecho realidad para cualquier fan de Harry Potter. Me encanta explorar el mundo mágico y perderme en cada detalle."
+                />
+                <img
+                  src="Recursos/hobbies/videojuegos/ittakestwo.jpg"
+                  alt="It Takes Two, un juego que me ha hecho valorar el trabajo en equipo. Cada nivel tiene mecánicas únicas que hacen que nunca se vuelva repetitivo."
+                />
+                <img
+                  src="Recursos/hobbies/videojuegos/minecraft.jpg"
+                  alt="Minecraft, mi escape creativo. Me gusta construir, explorar y relajarme en un mundo sin límites."
+                />
+                <img
+                  src="Recursos/hobbies/videojuegos/piterman2.jpg"
+                  alt="Spider-Man 2, porque me encanta la sensación de balancearme por Nueva York. La historia y el combate me mantienen enganchado."
+                />
+                <img
+                  src="Recursos/hobbies/videojuegos/playstation.jpg"
+                  alt="Mi colección de juegos de PlayStation, que representa mi pasión por los videojuegos y todas las experiencias que me han dejado."
+                />
+                <img
+                  src="Recursos/hobbies/videojuegos/starwars.jpg"
+                  alt="Star Wars Jedi: Survivor, un juego que combina acción y exploración en un universo que me fascina. Me gusta la libertad de combate y la historia."
+                />
+                <img
+                  src="Recursos/hobbies/videojuegos/stray.jpg"
+                  alt="Stray, un juego diferente que me atrapó por su atmósfera y la forma en que logra contar una historia sin necesidad de diálogos."
+                />
+                <img
+                  src="Recursos/hobbies/videojuegos/uncharted.jpg"
+                  alt="Uncharted, una saga que disfruto por su acción y exploración. Me hace sentir como un verdadero aventurero en busca de tesoros."
+                />
+                <img
+                  src="Recursos/hobbies/videojuegos/godofwar.jpg"
+                  alt="God of War: Ragnarok, una historia impresionante con personajes profundos. Me gusta por su combate brutal y su narrativa emocional."
+                />
+              </div>
+              <button
+                class="carrusel-btn prev"
+                onclick="moverCarrusel('horizontal', -1)"
+              >
+                &#10094;
+              </button>
+              <button
+                class="carrusel-btn next"
+                onclick="moverCarrusel('horizontal', 1)"
+              >
+                &#10095;
+              </button>
+            </div>
+            <div class="carrusel-texto" id="texto-horizontal"></div>
+          </div>
+
+          <!-- Sección de Automation & Smart Living Mejorada -->
+          <div class="automation-section">
+            <div class="circuit-background">
+              <div class="circuit-line"></div>
+              <div class="circuit-line"></div>
+              <div class="circuit-line"></div>
+              <div class="circuit-node"></div>
+              <div class="circuit-node"></div>
+              <div class="circuit-node"></div>
+            </div>
+
+            <div class="automation-header">
+              <h2>AUTOMATION & SMART LIVING</h2>
+              <div class="automation-subtitle">
+                Donde la tecnología mejora la vida diaria
+              </div>
+            </div>
+
+            <div class="automation-content">
+              <div class="automation-text">
+                <h3>Mi Ecosistema Inteligente</h3>
+                <p>
+                  He transformado mi espacio personal en un laboratorio de
+                  automatización inteligente. Mis acuarios se regulan
+                  automáticamente con sensores de pH, temperatura y alimentación
+                  programada. Mi cuarto responde a comandos de voz a través de
+                  Alexa, controlando iluminación, clima y música según mis
+                  rutinas diarias.
+                </p>
+
+                <p>
+                  El sistema de extracción de aire se activa automáticamente
+                  basado en sensores de humedad y calidad del aire. He
+                  programado scripts que optimizan el consumo energético y
+                  mantienen las condiciones perfectas para mis peces y plantas
+                  acuáticas.
+                </p>
+
+                <p>
+                  Esta pasión por la automatización no solo me ahorra tiempo,
+                  sino que demuestra mi capacidad para integrar hardware,
+                  software y IoT en soluciones prácticas y eficientes.
+                </p>
+              </div>
+
+              <!-- Carrusel de Videos de Automatización -->
+              <div class="automation-carousel">
+                <div class="video-carousel">
+                  <div class="video-slides" id="video-slides">
+                    <div class="video-slide">
+                      <video controls>
+                        <source
+                          src="Recursos/hobbies/automation/alexa-control.mp4"
+                          type="video/mp4"
+                        />
+                        Tu navegador no soporta video HTML5.
+                      </video>
+                      <div class="video-caption">
+                        Control por voz de iluminación y clima con Alexa
+                      </div>
+                    </div>
+                    <div class="video-slide">
+                      <video controls>
+                        <source
+                          src="Recursos/hobbies/automation/aquarium-automation.mp4"
+                          type="video/mp4"
+                        />
+                        Tu navegador no soporta video HTML5.
+                      </video>
+                      <div class="video-caption">
+                        Sistema automatizado de alimentación y monitoreo de
+                        acuarios
+                      </div>
+                    </div>
+                  </div>
+                  <button
+                    class="video-btn prev"
+                    onclick="moverVideoCarrusel(-1)"
+                  >
+                    &#10094;
+                  </button>
+                  <button
+                    class="video-btn next"
+                    onclick="moverVideoCarrusel(1)"
+                  >
+                    &#10095;
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sección de Learning & Certifications con Libros Flotantes -->
+          <div class="learning-section">
+            <div class="floating-books">
+              <div class="book"></div>
+              <div class="book"></div>
+              <div class="book"></div>
+              <div class="book"></div>
+              <div class="book"></div>
+            </div>
+
+            <div class="learning-header">
+              <h2>CONTINUOUS LEARNING</h2>
+              <div class="brain-icon">🧠</div>
+            </div>
+
+            <div class="learning-content">
+              <div class="learning-text">
+                <h3>Mi Biblioteca de Conocimiento</h3>
+                <p>
+                  El aprendizaje continuo es mi motor de crecimiento
+                  profesional. Dedico al menos 2 horas diarias al estudio de
+                  nuevas tecnologías, completando cursos especializados y
+                  obteniendo certificaciones que validen mis habilidades.
+                </p>
+
+                <p>
+                  Mi colección personal incluye más de 15 libros y 25 PDFs técnicos,
+                  desde algoritmos avanzados hasta arquitectura de sistemas
+                  distribuidos. Cada certificación obtenida representa no solo
+                  conocimiento adquirido, sino un compromiso con la excelencia
+                  profesional.
+                </p>
+                <p>
+                  Si desea conocer más detalles sobre mis certificaciones, puede
+                  visitar el apartado correspondiente en la página de
+                  habilidades. Allí encontrará información adicional sobre los
+                  cursos, acreditaciones y competencias que he desarrollado a lo
+                  largo de mi trayectoria profesional.
+                </p>
+              </div>
+
+              <!-- Carrusel de Certificaciones -->
+              <div class="cert-carousel">
+                <div class="cert-slides" id="cert-slides">
+                  <img
+                    src="Recursos/hobbies/certificaciones/scrum-cert.png"
+                    alt="Certificación Scrum Master: Reconocimiento oficial que avala mi conocimiento y dominio de la metodología Scrum, un marco ágil utilizado para gestionar proyectos complejos y fomentar la colaboración efectiva en equipos multidisciplinarios. Esta certificación valida mi capacidad para liderar equipos, facilitar ceremonias Scrum (como Daily Standup, Sprint Planning, Review y Retrospective), gestionar el backlog y asegurar la entrega incremental de valor. Además, demuestra mi habilidad para identificar y eliminar impedimentos, promover la mejora continua y adaptar procesos a las necesidades cambiantes del proyecto y del cliente. Scrum es ampliamente utilizado en desarrollo de software, pero también es aplicable en cualquier entorno donde se requiera flexibilidad, transparencia y trabajo colaborativo orientado a resultados."
+                  />
+
+                  <img
+                    src="Recursos/hobbies/certificaciones/java-cert.png"
+                    alt="Certificación de Programación en Java: Certificado que acredita más de 150 horas de formación intensiva en desarrollo de aplicaciones Java, abarcando desde los fundamentos del lenguaje hasta conceptos avanzados como programación orientada a objetos, manejo de excepciones, colecciones, hilos, acceso a bases de datos y desarrollo de interfaces gráficas. Esta certificación demuestra mi capacidad para diseñar, implementar y mantener soluciones robustas y escalables en Java, siguiendo buenas prácticas y estándares de la industria. El programa incluye ejercicios prácticos, proyectos reales y evaluaciones que garantizan un dominio sólido de la tecnología, preparándome para enfrentar retos profesionales en el desarrollo backend, aplicaciones empresariales y sistemas multiplataforma."
+                  />
+                </div>
+                <button class="cert-btn prev" onclick="moverCertCarrusel(-1)">
+                  &#10094;
+                </button>
+                <button class="cert-btn next" onclick="moverCertCarrusel(1)">
+                  &#10095;
+                </button>
+                <div class="cert-caption" id="cert-caption"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sección de Programming Passion Mejorada -->
+          <div class="programming-passion">
+            <div class="code-particles-bg">
+              <div class="particle-bg"></div>
+              <div class="particle-bg"></div>
+              <div class="particle-bg"></div>
+              <div class="particle-bg"></div>
+              <div class="particle-bg"></div>
+            </div>
+
+            <div class="programming-header">
+              <h2 class="programming-title">PASSION FOR CODE</h2>
+              <p class="programming-subtitle">
+                "Donde el orden se encuentra con la innovación"
+              </p>
+            </div>
+
+            <div class="code-matrix">
+              <div class="code-block">
+                <div class="code-header">
+                  <div class="code-icon">01</div>
+                  <h3 class="code-title">METODOLOGÍA & ORDEN</h3>
+                </div>
+                <div class="code-content">
+                  Mi enfoque hacia la programación se fundamenta en la
+                  estructura y el orden meticuloso. Cada línea de código que
+                  escribo sigue un propósito claro, cada función tiene su lugar
+                  exacto, y cada proyecto se construye sobre bases sólidas de
+                  planificación y arquitectura limpia.
+                </div>
+              </div>
+
+              <div class="code-block">
+                <div class="code-header">
+                  <div class="code-icon">02</div>
+                  <h3 class="code-title">BUENAS PRÁCTICAS</h3>
+                </div>
+                <div class="code-content">
+                  Implemento patrones de diseño robustos, principios SOLID,
+                  código autodocumentado y testing exhaustivo. Mi código no solo
+                  funciona, sino que es mantenible, escalable y sigue los
+                  estándares más exigentes de la industria.
+                </div>
+              </div>
+
+              <div class="code-block">
+                <div class="code-header">
+                  <div class="code-icon">03</div>
+                  <h3 class="code-title">RESOLUCIÓN DE PROBLEMAS</h3>
+                </div>
+                <div class="code-content">
+                  Cada desafío de programación es un puzzle que debe resolverse
+                  con precisión quirúrgica. Mi mente analítica descompone
+                  problemas complejos en componentes manejables, aplicando
+                  algoritmos eficientes y arquitecturas elegantes.
+                </div>
+              </div>
+
+              <div class="code-block">
+                <div class="code-header">
+                  <div class="code-icon">04</div>
+                  <h3 class="code-title">CALIDAD & PERFECCIÓN</h3>
+                </div>
+                <div class="code-content">
+                  Mi compromiso con la excelencia se refleja en cada proyecto
+                  que emprendo. El código limpio, la documentación exhaustiva,
+                  las pruebas unitarias rigurosas y la optimización constante
+                  son estándares no negociables en mi trabajo.
+                </div>
+              </div>
+            </div>
+
+            <div class="skills-terminal">
+              <div class="terminal-header">
+                <div class="terminal-dot dot-red"></div>
+                <div class="terminal-dot dot-yellow"></div>
+                <div class="terminal-dot dot-green"></div>
+                <div class="terminal-title">uziel@developer:~$</div>
+              </div>
+              <div class="terminal-content">
+                > whoami<br />
+                Uziel Sánchez Marín - Full Stack Developer<br /><br />
+                > ls -la skills/<br />
+                drwxr-xr-x Frontend: HTML5, CSS3, JavaScript, React, Vue.js<br />
+                drwxr-xr-x Backend: Node.js, Python, Java, PHP, Express<br />
+                drwxr-xr-x Database: MySQL, PostgreSQL, MongoDB, Redis<br />
+                drwxr-xr-x DevOps: Docker, Git, CI/CD, AWS, Linux<br />
+                drwxr-xr-x Mobile: React Native, Flutter<br /><br />
+                > cat passion.txt<br />
+                "Code is poetry written in logic"<br />
+                Status: Always learning, always improving<span class="cursor"
+                  >_</span
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- Sección de Contacto -->
+          <h1 class="h1relleno2">Hol</h1>
+          <table>
+            <tr>
+              <td colspan="2">
+                <p
+                  style="
+                    color: white;
+                    text-align: center;
+                    line-height: 1.6;
+                    margin-bottom: 20px;
+                  "
+                >
+                  Si te interesa conocer más sobre mi trabajo o deseas estar al
+                  tanto de mis proyectos y actualizaciones, te invito a seguirme
+                  en mis redes sociales. Puedes encontrarme en LinkedIn, GitHub,
+                  Twitter (X), Facebook e Instagram, donde comparto contenido
+                  relacionado con mis proyectos, logros y pensamientos sobre el
+                  desarrollo. Además, si prefieres un contacto más directo,
+                  puedes comunicarte conmigo a través de WhatsApp. Estoy siempre
+                  dispuesto a conectar con profesionales y personas que
+                  compartan intereses similares. ¡Espero verte pronto en mis
+                  redes!
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <h3
+                  style="
+                    text-align: center;
+                    font-size: 24px;
+                    color: #fdfdfd;
+                    margin-bottom: 20px;
+                  "
+                >
+                  Contáctame
+                </h3>
+                <div
+                  style="
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 5px;
+                  "
+                >
+                  <div class="moc">
+                    <div class="moj">
+                      <div>
+                        <a
+                          href="https://www.linkedin.com/in/uziel-sánchez-marin-146436339"
+                          target="_blank"
+                          style="
+                            background-image: url('Recursos/redes/iconos/linkedin.png');
+                            background-repeat: no-repeat;
+                            background-size: contain;
+                          "
+                        ></a>
+                        <a
+                          href="https://github.com/Uziel007"
+                          target="_blank"
+                          style="
+                            background-image: url('Recursos/redes/iconos/github.png');
+                            background-repeat: no-repeat;
+                            background-size: contain;
+                          "
+                        ></a>
+                      </div>
+                      <div>
+                        <a
+                          href="https://wa.me/5585067049"
+                          target="_blank"
+                          style="
+                            background-image: url('Recursos/redes/iconos/whatsap.png');
+                            background-repeat: no-repeat;
+                            background-size: contain;
+                          "
+                        ></a>
+                        <a
+                          href="https://x.com/chuchelongo"
+                          target="_blank"
+                          style="
+                            background-image: url('Recursos/redes/iconos/x.png');
+                            background-repeat: no-repeat;
+                            background-size: contain;
+                          "
+                        ></a>
+                      </div>
+                      <div>
+                        <a
+                          href="mailto:uzielsanchez007@gmail.com"
+                          target="_blank"
+                          style="
+                            background-image: url('Recursos/redes/iconos/gmail.png');
+                            background-repeat: no-repeat;
+                            background-size: contain;
+                          "
+                        ></a>
+                        <a
+                          href="tel:+5585067049"
+                          target="_blank"
+                          style="
+                            background-image: url('Recursos/redes/iconos/telefono.png');
+                            background-repeat: no-repeat;
+                            background-size: contain;
+                          "
+                        ></a>
+                      </div>
+                      <div>
+                        <a
+                          href="https://www.facebook.com/uziel.marin.7?locale=es_LA"
+                          target="_blank"
+                          style="
+                            background-image: url('Recursos/redes/iconos/facebook.png');
+                            background-repeat: no-repeat;
+                            background-size: contain;
+                          "
+                        ></a>
+                        <a
+                          href="https://www.instagram.com/uziel_952/"
+                          target="_blank"
+                          style="
+                            background-image: url('Recursos/redes/iconos/instagram.png');
+                            background-repeat: no-repeat;
+                            background-size: contain;
+                          "
+                        ></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </section>
     </main>
-    <script src="Recursos/hobbies.js"></script>
-    <script src="Recursos/navbar.js" defer></script>
 
-    <!-- Footer -->
-    <footer class="footer" style="display: none;">
-        <p>&copy; 2025 Uziel Sánchez Marín. Todos los derechos reservados.</p>
+    <script>
+      // Variables para los carruseles
+      let indices = {
+        vertical: 0,
+        horizontal: 0,
+      };
+
+      let videoIndex = 0;
+      let certIndex = 0;
+      let gardenIndex = 0;
+      let autoSlideInterval;
+
+      // Función para actualizar texto del carrusel original
+      function actualizarTexto(tipo) {
+        const imagenes = document.querySelectorAll(`#imagenes-${tipo} img`);
+        if (imagenes.length > 0) {
+          document.getElementById(`texto-${tipo}`).textContent =
+            imagenes[indices[tipo]].alt;
+        }
+      }
+
+      // Función para mover carrusel original
+      function moverCarrusel(tipo, direccion) {
+        const imagenes = document.querySelectorAll(`#imagenes-${tipo} img`);
+        const totalImagenes = imagenes.length;
+
+        indices[tipo] =
+          (indices[tipo] + direccion + totalImagenes) % totalImagenes;
+        document.getElementById(
+          `imagenes-${tipo}`
+        ).style.transform = `translateX(${-indices[tipo] * 100}%)`;
+
+        actualizarTexto(tipo);
+      }
+
+      // Función para carrusel de videos
+      function moverVideoCarrusel(direccion) {
+        const slides = document.getElementById("video-slides");
+        const totalVideos = 2; // Número de videos
+
+        videoIndex = (videoIndex + direccion + totalVideos) % totalVideos;
+        slides.style.transform = `translateX(${-videoIndex * 100}%)`;
+      }
+
+      // Función para carrusel de certificaciones
+      function moverCertCarrusel(direccion) {
+        const slides = document.getElementById("cert-slides");
+        const imagenes = slides.querySelectorAll("img");
+        const totalCerts = imagenes.length;
+
+        certIndex = (certIndex + direccion + totalCerts) % totalCerts;
+        slides.style.transform = `translateX(${-certIndex * 100}%)`;
+
+        // Actualizar caption
+        if (imagenes.length > 0) {
+          document.getElementById("cert-caption").textContent =
+            imagenes[certIndex].alt;
+        }
+      }
+
+      // Funciones para carrusel de jardinería
+      function moverGardenCarrusel(direccion) {
+        const slides = document.getElementById("garden-slides");
+        const imagenes = slides.querySelectorAll(".auto-slide img");
+        const totalSlides = imagenes.length;
+
+        gardenIndex = (gardenIndex + direccion + totalSlides) % totalSlides;
+        slides.style.transform = `translateX(${-gardenIndex * 100}%)`;
+
+        actualizarIndicadores();
+        actualizarTextoGarden();
+
+        // Reiniciar auto-slide
+        clearInterval(autoSlideInterval);
+        iniciarAutoSlide();
+      }
+
+      function irASlide(index) {
+        const slides = document.getElementById("garden-slides");
+        gardenIndex = index;
+        slides.style.transform = `translateX(${-gardenIndex * 100}%)`;
+
+        actualizarIndicadores();
+        actualizarTextoGarden();
+
+        // Reiniciar auto-slide
+        clearInterval(autoSlideInterval);
+        iniciarAutoSlide();
+      }
+
+      function actualizarIndicadores() {
+        const indicators = document.querySelectorAll(".indicator");
+        indicators.forEach((indicator, index) => {
+          indicator.classList.toggle("active", index === gardenIndex);
+        });
+      }
+
+      function actualizarTextoGarden() {
+        const imagenes = document.querySelectorAll(
+          "#garden-slides .auto-slide img"
+        );
+        if (imagenes.length > 0) {
+          document.getElementById("texto-gardening").textContent =
+            imagenes[gardenIndex].alt;
+        }
+      }
+
+      function iniciarAutoSlide() {
+        autoSlideInterval = setInterval(() => {
+          moverGardenCarrusel(1);
+        }, 4000); // Cambiar cada 4 segundos
+      }
+
+      // Inicializar carruseles cuando la página carga
+      document.addEventListener("DOMContentLoaded", function () {
+        // Cargar texto inicial del carrusel original
+        actualizarTexto("vertical");
+        actualizarTexto("horizontal");
+
+        // Cargar caption inicial de certificaciones
+        const certImages = document.querySelectorAll("#cert-slides img");
+        if (certImages.length > 0) {
+          document.getElementById("cert-caption").textContent =
+            certImages[0].alt;
+        }
+
+        // Inicializar carrusel de jardinería
+        actualizarTextoGarden();
+        iniciarAutoSlide();
+      });
+
+      // Pausar auto-slide cuando el usuario interactúa con el carrusel de jardinería
+      document.addEventListener("visibilitychange", function () {
+        if (document.hidden) {
+          clearInterval(autoSlideInterval);
+        } else {
+          iniciarAutoSlide();
+        }
+      });
+
+      // Script de carga
+      window.addEventListener("load", function () {
+        setTimeout(function () {
+          document.getElementById("loading").style.display = "none";
+          document.getElementById("hobbies").style.display = "block";
+          document.querySelector(".footer").style.display = "block";
+        }, 3000);
+      });
+
+      // Navegación suave
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }
+        });
+      });
+
+      // Animación del gato en el header
+      document
+        .querySelector(".cat")
+        .addEventListener("mouseenter", function () {
+          this.style.transform = "scale(1.2) rotate(10deg)";
+        });
+
+      document
+        .querySelector(".cat")
+        .addEventListener("mouseleave", function () {
+          this.style.transform = "scale(1) rotate(0deg)";
+        });
+
+      // Efectos de parallax ligero en las partículas
+      window.addEventListener("scroll", function () {
+        const scrolled = window.pageYOffset;
+        const parallax = scrolled * 0.1;
+
+        // Aplicar efecto parallax a las burbujas
+        const bubbles = document.querySelectorAll(".bubble");
+        bubbles.forEach((bubble, index) => {
+          bubble.style.transform = `translateY(${parallax * (index + 1)}px)`;
+        });
+
+        // Aplicar efecto parallax a las partículas de jardinería
+        const leafParticles = document.querySelectorAll(".leaf-particle");
+        leafParticles.forEach((leaf, index) => {
+          leaf.style.transform = `translateY(${
+            parallax * (index * 0.5)
+          }px) rotate(${scrolled * 0.1}deg)`;
+        });
+
+        // Aplicar efecto parallax a los píxeles de gaming
+        const pixels = document.querySelectorAll(".pixel");
+        pixels.forEach((pixel, index) => {
+          pixel.style.transform = `translateY(${parallax * (index * 0.3)}px)`;
+        });
+      });
+
+      // Efectos de hover mejorados para las tarjetas
+      document
+        .querySelectorAll(".mentor-card, .project-card, .code-block")
+        .forEach((card) => {
+          card.addEventListener("mouseenter", function () {
+            this.style.transform = "translateY(-10px) scale(1.02)";
+            this.style.boxShadow = "0 20px 40px rgba(0, 0, 0, 0.3)";
+          });
+
+          card.addEventListener("mouseleave", function () {
+            this.style.transform = "translateY(0) scale(1)";
+            this.style.boxShadow = "none";
+          });
+        });
+
+      // Efecto de typing para el terminal
+      function typeWriter(element, text, speed = 50) {
+        let i = 0;
+        element.innerHTML = "";
+        function type() {
+          if (i < text.length) {
+            element.innerHTML += text.charAt(i);
+            i++;
+            setTimeout(type, speed);
+          }
+        }
+        type();
+      }
+
+      // Observador de intersección para animaciones al hacer scroll
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -100px 0px",
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("fade-in");
+          }
+        });
+      }, observerOptions);
+
+      // Observar todas las secciones principales
+      document
+        .querySelectorAll(
+          ".aquarium-section, .gardening-section, .digital-entertainment, .mentoring-section, .projects-section, .automation-section, .learning-section, .programming-passion"
+        )
+        .forEach((section) => {
+          observer.observe(section);
+        });
+
+      // CSS para la animación fade-in
+      const style = document.createElement("style");
+      style.textContent = `
+            .aquarium-section, .gardening-section, .digital-entertainment, 
+            .mentoring-section, .projects-section, .automation-section, 
+            .learning-section, .programming-passion {
+                opacity: 0;
+                transform: translateY(30px);
+                transition: opacity 0.8s ease, transform 0.8s ease;
+            }
+            
+            .fade-in {
+                opacity: 1 !important;
+                transform: translateY(0) !important;
+            }
+
+            @media (prefers-reduced-motion: reduce) {
+                .aquarium-section, .gardening-section, .digital-entertainment, 
+                .mentoring-section, .projects-section, .automation-section, 
+                .learning-section, .programming-passion {
+                    opacity: 1;
+                    transform: none;
+                    transition: none;
+                }
+                
+                .bubble, .leaf-particle, .pixel, .particle-bg, .knowledge-particle, 
+                .code-particle, .book, .wave, .plant, .root {
+                    animation: none;
+                }
+            }
+        `;
+      document.head.appendChild(style);
+    </script>
+
+    <!-- Footer moderno -->
+    <footer class="modern-footer">
+        <p class="footer-copyright">&copy; 2025 Uziel Sánchez Marín. Todos los derechos reservados.</p>
     </footer>
-</body>
-
+  </body>
 </html>
