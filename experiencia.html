@@ -15,197 +15,27 @@
 </head>
 
 <body>
-    <header id="responsive-header" style="
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    width: 100%;
-">
-    <nav id="responsive-nav" style="
-        background: linear-gradient(135deg, #1f1b1a, #16213e);
-        padding: 1rem 2rem;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-        min-height: 70px;
-        flex-wrap: wrap;
-    ">
-        <div class="cat" style="
-            position: relative;
-            height: 50px;
-            width: calc(50px * 1.13);
-            transition: transform 0.3s ease;
-        ">
-            <div class="ear ear--left" style="
-                position: absolute;
-                top: -30%;
-                height: 60%;
-                width: 25%;
-                background: #ffa7dc;
-                left: -7%;
-                border-radius: 70% 30% 0 0 / 100% 100% 0 0;
-                transform: rotate(-15deg);
-            ">
-                <div style="
-                    content: '';
-                    position: absolute;
-                    bottom: 24%;
-                    height: 10%;
-                    width: 5%;
-                    border-radius: 50%;
-                    background: #161616;
-                    right: 10%;
-                "></div>
-            </div>
-            <div class="ear ear--right" style="
-                position: absolute;
-                top: -30%;
-                height: 60%;
-                width: 25%;
-                background: #ffa7dc;
-                right: -7%;
-                border-radius: 30% 70% 0 0 / 100% 100% 0 0;
-                transform: rotate(15deg);
-            ">
-                <div style="
-                    content: '';
-                    position: absolute;
-                    bottom: 24%;
-                    height: 10%;
-                    width: 5%;
-                    border-radius: 50%;
-                    background: #161616;
-                    left: 10%;
-                "></div>
-            </div>
-            <div class="face" style="
-                position: absolute;
-                height: 100%;
-                width: 100%;
-                background: #161616;
-                border-radius: 50%;
-            ">
-                <div class="eye eye--left" style="
-                    position: absolute;
-                    top: 35%;
-                    height: 30%;
-                    width: 31%;
-                    background: #59a622;
-                    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-                    left: 0;
-                ">
-                    <div class="eye-pupil" style="
-                        position: absolute;
-                        top: 25%;
-                        height: 50%;
-                        width: 20%;
-                        background: #161616;
-                        border-radius: 50%;
-                        animation: look-around 4s infinite;
-                        right: 30%;
-                    "></div>
+    <header class="modern-header">
+    <nav class="modern-navigation">
+        <div class="cat">
+            <div class="ear ear--left"></div>
+            <div class="ear ear--right"></div>
+            <div class="face">
+                <div class="eye eye--left">
+                    <div class="eye-pupil"></div>
                 </div>
-                <div class="eye eye--right" style="
-                    position: absolute;
-                    top: 35%;
-                    height: 30%;
-                    width: 31%;
-                    background: #59a622;
-                    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-                    right: 0;
-                ">
-                    <div class="eye-pupil" style="
-                        position: absolute;
-                        top: 25%;
-                        height: 50%;
-                        width: 20%;
-                        background: #161616;
-                        border-radius: 50%;
-                        animation: look-around 4s infinite;
-                        left: 30%;
-                    "></div>
+                <div class="eye eye--right">
+                    <div class="eye-pupil"></div>
                 </div>
-                <div class="muzzle" style="
-                    position: absolute;
-                    top: 60%;
-                    left: 50%;
-                    height: 6%;
-                    width: 10%;
-                    background: #ffa7dc;
-                    transform: translateX(-50%);
-                    border-radius: 50% 50% 50% 50% / 30% 30% 70% 70%;
-                "></div>
+                <div class="muzzle"></div>
             </div>
         </div>
-        
-        <div id="responsive-brand" style="
-            color: #ffffff;
-            font-size: 1.6rem;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            transition: color 0.3s ease;
-            cursor: pointer;
-        ">Uziel Sánchez Marín</div>
-        
-        <ul id="responsive-menu" style="
-            list-style: none;
-            display: flex;
-            gap: 1rem;
-            margin: 0;
-            padding: 0;
-        ">
-            <li><a href="index.html" class="responsive-nav-item" style="
-                color: #b8c6db;
-                text-decoration: none;
-                font-size: 1rem;
-                font-weight: 500;
-                padding: 0.75rem 1.25rem;
-                border-radius: 8px;
-                transition: all 0.3s ease;
-                position: relative;
-                border: 2px solid transparent;
-                display: block;
-            ">Perfil</a></li>
-            <li><a href="habilidades.html#habilidades" class="responsive-nav-item" style="
-                color: #b8c6db;
-                text-decoration: none;
-                font-size: 1rem;
-                font-weight: 500;
-                padding: 0.75rem 1.25rem;
-                border-radius: 8px;
-                transition: all 0.3s ease;
-                position: relative;
-                border: 2px solid transparent;
-                display: block;
-            ">Habilidades</a></li>
-            <li><a href="experiencia.html#experiencia" class="responsive-nav-item" style="
-                color: #b8c6db;
-                text-decoration: none;
-                font-size: 1rem;
-                font-weight: 500;
-                padding: 0.75rem 1.25rem;
-                border-radius: 8px;
-                transition: all 0.3s ease;
-                position: relative;
-                border: 2px solid transparent;
-                display: block;
-            ">Experiencia</a></li>
-            <li><a href="hobbies.html#hobbies" class="responsive-nav-item" style="
-                color: #b8c6db;
-                text-decoration: none;
-                font-size: 1rem;
-                font-weight: 500;
-                padding: 0.75rem 1.25rem;
-                border-radius: 8px;
-                transition: all 0.3s ease;
-                position: relative;
-                border: 2px solid transparent;
-                display: block;
-            ">Hobbies</a></li>
+        <div class="brand-title">Uziel Sánchez Marín</div>
+        <ul class="navigation-menu">
+            <li><a href="index.html" class="nav-item">Perfil</a></li>
+            <li><a href="habilidades.html#habilidades" class="nav-item">Habilidades</a></li>
+            <li><a href="experiencia.html#experiencia" class="nav-item">Experiencia</a></li>
+            <li><a href="hobbies.html#hobbies" class="nav-item">Hobbies</a></li>
         </ul>
     </nav>
 </header>
