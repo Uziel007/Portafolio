@@ -686,6 +686,7 @@ p {
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--header-border);
+    width: 100%; /* AGREGADO */
 }
 
 /* Navegación moderna */
@@ -943,91 +944,117 @@ p {
 }
 
 /* === RESPONSIVE DESIGN MEJORADO === */
-@media (max-width: 1024px) {
-    .modern-navigation {
-        padding: 1rem 1.5rem;
-    }
-    
-    .navigation-menu {
-        gap: 0.8rem;
-    }
-    
-    .nav-item {
-        padding: 0.6rem 1rem;
-        font-size: 0.95rem;
-    }
+@keyframes look-around {
+    0% { transform: translate(0); }
+    5% { transform: translate(50%, -25%); }
+    10% { transform: translate(50%, -25%); }
+    15% { transform: translate(-100%, -25%); }
+    20% { transform: translate(-100%, -25%); }
+    25% { transform: translate(0, 0); }
+    100% { transform: translate(0, 0); }
+}
+
+.cat:hover {
+    transform: scale(1.05) !important;
+}
+
+#responsive-brand:hover {
+    color: #a60f0f !important;
+}
+
+.responsive-nav-item:hover {
+    color: #ffffff !important;
+    background-color: #a60f0f !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2) !important;
+}
+
+.responsive-nav-item.active {
+    background-color: #a60f0f !important;
+    color: #ffffff !important;
+    border-color: #ce3c14 !important;
 }
 
 @media (max-width: 768px) {
-    .modern-navigation {
-        flex-direction: column;
-        padding: 1.5rem 1rem;
-        gap: 1.5rem;
-        min-height: auto;
-        justify-content: center;
-        align-items: center;
+    #responsive-nav {
+        flex-direction: column !important;
+        padding: 1.5rem 1rem !important;
+        gap: 1.5rem !important;
+        min-height: auto !important;
+        justify-content: center !important;
+        align-items: center !important;
+        text-align: center !important;
     }
 
-    .brand-title {
-        font-size: 1.4rem;
-        text-align: center;
-        order: 2; /* Coloca el título después del gato */
+    #responsive-brand {
+        font-size: 1.4rem !important;
+        text-align: center !important;
+        order: 2 !important;
+        width: 100% !important;
     }
 
     .cat {
-        order: 1; /* El gato va primero */
+        order: 1 !important;
+        margin: 0 auto !important;
     }
 
-    .navigation-menu {
-        order: 3; /* El menú va al final */
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-        width: 100%;
-        gap: 0.8rem;
-        margin-top: 1rem;
+    #responsive-menu {
+        order: 3 !important;
+        flex-direction: row !important;
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        width: 100% !important;
+        gap: 1rem !important;
+        margin-top: 1rem !important;
+        padding: 0 !important;
     }
 
-    .nav-item {
-        padding: 0.8rem 1.2rem;
-        font-size: 0.95rem;
-        text-align: center;
-        min-width: calc(50% - 0.4rem);
-        display: block;
+    .responsive-nav-item {
+        padding: 0.9rem 1.4rem !important;
+        font-size: 0.95rem !important;
+        text-align: center !important;
+        min-width: calc(50% - 0.5rem) !important;
+        display: block !important;
+        margin-bottom: 0.5rem !important;
     }
 }
 
 @media (max-width: 480px) {
-    .modern-navigation {
-        padding: 1.2rem 0.8rem;
-        gap: 1.2rem;
+    #responsive-nav {
+        padding: 1.5rem 1rem !important;
+        gap: 1.5rem !important;
+        text-align: center !important;
     }
 
-    .brand-title {
-        font-size: 1.2rem;
+    #responsive-brand {
+        font-size: 1.2rem !important;
+        width: 100% !important;
     }
 
-    .navigation-menu {
-        flex-direction: column;
-        width: 100%;
-        gap: 0.6rem;
-        max-width: 300px; /* Limita el ancho máximo */
+    #responsive-menu {
+        flex-direction: column !important;
+        width: 100% !important;
+        gap: 1rem !important;
+        max-width: 320px !important;
+        margin: 0 auto !important;
     }
 
-    .nav-item {
-        width: 100%;
-        padding: 0.9rem 1rem;
-        font-size: 0.9rem;
-        min-width: 100%;
-        border-radius: 12px;
+    .responsive-nav-item {
+        width: 100% !important;
+        padding: 1rem 1.2rem !important;
+        font-size: 0.9rem !important;
+        min-width: 100% !important;
+        border-radius: 12px !important;
+        margin-bottom: 0.8rem !important;
     }
 
     .cat {
-        transform: scale(0.9);
+        transform: scale(0.9) !important;
+        margin: 0 auto !important;
     }
     
     .cat:hover {
-        transform: scale(0.95);
+        transform: scale(0.95) !important;
     }
 }
 
