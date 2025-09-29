@@ -232,18 +232,158 @@ document.addEventListener("DOMContentLoaded", function () {
             
             <strong>Video General del Proyecto:</strong>
             <table style="width: 100%; height: 100%;">
-                <tr>
-                    <td style="text-align: center; vertical-align: middle;">
-                        <div style="display: flex; justify-content: center; align-items: center; width: 100%;">
-                            <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 80%; width: 80%;">
-                                <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" 
-                                        src="https://www.youtube.com/embed/hUIN7CnXg4A"
-                                        frameborder="0" 
-                                        allowfullscreen>
-                                </iframe>
+                <tr>     
+                <td style="text-align: center; vertical-align: middle;">      
+                    <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; width: 100%; font-family: Arial, sans-serif; padding: 10px; box-sizing: border-box;">
+                        <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; width: 100%; max-width: 900px; border-radius: 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.8); border: 2px solid rgba(40,40,40,0.6);">
+                            <iframe id="youtubeVideo" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 10px;" 
+                                    src="https://www.youtube.com/embed/5B_Jc2Z1IC4?enablejsapi=1"
+                                    frameborder="0" 
+                                    allowfullscreen>
+                            </iframe>
+                        </div>
+                        
+                        <div style="margin-top: 20px; padding: 20px; background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0f0f0f 100%); border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.7); width: 100%; max-width: 900px; border: 1px solid rgba(60,60,60,0.4); box-sizing: border-box;">
+                            <h3 style="color: #cccccc; text-align: center; margin-bottom: 20px; font-size: clamp(16px, 4vw, 20px); text-shadow: 0 2px 4px rgba(0,0,0,0.8);">⚡ Capítulos del Video</h3>
+                            
+                            <!-- Selector desplegable para pantallas pequeñas -->
+                            <div style="display: block;">
+                                <select id="chapterSelector" onchange="goToChapter(this.value)" style="width: 100%; padding: 15px; background: rgba(40,40,40,0.8); border: 1px solid rgba(60,60,60,0.6); border-radius: 8px; color: #cccccc; font-size: 14px; margin-bottom: 20px; cursor: pointer;">
+                                    <option value="">📋 Selecciona un capítulo</option>
+                                    <option value="0">🏠 00:00 - Introducción</option>
+                                    <option value="165">📝 02:45 - Gestión de tareas</option>
+                                    <option value="249">🗂 04:09 - Estructura del proyecto</option>
+                                    <option value="546">💻 09:06 - Creación del instalable</option>
+                                    <option value="1250">⚙️ 20:50 - Instalación de la aplicación</option>
+                                    <option value="1427">👀 23:47 - Primer inicio y vista de usuario</option>
+                                    <option value="1780">🔑 29:40 - Funcionalidades principales</option>
+                                    <option value="1991">💰 33:11 - Módulo de ventas</option>
+                                    <option value="3084">📊 51:24 - Estadísticas</option>
+                                    <option value="3463">👥 57:43 - Clientes y pedidos</option>
+                                    <option value="3499">👤 58:19 - Usuarios</option>
+                                    <option value="3792">📋 63:12 - Contabilidad</option>
+                                    <option value="3925">⚙️ 65:25 - Ajustes generales</option>
+                                    <option value="4268">🔔 71:08 - Alertas y notificaciones</option>
+                                    <option value="4654">📅 77:34 - Calendario y tareas</option>
+                                    <option value="5133">🎁 85:33 - Ofertas y promociones</option>
+                                    <option value="5539">📦 92:19 - Productos y almacenamiento</option>
+                                    <option value="5982">📱 99:42 - Uso en tablet</option>
+                                </select>
+                            </div>
+                            
+                            <!-- Grid de botones para pantallas medianas y grandes -->
+                            <div id="buttonGrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 8px;">
+                                <button onclick="seekTo(0)" style="background: rgba(40,40,40,0.6); border: 1px solid rgba(60,60,60,0.4); color: #b3b3b3; padding: 10px 12px; border-radius: 8px; cursor: pointer; font-size: 12px; transition: all 0.3s; backdrop-filter: blur(5px); text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" 
+                                    onmouseover="this.style.background='rgba(60,60,60,0.8)'; this.style.transform='translateY(-1px)'; this.style.color='#ffffff'" 
+                                    onmouseout="this.style.background='rgba(40,40,40,0.6)'; this.style.transform='translateY(0)'; this.style.color='#b3b3b3'">
+                                    🏠 00:00 - Introducción
+                                </button>
+                                
+                                <button onclick="seekTo(165)" style="background: rgba(40,40,40,0.6); border: 1px solid rgba(60,60,60,0.4); color: #b3b3b3; padding: 10px 12px; border-radius: 8px; cursor: pointer; font-size: 12px; transition: all 0.3s; backdrop-filter: blur(5px); text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
+                                    onmouseover="this.style.background='rgba(60,60,60,0.8)'; this.style.transform='translateY(-1px)'; this.style.color='#ffffff'" 
+                                    onmouseout="this.style.background='rgba(40,40,40,0.6)'; this.style.transform='translateY(0)'; this.style.color='#b3b3b3'">
+                                    📝 02:45 - Gestión de tareas
+                                </button>
+                                
+                                <button onclick="seekTo(249)" style="background: rgba(40,40,40,0.6); border: 1px solid rgba(60,60,60,0.4); color: #b3b3b3; padding: 10px 12px; border-radius: 8px; cursor: pointer; font-size: 12px; transition: all 0.3s; backdrop-filter: blur(5px); text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
+                                    onmouseover="this.style.background='rgba(60,60,60,0.8)'; this.style.transform='translateY(-1px)'; this.style.color='#ffffff'" 
+                                    onmouseout="this.style.background='rgba(40,40,40,0.6)'; this.style.transform='translateY(0)'; this.style.color='#b3b3b3'">
+                                    🗂 04:09 - Estructura del proyecto
+                                </button>
+                                
+                                <button onclick="seekTo(546)" style="background: rgba(40,40,40,0.6); border: 1px solid rgba(60,60,60,0.4); color: #b3b3b3; padding: 10px 12px; border-radius: 8px; cursor: pointer; font-size: 12px; transition: all 0.3s; backdrop-filter: blur(5px); text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
+                                    onmouseover="this.style.background='rgba(60,60,60,0.8)'; this.style.transform='translateY(-1px)'; this.style.color='#ffffff'" 
+                                    onmouseout="this.style.background='rgba(40,40,40,0.6)'; this.style.transform='translateY(0)'; this.style.color='#b3b3b3'">
+                                    💻 09:06 - Creación del instalable
+                                </button>
+                                
+                                <button onclick="seekTo(1250)" style="background: rgba(40,40,40,0.6); border: 1px solid rgba(60,60,60,0.4); color: #b3b3b3; padding: 10px 12px; border-radius: 8px; cursor: pointer; font-size: 12px; transition: all 0.3s; backdrop-filter: blur(5px); text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
+                                    onmouseover="this.style.background='rgba(60,60,60,0.8)'; this.style.transform='translateY(-1px)'; this.style.color='#ffffff'" 
+                                    onmouseout="this.style.background='rgba(40,40,40,0.6)'; this.style.transform='translateY(0)'; this.style.color='#b3b3b3'">
+                                    ⚙️ 20:50 - Instalación de la aplicación
+                                </button>
+                                
+                                <button onclick="seekTo(1427)" style="background: rgba(40,40,40,0.6); border: 1px solid rgba(60,60,60,0.4); color: #b3b3b3; padding: 10px 12px; border-radius: 8px; cursor: pointer; font-size: 12px; transition: all 0.3s; backdrop-filter: blur(5px); text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
+                                    onmouseover="this.style.background='rgba(60,60,60,0.8)'; this.style.transform='translateY(-1px)'; this.style.color='#ffffff'" 
+                                    onmouseout="this.style.background='rgba(40,40,40,0.6)'; this.style.transform='translateY(0)'; this.style.color='#b3b3b3'">
+                                    👀 23:47 - Primer inicio y vista de usuario
+                                </button>
+                                
+                                <button onclick="seekTo(1780)" style="background: rgba(40,40,40,0.6); border: 1px solid rgba(60,60,60,0.4); color: #b3b3b3; padding: 10px 12px; border-radius: 8px; cursor: pointer; font-size: 12px; transition: all 0.3s; backdrop-filter: blur(5px); text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
+                                    onmouseover="this.style.background='rgba(60,60,60,0.8)'; this.style.transform='translateY(-1px)'; this.style.color='#ffffff'" 
+                                    onmouseout="this.style.background='rgba(40,40,40,0.6)'; this.style.transform='translateY(0)'; this.style.color='#b3b3b3'">
+                                    🔑 29:40 - Funcionalidades principales
+                                </button>
+                                
+                                <button onclick="seekTo(1991)" style="background: rgba(40,40,40,0.6); border: 1px solid rgba(60,60,60,0.4); color: #b3b3b3; padding: 10px 12px; border-radius: 8px; cursor: pointer; font-size: 12px; transition: all 0.3s; backdrop-filter: blur(5px); text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
+                                    onmouseover="this.style.background='rgba(60,60,60,0.8)'; this.style.transform='translateY(-1px)'; this.style.color='#ffffff'" 
+                                    onmouseout="this.style.background='rgba(40,40,40,0.6)'; this.style.transform='translateY(0)'; this.style.color='#b3b3b3'">
+                                    💰 33:11 - Módulo de ventas
+                                </button>
+                                
+                                <button onclick="seekTo(3084)" style="background: rgba(40,40,40,0.6); border: 1px solid rgba(60,60,60,0.4); color: #b3b3b3; padding: 10px 12px; border-radius: 8px; cursor: pointer; font-size: 12px; transition: all 0.3s; backdrop-filter: blur(5px); text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
+                                    onmouseover="this.style.background='rgba(60,60,60,0.8)'; this.style.transform='translateY(-1px)'; this.style.color='#ffffff'" 
+                                    onmouseout="this.style.background='rgba(40,40,40,0.6)'; this.style.transform='translateY(0)'; this.style.color='#b3b3b3'">
+                                    📊 51:24 - Estadísticas
+                                </button>
+                                
+                                <button onclick="seekTo(3463)" style="background: rgba(40,40,40,0.6); border: 1px solid rgba(60,60,60,0.4); color: #b3b3b3; padding: 10px 12px; border-radius: 8px; cursor: pointer; font-size: 12px; transition: all 0.3s; backdrop-filter: blur(5px); text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
+                                    onmouseover="this.style.background='rgba(60,60,60,0.8)'; this.style.transform='translateY(-1px)'; this.style.color='#ffffff'" 
+                                    onmouseout="this.style.background='rgba(40,40,40,0.6)'; this.style.transform='translateY(0)'; this.style.color='#b3b3b3'">
+                                    👥 57:43 - Clientes y pedidos
+                                </button>
+                                
+                                <button onclick="seekTo(3499)" style="background: rgba(40,40,40,0.6); border: 1px solid rgba(60,60,60,0.4); color: #b3b3b3; padding: 10px 12px; border-radius: 8px; cursor: pointer; font-size: 12px; transition: all 0.3s; backdrop-filter: blur(5px); text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
+                                    onmouseover="this.style.background='rgba(60,60,60,0.8)'; this.style.transform='translateY(-1px)'; this.style.color='#ffffff'" 
+                                    onmouseout="this.style.background='rgba(40,40,40,0.6)'; this.style.transform='translateY(0)'; this.style.color='#b3b3b3'">
+                                    👤 58:19 - Usuarios
+                                </button>
+                                
+                                <button onclick="seekTo(3792)" style="background: rgba(40,40,40,0.6); border: 1px solid rgba(60,60,60,0.4); color: #b3b3b3; padding: 10px 12px; border-radius: 8px; cursor: pointer; font-size: 12px; transition: all 0.3s; backdrop-filter: blur(5px); text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
+                                    onmouseover="this.style.background='rgba(60,60,60,0.8)'; this.style.transform='translateY(-1px)'; this.style.color='#ffffff'" 
+                                    onmouseout="this.style.background='rgba(40,40,40,0.6)'; this.style.transform='translateY(0)'; this.style.color='#b3b3b3'">
+                                    📋 63:12 - Contabilidad
+                                </button>
+                                
+                                <button onclick="seekTo(3925)" style="background: rgba(40,40,40,0.6); border: 1px solid rgba(60,60,60,0.4); color: #b3b3b3; padding: 10px 12px; border-radius: 8px; cursor: pointer; font-size: 12px; transition: all 0.3s; backdrop-filter: blur(5px); text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
+                                    onmouseover="this.style.background='rgba(60,60,60,0.8)'; this.style.transform='translateY(-1px)'; this.style.color='#ffffff'" 
+                                    onmouseout="this.style.background='rgba(40,40,40,0.6)'; this.style.transform='translateY(0)'; this.style.color='#b3b3b3'">
+                                    ⚙️ 65:25 - Ajustes generales
+                                </button>
+                                
+                                <button onclick="seekTo(4268)" style="background: rgba(40,40,40,0.6); border: 1px solid rgba(60,60,60,0.4); color: #b3b3b3; padding: 10px 12px; border-radius: 8px; cursor: pointer; font-size: 12px; transition: all 0.3s; backdrop-filter: blur(5px); text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
+                                    onmouseover="this.style.background='rgba(60,60,60,0.8)'; this.style.transform='translateY(-1px)'; this.style.color='#ffffff'" 
+                                    onmouseout="this.style.background='rgba(40,40,40,0.6)'; this.style.transform='translateY(0)'; this.style.color='#b3b3b3'">
+                                    🔔 71:08 - Alertas y notificaciones
+                                </button>
+                                
+                                <button onclick="seekTo(4654)" style="background: rgba(40,40,40,0.6); border: 1px solid rgba(60,60,60,0.4); color: #b3b3b3; padding: 10px 12px; border-radius: 8px; cursor: pointer; font-size: 12px; transition: all 0.3s; backdrop-filter: blur(5px); text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
+                                    onmouseover="this.style.background='rgba(60,60,60,0.8)'; this.style.transform='translateY(-1px)'; this.style.color='#ffffff'" 
+                                    onmouseout="this.style.background='rgba(40,40,40,0.6)'; this.style.transform='translateY(0)'; this.style.color='#b3b3b3'">
+                                    📅 77:34 - Calendario y tareas
+                                </button>
+                                
+                                <button onclick="seekTo(5133)" style="background: rgba(40,40,40,0.6); border: 1px solid rgba(60,60,60,0.4); color: #b3b3b3; padding: 10px 12px; border-radius: 8px; cursor: pointer; font-size: 12px; transition: all 0.3s; backdrop-filter: blur(5px); text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
+                                    onmouseover="this.style.background='rgba(60,60,60,0.8)'; this.style.transform='translateY(-1px)'; this.style.color='#ffffff'" 
+                                    onmouseout="this.style.background='rgba(40,40,40,0.6)'; this.style.transform='translateY(0)'; this.style.color='#b3b3b3'">
+                                    🎁 85:33 - Ofertas y promociones
+                                </button>
+                                
+                                <button onclick="seekTo(5539)" style="background: rgba(40,40,40,0.6); border: 1px solid rgba(60,60,60,0.4); color: #b3b3b3; padding: 10px 12px; border-radius: 8px; cursor: pointer; font-size: 12px; transition: all 0.3s; backdrop-filter: blur(5px); text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
+                                    onmouseover="this.style.background='rgba(60,60,60,0.8)'; this.style.transform='translateY(-1px)'; this.style.color='#ffffff'" 
+                                    onmouseout="this.style.background='rgba(40,40,40,0.6)'; this.style.transform='translateY(0)'; this.style.color='#b3b3b3'">
+                                    📦 92:19 - Productos y almacenamiento
+                                </button>
+                                
+                                <button onclick="seekTo(5982)" style="background: rgba(40,40,40,0.6); border: 1px solid rgba(60,60,60,0.4); color: #b3b3b3; padding: 10px 12px; border-radius: 8px; cursor: pointer; font-size: 12px; transition: all 0.3s; backdrop-filter: blur(5px); text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
+                                    onmouseover="this.style.background='rgba(60,60,60,0.8)'; this.style.transform='translateY(-1px)'; this.style.color='#ffffff'" 
+                                    onmouseout="this.style.background='rgba(40,40,40,0.6)'; this.style.transform='translateY(0)'; this.style.color='#b3b3b3'">
+                                    📱 99:42 - Uso en tablet
+                                </button>
                             </div>
                         </div>
-                    </td>
+                    </div>
+                </td>
                 </tr>
             </table>
             
@@ -2063,3 +2203,40 @@ window.onclick = function (event) {
     });
   }
 };
+
+function seekTo(seconds) {
+    const iframe = document.getElementById("youtubeVideo");
+    const url = iframe.src;
+    const videoId = url.match(/embed\/([^?]+)/)[1];
+    iframe.src = `https://www.youtube.com/embed/${videoId}?start=${seconds}&autoplay=1`;
+}
+
+function goToChapter(seconds) {
+    if (seconds) {
+        seekTo(parseInt(seconds));
+        // Reset selector
+        document.getElementById('chapterSelector').value = '';
+    }
+}
+
+// Responsive behavior
+function updateDisplay() {
+    const selector = document.getElementById('chapterSelector');
+    const buttonGrid = document.getElementById('buttonGrid');
+    const screenWidth = window.innerWidth;
+    
+    if (screenWidth < 768) {
+        // Mobile: show selector, hide buttons
+        selector.style.display = 'block';
+        buttonGrid.style.display = 'none';
+    } else {
+        // Desktop/Tablet: hide selector, show buttons
+        selector.style.display = 'none';
+        buttonGrid.style.display = 'grid';
+    }
+}
+
+// Update on load and resize
+window.addEventListener('load', updateDisplay);
+window.addEventListener('resize', updateDisplay);
+
