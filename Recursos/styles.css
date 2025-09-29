@@ -415,7 +415,6 @@ p {
     cursor: pointer;
     border: 2px solid transparent; /* No visible al principio */
     padding: 16px 32px;
-    float: right; /* Esto coloca el botón hacia la derecha */
     font-size: 24px;
     font-weight: bold;
     position: relative;

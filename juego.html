@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nami y sus Amigos - Rescate de Tokki</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            overflow: hidden;
+            font-family: 'Arial', sans-serif;
+            touch-action: none;
+        }
+
+        #gameCanvas {
+            display: block;
+            background: linear-gradient(to bottom, #0a0a2e 0%, #16213e 50%, #1a1a3e 100%);
+        }
+
+        #ui {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: white;
+            font-size: 24px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            z-index: 10;
+        }
+
+        #controls {
+            position: absolute;
+            bottom: 30px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 30px;
+            z-index: 10;
+        }
+
+        .control-btn {
+            width: 70px;
+            height: 70px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 3px solid rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            color: white;
+            font-size: 30px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+            touch-action: none;
+        }
+
+        .control-btn:active {
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        #gameOver {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.9);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            color: white;
+            display: none;
+            z-index: 20;
+        }
+
+        #gameOver h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        #gameOver button {
+            padding: 15px 40px;
+            font-size: 20px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        #gameOver button:hover {
+            background: #45a049;
+        }
+
+        @media (max-width: 768px) {
+            .control-btn {
+                display: flex;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="ui">
+        <div>Altura: <span id="height">0</span>m</div>
+        <div>🌙 Misión: Rescatar a Tokki (1000m)</div>
+        <div id="friends" style="margin-top: 10px; font-size: 18px;"></div>
+    </div>
+    
+    <canvas id="gameCanvas"></canvas>
+    
+    <div id="controls">
+        <button class="control-btn" id="leftBtn">←</button>
+        <button class="control-btn" id="rightBtn">→</button>
+    </div>
+
+    <div id="gameOver">
+        <h2 id="endMessage"></h2>
+        <p id="finalHeight"></p>
+        <button onclick="restartGame()">Jugar de Nuevo</button>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const isMobile = window.innerWidth < 768;
+
+        let game = {
+            cat: {
+                x: canvas.width / 2,
+                y: canvas.height - 150,
+                width: 40,
+                height: 50,
+                velocityY: 0,
+                velocityX: 0,
+                gravity: 0.5,
+                jumpPower: -12,
+                speed: 6,
+                grounded: false,
+                jumpsLeft: 2,
+                maxJumps: 2,
+                positionHistory: []
+            },
+            camera: {
+                y: 0
+            },
+            platforms: [],
+            keys: {},
+            height: 0,
+            stars: [],
+            gameRunning: true,
+            friendsList: [
+                { name: 'alika', height: 200, delay: 15, active: false },
+                { name: 'ying', height: 400, delay: 30, active: false },
+                { name: 'calcifer', height: 600, delay: 45, active: false },
+                { name: 'nagini', height: 800, delay: 60, active: false }
+            ]
+        };
+
+        // Crear estrellas
+        for (let i = 0; i < 150; i++) {
+            game.stars.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * 12000,
+                size: Math.random() * 2 + 1
+            });
+        }
+
+        // Crear plataformas iniciales
+        function createPlatforms() {
+            game.platforms = [];
+            
+            // Plataforma inicial
+            game.platforms.push({
+                x: canvas.width / 2 - 100,
+                y: canvas.height - 50,
+                width: 200,
+                height: 20
+            });
+
+            // Generar plataformas hacia arriba HASTA LA LUNA (sin pasarse)
+            let lastY = canvas.height - 50;
+            const targetY = -10000; // Posición de la luna
+            
+            while (lastY > targetY + 100) { // Detener ANTES de la luna
+                lastY -= Math.random() * 60 + (isMobile ? 100 : 80);
+                let width = Math.random() * 80 + 100;
+                let x = Math.random() * (canvas.width - width);
+                
+                game.platforms.push({
+                    x: x,
+                    y: lastY,
+                    width: width,
+                    height: 20
+                });
+            }
+
+            // Plataforma de la luna (la última)
+            game.platforms.push({
+                x: canvas.width / 2 - 150,
+                y: targetY,
+                width: 300,
+                height: 30,
+                isMoon: true
+            });
+        }
+
+        createPlatforms();
+
+        // Dibujar Nami (gato)
+        function drawNami(x, y, showName = false) {
+            if (showName) {
+                ctx.fillStyle = 'white';
+                ctx.font = 'bold 14px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText('Nami', x, y - 10);
+            }
+
+            ctx.fillStyle = '#f5f5f5';
+            ctx.beginPath();
+            ctx.ellipse(x, y + 38, 18, 14, 0, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.fillStyle = '#a0a0a0';
+            ctx.beginPath();
+            ctx.ellipse(x, y + 25, 16, 12, 0, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.strokeStyle = '#606060';
+            ctx.lineWidth = 2;
+            for (let i = 0; i < 4; i++) {
+                ctx.beginPath();
+                ctx.arc(x, y + 20 + i * 5, 14 - i * 2, Math.PI * 1.2, Math.PI * 1.8);
+                ctx.stroke();
+            }
+            
+            ctx.fillStyle = '#f5f5f5';
+            ctx.fillRect(x - 8, y + 42, 6, 8);
+            ctx.fillRect(x + 2, y + 42, 6, 8);
+            
+            ctx.fillStyle = '#a0a0a0';
+            ctx.beginPath();
+            ctx.ellipse(x, y + 12, 14, 13, 0, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.fillStyle = '#a0a0a0';
+            ctx.beginPath();
+            ctx.moveTo(x - 8, y + 2);
+            ctx.lineTo(x - 12, y - 5);
+            ctx.lineTo(x - 4, y + 5);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.moveTo(x + 8, y + 2);
+            ctx.lineTo(x + 12, y - 5);
+            ctx.lineTo(x + 4, y + 5);
+            ctx.fill();
+            
+            ctx.fillStyle = '#ffb6c1';
+            ctx.beginPath();
+            ctx.moveTo(x - 8, y + 2);
+            ctx.lineTo(x - 10, y - 2);
+            ctx.lineTo(x - 6, y + 3);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.moveTo(x + 8, y + 2);
+            ctx.lineTo(x + 10, y - 2);
+            ctx.lineTo(x + 6, y + 3);
+            ctx.fill();
+            
+            ctx.fillStyle = '#ffffff';
+            ctx.beginPath();
+            ctx.ellipse(x, y + 17, 8, 6, 0, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.fillStyle = '#98FB98';
+            ctx.beginPath();
+            ctx.ellipse(x - 5, y + 11, 3.5, 4, 0, 0, Math.PI * 2);
+            ctx.ellipse(x + 5, y + 11, 3.5, 4, 0, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.fillStyle = '#000';
+            ctx.beginPath();
+            ctx.ellipse(x - 5, y + 11, 1.5, 3, 0, 0, Math.PI * 2);
+            ctx.ellipse(x + 5, y + 11, 1.5, 3, 0, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.fillStyle = 'white';
+            ctx.beginPath();
+            ctx.arc(x - 5.5, y + 9.5, 1, 0, Math.PI * 2);
+            ctx.arc(x + 4.5, y + 9.5, 1, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.fillStyle = '#ff69b4';
+            ctx.beginPath();
+            ctx.moveTo(x, y + 16);
+            ctx.lineTo(x - 2, y + 14);
+            ctx.lineTo(x + 2, y + 14);
+            ctx.fill();
+            
+            ctx.strokeStyle = '#333';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(x - 8, y + 15);
+            ctx.lineTo(x - 18, y + 13);
+            ctx.moveTo(x - 8, y + 17);
+            ctx.lineTo(x - 18, y + 17);
+            ctx.moveTo(x + 8, y + 15);
+            ctx.lineTo(x + 18, y + 13);
+            ctx.moveTo(x + 8, y + 17);
+            ctx.lineTo(x + 18, y + 17);
+            ctx.stroke();
+            
+            ctx.strokeStyle = '#a0a0a0';
+            ctx.lineWidth = 7;
+            ctx.lineCap = 'round';
+            ctx.beginPath();
+            ctx.moveTo(x - 16, y + 36);
+            ctx.quadraticCurveTo(x - 25, y + 30, x - 22, y + 20);
+            ctx.stroke();
+        }
+
+        // Dibujar Alika (husky)
+        function drawAlika(x, y, showName = false) {
+            if (showName) {
+                ctx.fillStyle = 'white';
+                ctx.font = 'bold 14px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText('Alika', x, y - 10);
+            }
+
+            ctx.fillStyle = '#d3d3d3';
+            ctx.beginPath();
+            ctx.ellipse(x, y + 30, 20, 16, 0, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.fillStyle = '#ffffff';
+            ctx.beginPath();
+            ctx.ellipse(x, y + 35, 15, 12, 0, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.fillStyle = '#d3d3d3';
+            ctx.beginPath();
+            ctx.ellipse(x, y + 12, 16, 14, 0, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.fillStyle = '#ffffff';
+            ctx.beginPath();
+            ctx.ellipse(x, y + 15, 10, 10, 0, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.fillStyle = '#d3d3d3';
+            ctx.beginPath();
+            ctx.moveTo(x - 10, y + 2);
+            ctx.lineTo(x - 14, y - 6);
+            ctx.lineTo(x - 6, y + 4);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.moveTo(x + 10, y + 2);
+            ctx.lineTo(x + 14, y - 6);
+            ctx.lineTo(x + 6, y + 4);
+            ctx.fill();
+            
+            ctx.fillStyle = '#87CEEB';
+            ctx.beginPath();
+            ctx.ellipse(x - 6, y + 10, 3, 4, 0, 0, Math.PI * 2);
+            ctx.ellipse(x + 6, y + 10, 3, 4, 0, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.fillStyle = '#000';
+            ctx.beginPath();
+            ctx.arc(x - 6, y + 10, 2, 0, Math.PI * 2);
+            ctx.arc(x + 6, y + 10, 2, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.fillStyle = '#000';
+            ctx.beginPath();
+            ctx.arc(x, y + 16, 3, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.fillStyle = '#d3d3d3';
+            ctx.fillRect(x - 12, y + 42, 6, 10);
+            ctx.fillRect(x + 6, y + 42, 6, 10);
+            
+            ctx.fillStyle = '#d3d3d3';
+            ctx.beginPath();
+            ctx.arc(x - 18, y + 28, 8, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        // Dibujar Ying (chihuahua blanco)
+        function drawYing(x, y, showName = false) {
+            if (showName) {
+                ctx.fillStyle = 'white';
+                ctx.font = 'bold 14px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText('Ying', x, y - 10);
+            }
+
+            ctx.fillStyle = '#ffffff';
+            ctx.beginPath();
+            ctx.ellipse(x, y + 32, 14, 10, 0, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.fillStyle = '#ffffff';
+            ctx.beginPath();
+            ctx.ellipse(x, y + 15, 12, 11, 0, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.fillStyle = '#f5f5f5';
+            ctx.beginPath();
+            ctx.ellipse(x, y + 20, 6, 8, 0, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.fillStyle = '#ffffff';
+            ctx.beginPath();
+            ctx.ellipse(x - 10, y + 8, 8, 12, -0.3, 0, Math.PI * 2);
+            ctx.ellipse(x + 10, y + 8, 8, 12, 0.3, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.strokeStyle = '#e0e0e0';
+            ctx.lineWidth = 1.5;
+            for(let i = 0; i < 5; i++) {
+                ctx.beginPath();
+                ctx.moveTo(x - 10 + i, y + 5);
+                ctx.lineTo(x - 12 + i, y);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(x + 10 - i, y + 5);
+                ctx.lineTo(x + 12 - i, y);
+                ctx.stroke();
+            }
+            
+            ctx.fillStyle = '#000';
+            ctx.beginPath();
+            ctx.arc(x - 5, y + 12, 3, 0, Math.PI * 2);
+            ctx.arc(x + 5, y + 12, 3, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.fillStyle = 'white';
+            ctx.beginPath();
+            ctx.arc(x - 5, y + 11, 1, 0, Math.PI * 2);
+            ctx.arc(x + 5, y + 11, 1, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.fillStyle = '#000';
+            ctx.beginPath();
+            ctx.arc(x, y + 22, 2, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(x - 8, y + 40, 4, 8);
+            ctx.fillRect(x + 4, y + 40, 4, 8);
+        }
+
+        // Dibujar Calcifer (ajolote)
+        function drawCalcifer(x, y, showName = false) {
+            if (showName) {
+                ctx.fillStyle = 'white';
+                ctx.font = 'bold 14px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText('Calcifer', x, y - 10);
+            }
+
+            ctx.fillStyle = '#ffb6c1';
+            ctx.beginPath();
+            ctx.ellipse(x, y + 28, 18, 10, 0, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.fillStyle = '#ffb6c1';
+            ctx.beginPath();
+            ctx.ellipse(x, y + 15, 14, 12, 0, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.strokeStyle = '#ff69b4';
+            ctx.lineWidth = 3;
+            for(let i = 0; i < 3; i++) {
+                ctx.beginPath();
+                ctx.moveTo(x - 14, y + 10 + i * 3);
+                ctx.lineTo(x - 20, y + 8 + i * 3);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(x + 14, y + 10 + i * 3);
+                ctx.lineTo(x + 20, y + 8 + i * 3);
+                ctx.stroke();
+            }
+            
+            ctx.fillStyle = '#000';
+            ctx.beginPath();
+            ctx.arc(x - 6, y + 12, 2, 0, Math.PI * 2);
+            ctx.arc(x + 6, y + 12, 2, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.strokeStyle = '#000';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.arc(x, y + 18, 8, 0.2, Math.PI - 0.2);
+            ctx.stroke();
+            
+            ctx.fillStyle = '#ffb6c1';
+            ctx.fillRect(x - 14, y + 32, 5, 6);
+            ctx.fillRect(x + 9, y + 32, 5, 6);
+            
+            ctx.strokeStyle = '#ffb6c1';
+            ctx.lineWidth = 8;
+            ctx.beginPath();
+            ctx.moveTo(x + 16, y + 28);
+            ctx.quadraticCurveTo(x + 24, y + 26, x + 26, y + 20);
+            ctx.stroke();
+        }
+
+        // Dibujar Nagini (serpiente amarillo pastel con negro)
+        function drawNagini(x, y, showName = false) {
+            if (showName) {
+                ctx.fillStyle = 'white';
+                ctx.font = 'bold 14px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText('Nagini', x, y - 10);
+            }
+
+            // Cuerpo ondulado amarillo pastel
+            ctx.strokeStyle = '#FCEE58';
+            ctx.lineWidth = 12;
+            ctx.beginPath();
+            ctx.moveTo(x - 20, y + 35);
+            ctx.quadraticCurveTo(x - 10, y + 25, x, y + 28);
+            ctx.quadraticCurveTo(x + 10, y + 31, x + 18, y + 25);
+            ctx.stroke();
+            
+            // Patrón de escamas negras
+            ctx.strokeStyle = '#000000';
+            ctx.lineWidth = 2;
+            for(let i = 0; i < 8; i++) {
+                ctx.beginPath();
+                ctx.arc(x - 18 + i * 5, y + 32 - (i % 2) * 3, 4, 0, Math.PI);
+                ctx.stroke();
+            }
+            
+            // Cabeza triangular amarillo pastel
+            ctx.fillStyle = '#FCEE58';
+            ctx.beginPath();
+            ctx.moveTo(x - 8, y + 15);
+            ctx.lineTo(x, y + 5);
+            ctx.lineTo(x + 8, y + 15);
+            ctx.lineTo(x, y + 22);
+            ctx.fill();
+            
+            // Contorno negro de la cabeza
+            ctx.strokeStyle = '#000000';
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.moveTo(x - 8, y + 15);
+            ctx.lineTo(x, y + 5);
+            ctx.lineTo(x + 8, y + 15);
+            ctx.lineTo(x, y + 22);
+            ctx.closePath();
+            ctx.stroke();
+            
+            // Ojos verdes
+            ctx.fillStyle = '#00ff00';
+            ctx.beginPath();
+            ctx.ellipse(x - 3, y + 12, 2, 3, 0, 0, Math.PI * 2);
+            ctx.ellipse(x + 3, y + 12, 2, 3, 0, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Pupilas negras
+            ctx.fillStyle = '#000';
+            ctx.beginPath();
+            ctx.ellipse(x - 3, y + 12, 0.8, 2, 0, 0, Math.PI * 2);
+            ctx.ellipse(x + 3, y + 12, 0.8, 2, 0, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Lengua bífida roja
+            ctx.strokeStyle = '#ff0000';
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.moveTo(x, y + 18);
+            ctx.lineTo(x - 2, y + 24);
+            ctx.moveTo(x, y + 18);
+            ctx.lineTo(x + 2, y + 24);
+            ctx.stroke();
+        }
+
+        // Dibujar Tokki (conejo en la luna - mejorado)
+        function drawTokki(x, y) {
+            ctx.fillStyle = 'white';
+            ctx.font = 'bold 18px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('Tokki', x, y - 50);
+
+            // Cuerpo blanco con contorno negro
+            ctx.fillStyle = '#ffffff';
+            ctx.strokeStyle = '#000000';
+            ctx.lineWidth = 2.5;
+            ctx.beginPath();
+            ctx.ellipse(x, y + 15, 22, 20, 0, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+            
+            // Mancha negra en la panza del lado derecho
+            ctx.fillStyle = '#000';
+            ctx.beginPath();
+            ctx.ellipse(x + 8, y + 18, 10, 12, 0, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Cabeza redonda con contorno
+            ctx.fillStyle = '#ffffff';
+            ctx.beginPath();
+            ctx.ellipse(x, y - 10, 18, 17, 0, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+            
+            // Orejas LARGAS y OREJONAS con contorno
+            ctx.fillStyle = '#ffffff';
+            ctx.beginPath();
+            ctx.ellipse(x - 10, y - 30, 7, 25, -0.3, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+            
+            ctx.beginPath();
+            ctx.ellipse(x + 10, y - 30, 7, 25, 0.3, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+            
+            // Interior orejas rosa con contorno
+            ctx.fillStyle = '#ffb6c1';
+            ctx.beginPath();
+            ctx.ellipse(x - 10, y - 28, 4, 15, -0.3, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+            
+            ctx.beginPath();
+            ctx.ellipse(x + 10, y - 28, 4, 15, 0.3, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+            
+            // Mancha negra en el ojo IZQUIERDO (ojo izquierdo de Tokki = derecha visual)
+            ctx.fillStyle = '#000';
+            ctx.beginPath();
+            ctx.ellipse(x + 7, y - 10, 6, 7, 0, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Ojos grandes redondos con contorno
+            ctx.fillStyle = '#000000';
+            ctx.beginPath();
+            ctx.arc(x - 7, y - 8, 4, 0, Math.PI * 2);
+            ctx.arc(x + 7, y - 8, 4, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Brillo en los ojos
+            ctx.fillStyle = 'white';
+            ctx.beginPath();
+            ctx.arc(x - 7.5, y - 9, 1.5, 0, Math.PI * 2);
+            ctx.arc(x + 6.5, y - 9, 1.5, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Nariz rosa con contorno
+            ctx.fillStyle = '#ffb6c1';
+            ctx.strokeStyle = '#000';
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.moveTo(x, y - 2);
+            ctx.lineTo(x - 2.5, y - 4);
+            ctx.lineTo(x + 2.5, y - 4);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+            
+            // Boca con contorno
+            ctx.strokeStyle = '#000';
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.moveTo(x, y - 2);
+            ctx.lineTo(x, y + 1);
+            ctx.moveTo(x, y + 1);
+            ctx.quadraticCurveTo(x - 4, y + 3, x - 5, y + 2);
+            ctx.moveTo(x, y + 1);
+            ctx.quadraticCurveTo(x + 4, y + 3, x + 5, y + 2);
+            ctx.stroke();
+            
+            // Bigotes negros
+            ctx.strokeStyle = '#000';
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            // Izquierda
+            ctx.moveTo(x - 12, y - 4);
+            ctx.lineTo(x - 22, y - 5);
+            ctx.moveTo(x - 12, y - 1);
+            ctx.lineTo(x - 22, y - 1);
+            ctx.moveTo(x - 12, y + 2);
+            ctx.lineTo(x - 22, y + 3);
+            // Derecha
+            ctx.moveTo(x + 12, y - 4);
+            ctx.lineTo(x + 22, y - 5);
+            ctx.moveTo(x + 12, y - 1);
+            ctx.lineTo(x + 22, y - 1);
+            ctx.moveTo(x + 12, y + 2);
+            ctx.lineTo(x + 22, y + 3);
+            ctx.stroke();
+            
+            // Patas delanteras con contorno (la derecha tiene mancha)
+            ctx.fillStyle = '#ffffff';
+            ctx.strokeStyle = '#000';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.ellipse(x - 10, y + 28, 6, 10, 0, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+            
+            // Pata derecha (ya tiene la mancha negra dibujada arriba)
+            ctx.strokeStyle = '#000';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.ellipse(x + 12, y + 30, 6, 10, 0, 0, Math.PI * 2);
+            ctx.stroke();
+            
+            // Colita esponjosa con contorno
+            ctx.fillStyle = '#ffffff';
+            ctx.strokeStyle = '#000';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.arc(x - 20, y + 15, 8, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+        }
+
+        // Dibujar todos los personajes
+        function drawCharacters() {
+            const catX = game.cat.x;
+            const catY = game.cat.y - game.cat.height + game.camera.y;
+
+            // Dibujar Nami (siempre con nombre)
+            drawNami(catX, catY, true);
+
+            // Dibujar amigos siguiendo el historial con retraso + desplazamiento horizontal
+            const spacing = 45; // Espacio horizontal entre personajes
+            
+            game.friendsList.forEach((friend, index) => {
+                if (friend.active && game.cat.positionHistory.length > friend.delay) {
+                    const historyIndex = game.cat.positionHistory.length - friend.delay;
+                    const pos = game.cat.positionHistory[historyIndex];
+                    
+                    if (pos) {
+                        // Posición del amigo con offset horizontal para no encimarse
+                        const friendX = pos.x + (index + 1) * spacing;
+                        const friendY = pos.y - game.cat.height + game.camera.y;
+                        
+                        if (friend.name === 'alika') drawAlika(friendX, friendY, true);
+                        else if (friend.name === 'ying') drawYing(friendX, friendY, true);
+                        else if (friend.name === 'calcifer') drawCalcifer(friendX, friendY, true);
+                        else if (friend.name === 'nagini') drawNagini(friendX, friendY, true);
+                    }
+                }
+            });
+        }
+
+        // Actualizar amigos según altura
+        function updateFriends() {
+            game.friendsList.forEach(friend => {
+                if (game.height >= friend.height && !friend.active) {
+                    friend.active = true;
+                    updateFriendsUI();
+                }
+            });
+        }
+
+        function updateFriendsUI() {
+            const friendsDiv = document.getElementById('friends');
+            const activeFriends = game.friendsList.filter(f => f.active);
+            if (activeFriends.length > 0) {
+                const names = activeFriends.map(f => f.name.charAt(0).toUpperCase() + f.name.slice(1));
+                friendsDiv.textContent = 'Equipo: Nami, ' + names.join(', ');
+            }
+        }
+
+        // Dibujar plataformas
+        function drawPlatforms() {
+            game.platforms.forEach(platform => {
+                const screenY = platform.y + game.camera.y;
+                
+                if (screenY > -300 && screenY < canvas.height + 50) {
+                    if (platform.isMoon) {
+                        // Dibujar luna
+                        ctx.fillStyle = '#f0f0f0';
+                        ctx.beginPath();
+                        ctx.arc(platform.x + platform.width / 2, screenY - 80, 100, 0, Math.PI * 2);
+                        ctx.fill();
+                        
+                        // Cráteres
+                        ctx.fillStyle = '#d0d0d0';
+                        ctx.beginPath();
+                        ctx.arc(platform.x + platform.width / 2 - 30, screenY - 100, 20, 0, Math.PI * 2);
+                        ctx.arc(platform.x + platform.width / 2 + 35, screenY - 60, 25, 0, Math.PI * 2);
+                        ctx.arc(platform.x + platform.width / 2 - 15, screenY - 50, 15, 0, Math.PI * 2);
+                        ctx.arc(platform.x + platform.width / 2 + 10, screenY - 95, 12, 0, Math.PI * 2);
+                        ctx.fill();
+                        
+                        // Tokki ARRIBA de la luna (montándola)
+                        drawTokki(platform.x + platform.width / 2, screenY - 160);
+                        
+                        // Plataforma de la luna
+                        ctx.fillStyle = '#cccccc';
+                        ctx.fillRect(platform.x, screenY, platform.width, platform.height);
+                    } else {
+                        // Plataforma normal
+                        ctx.fillStyle = '#8B4513';
+                        ctx.fillRect(platform.x, screenY, platform.width, platform.height);
+                        ctx.fillStyle = '#A0522D';
+                        ctx.fillRect(platform.x, screenY, platform.width, 5);
+                    }
+                }
+            });
+        }
+
+        // Dibujar estrellas
+        function drawStars() {
+            ctx.fillStyle = 'white';
+            game.stars.forEach(star => {
+                const screenY = star.y + game.camera.y;
+                if (screenY > -10 && screenY < canvas.height + 10) {
+                    ctx.beginPath();
+                    ctx.arc(star.x, screenY, star.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            });
+        }
+
+        // Actualizar física
+        function update() {
+            if (!game.gameRunning) return;
+
+            // Guardar posición actual en el historial
+            game.cat.positionHistory.push({
+                x: game.cat.x,
+                y: game.cat.y
+            });
+
+            // Limitar el historial para no consumir mucha memoria
+            if (game.cat.positionHistory.length > 200) {
+                game.cat.positionHistory.shift();
+            }
+
+            // Movimiento horizontal
+            if (game.keys['ArrowLeft'] || game.keys['a']) {
+                game.cat.velocityX = -game.cat.speed;
+            } else if (game.keys['ArrowRight'] || game.keys['d']) {
+                game.cat.velocityX = game.cat.speed;
+            } else {
+                game.cat.velocityX *= 0.8;
+            }
+
+            game.cat.x += game.cat.velocityX;
+
+            // Limites horizontales
+            if (game.cat.x < 0) game.cat.x = canvas.width;
+            if (game.cat.x > canvas.width) game.cat.x = 0;
+
+            // Gravedad
+            game.cat.velocityY += game.cat.gravity;
+            game.cat.y += game.cat.velocityY;
+
+            // Colisión con plataformas
+            let wasGrounded = game.cat.grounded;
+            game.cat.grounded = false;
+            
+            game.platforms.forEach(platform => {
+                if (game.cat.velocityY > 0 &&
+                    game.cat.x > platform.x - game.cat.width / 2 &&
+                    game.cat.x < platform.x + platform.width + game.cat.width / 2 &&
+                    game.cat.y >= platform.y &&
+                    game.cat.y <= platform.y + platform.height + 10) {
+                    
+                    game.cat.y = platform.y;
+                    game.cat.velocityY = 0;
+                    game.cat.grounded = true;
+                    game.cat.jumpsLeft = game.cat.maxJumps;
+
+                    if (platform.isMoon) {
+                        endGame(true);
+                    }
+                }
+            });
+
+            // Actualizar cámara
+            if (game.cat.y < canvas.height / 2) {
+                game.camera.y = canvas.height / 2 - game.cat.y;
+            }
+
+            // Actualizar altura
+            game.height = Math.max(game.height, Math.floor(-game.cat.y / 10));
+            document.getElementById('height').textContent = game.height;
+
+            // Actualizar amigos
+            updateFriends();
+
+            // Caer fuera del mapa
+            if (game.cat.y > canvas.height - game.camera.y + 100) {
+                endGame(false);
+            }
+        }
+
+        // Saltar (con doble salto)
+        function jump() {
+            if (game.cat.jumpsLeft > 0) {
+                game.cat.velocityY = game.cat.jumpPower;
+                game.cat.jumpsLeft--;
+            }
+        }
+
+        // Terminar juego
+        function endGame(won) {
+            game.gameRunning = false;
+            const gameOverDiv = document.getElementById('gameOver');
+            const endMessage = document.getElementById('endMessage');
+            const finalHeight = document.getElementById('finalHeight');
+
+            if (won) {
+                endMessage.textContent = '¡🐰 RESCATARON A TOKKI! 🌙';
+                finalHeight.textContent = '¡Nami y sus amigos salvaron al conejito!';
+            } else {
+                endMessage.textContent = '¡Oh no! Cayeron al vacío';
+                finalHeight.textContent = `Altura alcanzada: ${game.height}m de 1000m`;
+            }
+
+            gameOverDiv.style.display = 'block';
+        }
+
+        // Reiniciar juego
+        function restartGame() {
+            game.cat.x = canvas.width / 2;
+            game.cat.y = canvas.height - 150;
+            game.cat.velocityY = 0;
+            game.cat.velocityX = 0;
+            game.cat.jumpsLeft = game.cat.maxJumps;
+            game.cat.positionHistory = [];
+            game.camera.y = 0;
+            game.height = 0;
+            game.gameRunning = true;
+            
+            game.friendsList.forEach(friend => {
+                friend.active = false;
+            });
+            
+            createPlatforms();
+            updateFriendsUI();
+            
+            document.getElementById('gameOver').style.display = 'none';
+            document.getElementById('friends').textContent = '';
+        }
+
+        // Dibujar todo
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Fondo degradado
+            const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+            if (game.height > 800) {
+                gradient.addColorStop(0, '#000000');
+                gradient.addColorStop(1, '#0a0a2e');
+            } else if (game.height > 500) {
+                gradient.addColorStop(0, '#0a0a2e');
+                gradient.addColorStop(1, '#16213e');
+            } else {
+                gradient.addColorStop(0, '#16213e');
+                gradient.addColorStop(1, '#1a1a3e');
+            }
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            drawStars();
+            drawPlatforms();
+            drawCharacters();
+
+            requestAnimationFrame(draw);
+        }
+
+        // Game loop
+        function gameLoop() {
+            update();
+            requestAnimationFrame(gameLoop);
+        }
+
+        // Controles de teclado
+        window.addEventListener('keydown', (e) => {
+            game.keys[e.key] = true;
+            if (e.key === ' ' || e.key === 'ArrowUp' || e.key === 'w') {
+                e.preventDefault();
+                jump();
+            }
+        });
+
+        window.addEventListener('keyup', (e) => {
+            game.keys[e.key] = false;
+        });
+
+        // Controles táctiles
+        document.getElementById('leftBtn').addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            game.keys['ArrowLeft'] = true;
+        });
+
+        document.getElementById('leftBtn').addEventListener('touchend', (e) => {
+            e.preventDefault();
+            game.keys['ArrowLeft'] = false;
+        });
+
+        document.getElementById('rightBtn').addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            game.keys['ArrowRight'] = true;
+        });
+
+        document.getElementById('rightBtn').addEventListener('touchend', (e) => {
+            e.preventDefault();
+            game.keys['ArrowRight'] = false;
+        });
+
+        // Saltar en móvil
+        canvas.addEventListener('touchstart', (e) => {
+            if (e.target === canvas) {
+                e.preventDefault();
+                jump();
+            }
+        });
+
+        // Redimensionar
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // Iniciar juego
+        draw();
+        gameLoop();
+    </script>
+</body>
+</html>

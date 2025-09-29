@@ -15,6 +15,7 @@
 <body>
 <header class="modern-header">
     <nav class="modern-navigation">
+               <a href="juego.html" style="text-decoration: none; display: inline-block;">
         <div class="cat">
             <div class="ear ear--left"></div>
             <div class="ear ear--right"></div>
@@ -28,13 +29,24 @@
                 <div class="muzzle"></div>
             </div>
         </div>
+        </a>
         <div class="brand-title">Uziel Sánchez Marín</div>
-        <ul class="navigation-menu" style="display: flex; flex-direction: column; align-items: center; gap: 1rem;">
+        <ul class="navigation-menu">
             <li><a href="index.html" class="nav-item">Perfil</a></li>
             <li><a href="habilidades.html#habilidades" class="nav-item">Habilidades</a></li>
             <li><a href="experiencia.html#experiencia" class="nav-item">Experiencia</a></li>
             <li><a href="hobbies.html#hobbies" class="nav-item">Hobbies</a></li>
         </ul>
+        <style>
+            @media (max-width: 768px) {
+                .navigation-menu {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 1rem;
+                }
+            }
+        </style>
     </nav>
 </header>
 
@@ -93,9 +105,6 @@ Mi pasión por aprender y mi constante deseo de mantenerme actualizado en las ú
 Mi visión es ser un miembro valioso de cualquier equipo, contribuyendo con ideas frescas y soluciones prácticas que mejoren la productividad y el ambiente de trabajo. Mi capacidad para adaptarme rápidamente a nuevas situaciones y mi compromiso con la excelencia me posicionan como un profesional capaz de generar un impacto positivo en cualquier empresa.`;
     profileText.style.animation = "textChange 1s ease-out"; // Animación al cambiar el texto
 });
-
-
-
     </script>
     <script src="Recursos/navbar.js" defer></script>
 </body>
