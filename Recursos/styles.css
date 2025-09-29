@@ -697,6 +697,7 @@ p {
     align-items: center;
     box-shadow: var(--header-shadow);
     min-height: 70px;
+    flex-wrap: wrap; /* AGREGADO */
 }
 
 /* Espaciador del header */
@@ -960,37 +961,46 @@ p {
 @media (max-width: 768px) {
     .modern-navigation {
         flex-direction: column;
-        padding: 1rem;
-        gap: 1rem;
+        padding: 1.5rem 1rem;
+        gap: 1.5rem;
         min-height: auto;
+        justify-content: center;
+        align-items: center;
     }
 
     .brand-title {
         font-size: 1.4rem;
-        margin: 0.5rem 0;
         text-align: center;
+        order: 2; /* Coloca el título después del gato */
+    }
+
+    .cat {
+        order: 1; /* El gato va primero */
     }
 
     .navigation-menu {
+        order: 3; /* El menú va al final */
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: center;
         width: 100%;
-        gap: 0.5rem;
+        gap: 0.8rem;
+        margin-top: 1rem;
     }
 
     .nav-item {
-        padding: 0.8rem 1rem;
-        font-size: 0.9rem;
-        flex: 1;
+        padding: 0.8rem 1.2rem;
+        font-size: 0.95rem;
         text-align: center;
-        min-width: calc(50% - 0.25rem);
+        min-width: calc(50% - 0.4rem);
+        display: block;
     }
 }
 
 @media (max-width: 480px) {
     .modern-navigation {
-        padding: 0.8rem;
+        padding: 1.2rem 0.8rem;
+        gap: 1.2rem;
     }
 
     .brand-title {
@@ -1000,14 +1010,16 @@ p {
     .navigation-menu {
         flex-direction: column;
         width: 100%;
-        gap: 0.5rem;
+        gap: 0.6rem;
+        max-width: 300px; /* Limita el ancho máximo */
     }
 
     .nav-item {
         width: 100%;
-        padding: 0.8rem;
+        padding: 0.9rem 1rem;
         font-size: 0.9rem;
         min-width: 100%;
+        border-radius: 12px;
     }
 
     .cat {
