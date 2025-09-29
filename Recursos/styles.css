@@ -686,7 +686,6 @@ p {
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--header-border);
-    width: 100%; /* AGREGADO */
 }
 
 /* Navegación moderna */
@@ -698,7 +697,6 @@ p {
     align-items: center;
     box-shadow: var(--header-shadow);
     min-height: 70px;
-    flex-wrap: wrap; /* AGREGADO */
 }
 
 /* Espaciador del header */
@@ -962,79 +960,58 @@ p {
 @media (max-width: 768px) {
     .modern-navigation {
         flex-direction: column;
-        padding: 1.5rem 1rem;
-        gap: 1.5rem;
+        padding: 1rem;
+        gap: 1rem;
         min-height: auto;
-        justify-content: center;
-        align-items: center;
-        text-align: center; /* AGREGADO para centrar todo */
     }
 
     .brand-title {
         font-size: 1.4rem;
+        margin: 0.5rem 0;
         text-align: center;
-        order: 2;
-        width: 100%; /* AGREGADO */
-    }
-
-    .cat {
-        order: 1;
-        margin: 0 auto; /* AGREGADO para centrar el gato */
     }
 
     .navigation-menu {
-        order: 3;
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: center;
         width: 100%;
-        gap: 1rem; /* AUMENTADO para más separación */
-        margin-top: 1rem;
-        padding: 0;
+        gap: 0.5rem;
     }
 
     .nav-item {
-        padding: 0.9rem 1.4rem; /* AUMENTADO padding */
-        font-size: 0.95rem;
+        padding: 0.8rem 1rem;
+        font-size: 0.9rem;
+        flex: 1;
         text-align: center;
-        min-width: calc(50% - 0.5rem);
-        display: block;
-        margin-bottom: 0.5rem; /* AGREGADO separación vertical */
+        min-width: calc(50% - 0.25rem);
     }
 }
 
 @media (max-width: 480px) {
     .modern-navigation {
-        padding: 1.5rem 1rem; /* AUMENTADO padding */
-        gap: 1.5rem;
-        text-align: center;
+        padding: 0.8rem;
     }
 
     .brand-title {
         font-size: 1.2rem;
-        width: 100%;
     }
 
     .navigation-menu {
         flex-direction: column;
         width: 100%;
-        gap: 1rem; /* AUMENTADO separación */
-        max-width: 320px;
-        margin: 0 auto; /* AGREGADO para centrar */
+        gap: 0.5rem;
     }
 
     .nav-item {
         width: 100%;
-        padding: 1rem 1.2rem; /* AUMENTADO padding */
+        padding: 0.8rem;
         font-size: 0.9rem;
         min-width: 100%;
-        border-radius: 12px;
-        margin-bottom: 0.8rem; /* AGREGADO más separación */
     }
 
     .cat {
         transform: scale(0.9);
-        margin: 0 auto;
     }
     
     .cat:hover {
