@@ -1741,20 +1741,23 @@
   <body>
     <header class="modern-header">
       <nav class="modern-navigation">
-        <a href="juego.html" style="text-decoration: none; display: inline-block;">
-        <div class="cat">
-          <div class="ear ear--left"></div>
-          <div class="ear ear--right"></div>
-          <div class="face">
-            <div class="eye eye--left">
-              <div class="eye-pupil"></div>
+        <a
+          href="juego.html"
+          style="text-decoration: none; display: inline-block"
+        >
+          <div class="cat">
+            <div class="ear ear--left"></div>
+            <div class="ear ear--right"></div>
+            <div class="face">
+              <div class="eye eye--left">
+                <div class="eye-pupil"></div>
+              </div>
+              <div class="eye eye--right">
+                <div class="eye-pupil"></div>
+              </div>
+              <div class="muzzle"></div>
             </div>
-            <div class="eye eye--right">
-              <div class="eye-pupil"></div>
-            </div>
-            <div class="muzzle"></div>
           </div>
-        </div>
         </a>
         <div class="brand-title">Uziel Sánchez Marín</div>
         <ul class="navigation-menu">
@@ -2289,19 +2292,25 @@
                 <h3>Mi Ecosistema Inteligente</h3>
                 <p>
                   He transformado mi espacio personal en un laboratorio de
-                  automatización inteligente. Mis acuarios se regulan
-                  automáticamente con sensores de pH, temperatura y alimentación
-                  programada. Mi cuarto responde a comandos de voz a través de
-                  Alexa, controlando iluminación, clima y música según mis
-                  rutinas diarias.
+                  automatización inteligente. Mis acuarios cuentan con
+                  autorrelleno automático, sensores de pH, temperatura y
+                  alimentación programada. Además, implementé sistemas de
+                  iluminación con respaldo No-Break y batería, asegurando
+                  continuidad en caso de fallos eléctricos. En el terrario he
+                  integrado un sistema de lluvia controlada, iluminación
+                  especial y vaciado automático de agua hacia el drenaje,
+                  creando un ecosistema estable tanto para mis peces como para
+                  mis reptiles y plantas.
                 </p>
 
                 <p>
-                  El sistema de extracción de aire se activa automáticamente
-                  basado en sensores de humedad y calidad del aire. He
-                  programado scripts que optimizan el consumo energético y
-                  mantienen las condiciones perfectas para mis peces y plantas
-                  acuáticas.
+                  Mi cuarto responde a comandos de voz a través de Alexa,
+                  controlando iluminación, clima y música de acuerdo con mis
+                  rutinas diarias. El sistema de extracción de aire se activa
+                  automáticamente en función de sensores de humedad y calidad
+                  ambiental. Asimismo, he programado scripts que optimizan el
+                  consumo energético, garantizando comodidad, eficiencia y un
+                  entorno saludable en todo momento.
                 </p>
 
                 <p>
@@ -2313,50 +2322,42 @@
 
               <!-- Carrusel de Videos de Automatización -->
               <div class="automation-carousel">
-                <div class="video-carousel">
-                  <div class="video-slides" id="video-slides">
-                    <div class="video-slide">
-                      <video controls>
-                        <source
-                          src="Recursos/hobbies/automation/alexa-control.mp4"
-                          type="video/mp4"
-                        />
-                        Tu navegador no soporta video HTML5.
-                      </video>
-                      <div class="video-caption">
-                        Control por voz de iluminación y clima con Alexa
-                      </div>
+              <div class="video-carousel">
+                <div class="video-slides" id="video-slides">
+
+                  <div class="video-slide">
+                    <div class="video-container">
+                      <iframe
+                        src="https://www.youtube.com/embed/NM0_X73UEM4"
+                        frameborder="0"
+                        allowfullscreen
+                      ></iframe>
                     </div>
-                    <div class="video-slide">
-                      <video controls>
-                        <source
-                          src="Recursos/hobbies/automation/aquarium-automation.mp4"
-                          type="video/mp4"
-                        />
-                        Tu navegador no soporta video HTML5.
-                      </video>
-                      <div class="video-caption">
-                        Sistema automatizado de alimentación y monitoreo de
-                        acuarios
-                      </div>
+                    <div class="video-caption">
+                      Automatización de acuarios y terrarios
                     </div>
                   </div>
-                  <button
-                    class="video-btn prev"
-                    onclick="moverVideoCarrusel(-1)"
-                  >
-                    &#10094;
-                  </button>
-                  <button
-                    class="video-btn next"
-                    onclick="moverVideoCarrusel(1)"
-                  >
-                    &#10095;
-                  </button>
+
+                  <div class="video-slide">
+                    <div class="video-container">
+                      <iframe
+                        src="https://www.youtube.com/embed/0IZx9Q4UxY4"
+                        frameborder="0"
+                        allowfullscreen
+                      ></iframe>
+                    </div>
+                    <div class="video-caption">
+                      Control por voz con Alexa
+                    </div>
+                  </div>
                 </div>
+
+                <!-- Botones dentro del carrusel -->
+                <button class="video-btn prev" onclick="moverVideoCarrusel(-1)">&#10094;</button>
+                <button class="video-btn next" onclick="moverVideoCarrusel(1)">&#10095;</button>
               </div>
             </div>
-          </div>
+
 
           <!-- Sección de Learning & Certifications con Libros Flotantes -->
           <div class="learning-section">
@@ -2700,13 +2701,30 @@
       }
 
       // Función para carrusel de videos
-      function moverVideoCarrusel(direccion) {
-        const slides = document.getElementById("video-slides");
-        const totalVideos = 2; // Número de videos
+      let currentVideo = 0;
 
-        videoIndex = (videoIndex + direccion + totalVideos) % totalVideos;
-        slides.style.transform = `translateX(${-videoIndex * 100}%)`;
+      function moverVideoCarrusel(dir) {
+        const slides = document.querySelectorAll(".video-slide");
+        currentVideo = (currentVideo + dir + slides.length) % slides.length;
+
+        // Mueve el carrusel
+        document.getElementById("video-slides").style.transform =
+          `translateX(-${currentVideo * 100}%)`;
+
+        // Pausa todos los videos al cambiar
+        pauseAllVideos();
       }
+
+      function pauseAllVideos() {
+        const iframes = document.querySelectorAll("iframe");
+        iframes.forEach(iframe => {
+          iframe.contentWindow.postMessage(
+            '{"event":"command","func":"pauseVideo","args":""}',
+            "*"
+          );
+        });
+      }
+
 
       // Función para carrusel de certificaciones
       function moverCertCarrusel(direccion) {

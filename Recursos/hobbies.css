@@ -729,3 +729,20 @@
       position: relative;
   }
   
+  .video-container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* Relación 16:9 */
+  height: 0;
+  overflow: hidden;
+  border-radius: 12px; /* esquinas redondeadas */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3); /* sombra elegante */
+}
+
+.video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
