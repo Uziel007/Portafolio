@@ -4,44 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nami y sus Amigos - Rescate de Tokki</title>
+      <link rel="icon" type="image/svg+xml" 
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text x='50%' y='50%' font-size='80' dominant-baseline='middle' text-anchor='middle'>😺</text></svg>">
+    
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             overflow: hidden;
             font-family: 'Arial', sans-serif;
             touch-action: none;
         }
-
         #gameCanvas {
             display: block;
-            background: linear-gradient(to bottom, #0a0a2e 0%, #16213e 50%, #1a1a3e 100%);
         }
-
         #ui {
             position: absolute;
             top: 20px;
             left: 20px;
             color: white;
-            font-size: 24px;
+            font-size: 18px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
             z-index: 10;
         }
-
         #controls {
             position: absolute;
             bottom: 30px;
             width: 100%;
             display: flex;
-            justify-content: space-between;
-            padding: 0 30px;
+            justify-content: center;
+            gap: 20px;
             z-index: 10;
         }
-
         .control-btn {
             width: 70px;
             height: 70px;
@@ -54,19 +51,52 @@
             align-items: center;
             justify-content: center;
             user-select: none;
-            touch-action: none;
         }
-
+        #jumpBtn {
+            width: 80px;
+            height: 80px;
+            font-size: 35px;
+        }
         .control-btn:active {
             background: rgba(255, 255, 255, 0.4);
         }
-
+        #modeSelect {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.95);
+            padding: 50px;
+            border-radius: 20px;
+            text-align: center;
+            color: white;
+            z-index: 30;
+        }
+        #modeSelect h1 {
+            margin-bottom: 30px;
+            font-size: 32px;
+        }
+        #modeSelect button {
+            padding: 20px 50px;
+            font-size: 24px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.3s;
+        }
+        #modeSelect button:hover {
+            background: #45a049;
+            transform: scale(1.05);
+        }
         #gameOver {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.95);
             padding: 40px;
             border-radius: 20px;
             text-align: center;
@@ -74,12 +104,6 @@
             display: none;
             z-index: 20;
         }
-
-        #gameOver h2 {
-            font-size: 36px;
-            margin-bottom: 20px;
-        }
-
         #gameOver button {
             padding: 15px 40px;
             font-size: 20px;
@@ -90,874 +114,1239 @@
             cursor: pointer;
             margin-top: 20px;
         }
-
-        #gameOver button:hover {
-            background: #45a049;
-        }
-
         @media (max-width: 768px) {
-            .control-btn {
-                display: flex;
-            }
+            .control-btn { display: flex; }
+            #ui { font-size: 16px; }
         }
     </style>
 </head>
 <body>
-    <div id="ui">
-        <div>Altura: <span id="height">0</span>m</div>
-        <div>🌙 Misión: Rescatar a Tokki (1000m)</div>
-        <div id="friends" style="margin-top: 10px; font-size: 18px;"></div>
+    <div id="modeSelect">
+        <h1>🐱 Nami y sus Amigos 🌙</h1>
+        <p style="margin-bottom: 30px; font-size: 18px;">Selecciona el modo de juego:</p>
+        <button onclick="startGame('story')">📖 Modo Historia</button>
+        <button onclick="startGame('infinite')">∞ Modo Infinito</button>
     </div>
     
+    <div id="ui">
+        <div>Altura: <span id="height">0</span>m <span id="objective"></span> | Puntos: <span id="points">0</span></div>
+        <div id="hearts" style="font-size: 24px; margin: 5px 0;">❤️❤️❤️</div>
+        <div id="missionText">🌙 Misión: Rescatar a Tokki (1000m)</div>
+        <div id="friends" style="margin-top: 8px; font-size: 16px;"></div>
+        <div id="powerups" style="margin-top: 8px; font-size: 14px;"></div>
+        <div id="zone" style="margin-top: 5px; font-size: 16px; color: #ffd700;"></div>
+    </div>
     <canvas id="gameCanvas"></canvas>
-    
     <div id="controls">
         <button class="control-btn" id="leftBtn">←</button>
+        <button class="control-btn" id="jumpBtn">↑</button>
         <button class="control-btn" id="rightBtn">→</button>
     </div>
-
     <div id="gameOver">
         <h2 id="endMessage"></h2>
         <p id="finalHeight"></p>
+        <p id="finalPoints"></p>
+        <button onclick="returnToMenu()">Volver al Menú</button>
         <button onclick="restartGame()">Jugar de Nuevo</button>
     </div>
 
     <script>
+        // ============================================
+        // AUDIO - RUTAS DE ARCHIVOS DE SONIDO
+        // ============================================
+        
+        // Aquí la ruta del audio de salto
+        const AUDIO_JUMP = 'sonidos/salto.m4a'; // Ejemplo: 'sounds/jump.mp3'
+        
+        // Aquí la ruta de audio de música de fondo
+        const AUDIO_BACKGROUND_MUSIC = 'sonidos/musica.mp3'; // Ejemplo: 'sounds/background.mp3'
+        
+        // Aquí la ruta de audio al agarrar un objeto
+        const AUDIO_COLLECT = 'sonidos/objeto.m4a'; // Ejemplo: 'sounds/collect.mp3'
+        
+        // Aquí la ruta de audio al ganar
+        const AUDIO_WIN = 'sonidos/victoria.mp3'; // Ejemplo: 'sounds/win.mp3'
+        
+        // Aquí la ruta de audio al perder vida (AGREGADO: ruta placeholder para sonido de daño)
+        const AUDIO_DAMAGE = 'sonidos/golpe.mp3'; // Ejemplo: archivo de sonido de daño/impacto
+        
+        // Aquí la ruta de audio al activar power-up
+        const AUDIO_POWERUP = 'sonidos/poder.m4a'; // Ejemplo: 'sounds/powerup.mp3'
+
+        // Aquí la ruta de audio al perder el juego
+        const AUDIO_LOSE = 'sonidos/perder.mp3'; // Ejemplo: archivo de sonido de derrota
+
+        // ============================================
+        // SISTEMA DE AUDIO
+        // ============================================
+        const audioSystem = {
+            sounds: {},
+            musicPlaying: false,
+            
+            init() {
+                if (AUDIO_JUMP) this.sounds.jump = new Audio(AUDIO_JUMP);
+                if (AUDIO_BACKGROUND_MUSIC) {
+                    this.sounds.bgMusic = new Audio(AUDIO_BACKGROUND_MUSIC);
+                    this.sounds.bgMusic.loop = true;
+                    this.sounds.bgMusic.volume = 0.3;
+                }
+                if (AUDIO_COLLECT) this.sounds.collect = new Audio(AUDIO_COLLECT);
+                if (AUDIO_WIN) this.sounds.win = new Audio(AUDIO_WIN);
+                if (AUDIO_DAMAGE) this.sounds.damage = new Audio(AUDIO_DAMAGE);
+                if (AUDIO_POWERUP) this.sounds.powerup = new Audio(AUDIO_POWERUP);
+                if (AUDIO_LOSE) this.sounds.lose = new Audio(AUDIO_LOSE); 
+            },
+            
+            play(soundName) {
+                if (this.sounds[soundName]) {
+                    this.sounds[soundName].currentTime = 0;
+                    this.sounds[soundName].play().catch(e => console.log('Audio play error:', e));
+                }
+            },
+            
+            playMusic() {
+                if (this.sounds.bgMusic && !this.musicPlaying) {
+                    this.sounds.bgMusic.play().catch(e => console.log('Music play error:', e));
+                    this.musicPlaying = true;
+                }
+            },
+            
+            stopMusic() {
+                if (this.sounds.bgMusic) {
+                    this.sounds.bgMusic.pause();
+                    this.sounds.bgMusic.currentTime = 0;
+                    this.musicPlaying = false;
+                }
+            }
+        };
+
+        // ============================================
+        // CONFIGURACIÓN DEL CANVAS
+        // ============================================
         const canvas = document.getElementById('gameCanvas');
         const ctx = canvas.getContext('2d');
-        
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-
         const isMobile = window.innerWidth < 768;
 
+        // ============================================
+        // ESTADO DEL JUEGO - Todas las variables centralizadas
+        // ============================================
         let game = {
+            gameMode: null, // 'story' o 'infinite'
             cat: {
-                x: canvas.width / 2,
-                y: canvas.height - 150,
-                width: 40,
-                height: 50,
-                velocityY: 0,
-                velocityX: 0,
-                gravity: 0.5,
-                jumpPower: -12,
-                speed: 6,
-                grounded: false,
-                jumpsLeft: 2,
-                maxJumps: 2,
-                positionHistory: []
+                x: canvas.width / 2, y: canvas.height - 150,
+                width: 40, height: 50,
+                velocityY: 0, velocityX: 0,
+                gravity: 0.5, jumpPower: -12, speed: 6,
+                grounded: false, jumpsLeft: 2, maxJumps: 2,
+                positionHistory: [],
+                invulnerable: false, invulnerableTime: 0
             },
-            camera: {
-                y: 0
-            },
-            platforms: [],
-            keys: {},
-            height: 0,
-            stars: [],
-            gameRunning: true,
+            camera: { y: 0 },
+            platforms: [], powerups: [], collectibles: [], obstacles: [], particles: [],
+            keys: {}, height: 0, points: 0, stars: [],
+            lives: 3, maxLives: 5, gameRunning: false,
+            combo: 0, carrots: 0, coins: 0,
             friendsList: [
                 { name: 'alika', height: 200, delay: 15, active: false },
                 { name: 'ying', height: 400, delay: 30, active: false },
                 { name: 'calcifer', height: 600, delay: 45, active: false },
-                { name: 'nagini', height: 800, delay: 60, active: false }
-            ]
+                { name: 'nagini', height: 800, delay: 60, active: false },
+                { name: 'tokki', height: 1000, delay: 75, active: false }
+            ],
+            activePowerups: { tripleJump: false, shield: false, magnet: false, speed: false },
+            powerupTimers: { tripleJump: 0, shield: 0, magnet: 0, speed: 0 },
+            currentZone: 1, windForce: 0, tokkiRescued: false,
+            tokkiPosition: null,
+            lastSafePlatform: null  // AGREGADO: Para respawn en última plataforma segura
         };
 
-        // Crear estrellas
-        for (let i = 0; i < 150; i++) {
+        // ============================================
+        // CREAR ESTRELLAS DE FONDO
+        // ============================================
+        for (let i = 0; i < 200; i++) {
             game.stars.push({
                 x: Math.random() * canvas.width,
-                y: Math.random() * 12000,
-                size: Math.random() * 2 + 1
+                y: Math.random() * 15000,
+                size: Math.random() * 2 + 1,
+                twinkle: Math.random() * Math.PI * 2
             });
         }
 
-        // Crear plataformas iniciales
-        function createPlatforms() {
-            game.platforms = [];
+        // ============================================
+        // INICIAR JUEGO CON MODO SELECCIONADO
+        // ============================================
+        function startGame(mode) {
+            game.gameMode = mode;
+            document.getElementById('modeSelect').style.display = 'none';
             
-            // Plataforma inicial
-            game.platforms.push({
-                x: canvas.width / 2 - 100,
-                y: canvas.height - 50,
-                width: 200,
-                height: 20
-            });
-
-            // Generar plataformas hacia arriba HASTA LA LUNA (sin pasarse)
-            let lastY = canvas.height - 50;
-            const targetY = -10000; // Posición de la luna
-            
-            while (lastY > targetY + 100) { // Detener ANTES de la luna
-                lastY -= Math.random() * 60 + (isMobile ? 100 : 80);
-                let width = Math.random() * 80 + 100;
-                let x = Math.random() * (canvas.width - width);
-                
-                game.platforms.push({
-                    x: x,
-                    y: lastY,
-                    width: width,
-                    height: 20
-                });
-            }
-
-            // Plataforma de la luna (la última)
-            game.platforms.push({
-                x: canvas.width / 2 - 150,
-                y: targetY,
-                width: 300,
-                height: 30,
-                isMoon: true
-            });
-        }
-
-        createPlatforms();
-
-        // Dibujar Nami (gato)
-        function drawNami(x, y, showName = false) {
-            if (showName) {
-                ctx.fillStyle = 'white';
-                ctx.font = 'bold 14px Arial';
-                ctx.textAlign = 'center';
-                ctx.fillText('Nami', x, y - 10);
-            }
-
-            ctx.fillStyle = '#f5f5f5';
-            ctx.beginPath();
-            ctx.ellipse(x, y + 38, 18, 14, 0, 0, Math.PI * 2);
-            ctx.fill();
-            
-            ctx.fillStyle = '#a0a0a0';
-            ctx.beginPath();
-            ctx.ellipse(x, y + 25, 16, 12, 0, 0, Math.PI * 2);
-            ctx.fill();
-            
-            ctx.strokeStyle = '#606060';
-            ctx.lineWidth = 2;
-            for (let i = 0; i < 4; i++) {
-                ctx.beginPath();
-                ctx.arc(x, y + 20 + i * 5, 14 - i * 2, Math.PI * 1.2, Math.PI * 1.8);
-                ctx.stroke();
-            }
-            
-            ctx.fillStyle = '#f5f5f5';
-            ctx.fillRect(x - 8, y + 42, 6, 8);
-            ctx.fillRect(x + 2, y + 42, 6, 8);
-            
-            ctx.fillStyle = '#a0a0a0';
-            ctx.beginPath();
-            ctx.ellipse(x, y + 12, 14, 13, 0, 0, Math.PI * 2);
-            ctx.fill();
-            
-            ctx.fillStyle = '#a0a0a0';
-            ctx.beginPath();
-            ctx.moveTo(x - 8, y + 2);
-            ctx.lineTo(x - 12, y - 5);
-            ctx.lineTo(x - 4, y + 5);
-            ctx.fill();
-            ctx.beginPath();
-            ctx.moveTo(x + 8, y + 2);
-            ctx.lineTo(x + 12, y - 5);
-            ctx.lineTo(x + 4, y + 5);
-            ctx.fill();
-            
-            ctx.fillStyle = '#ffb6c1';
-            ctx.beginPath();
-            ctx.moveTo(x - 8, y + 2);
-            ctx.lineTo(x - 10, y - 2);
-            ctx.lineTo(x - 6, y + 3);
-            ctx.fill();
-            ctx.beginPath();
-            ctx.moveTo(x + 8, y + 2);
-            ctx.lineTo(x + 10, y - 2);
-            ctx.lineTo(x + 6, y + 3);
-            ctx.fill();
-            
-            ctx.fillStyle = '#ffffff';
-            ctx.beginPath();
-            ctx.ellipse(x, y + 17, 8, 6, 0, 0, Math.PI * 2);
-            ctx.fill();
-            
-            ctx.fillStyle = '#98FB98';
-            ctx.beginPath();
-            ctx.ellipse(x - 5, y + 11, 3.5, 4, 0, 0, Math.PI * 2);
-            ctx.ellipse(x + 5, y + 11, 3.5, 4, 0, 0, Math.PI * 2);
-            ctx.fill();
-            
-            ctx.fillStyle = '#000';
-            ctx.beginPath();
-            ctx.ellipse(x - 5, y + 11, 1.5, 3, 0, 0, Math.PI * 2);
-            ctx.ellipse(x + 5, y + 11, 1.5, 3, 0, 0, Math.PI * 2);
-            ctx.fill();
-            
-            ctx.fillStyle = 'white';
-            ctx.beginPath();
-            ctx.arc(x - 5.5, y + 9.5, 1, 0, Math.PI * 2);
-            ctx.arc(x + 4.5, y + 9.5, 1, 0, Math.PI * 2);
-            ctx.fill();
-            
-            ctx.fillStyle = '#ff69b4';
-            ctx.beginPath();
-            ctx.moveTo(x, y + 16);
-            ctx.lineTo(x - 2, y + 14);
-            ctx.lineTo(x + 2, y + 14);
-            ctx.fill();
-            
-            ctx.strokeStyle = '#333';
-            ctx.lineWidth = 1;
-            ctx.beginPath();
-            ctx.moveTo(x - 8, y + 15);
-            ctx.lineTo(x - 18, y + 13);
-            ctx.moveTo(x - 8, y + 17);
-            ctx.lineTo(x - 18, y + 17);
-            ctx.moveTo(x + 8, y + 15);
-            ctx.lineTo(x + 18, y + 13);
-            ctx.moveTo(x + 8, y + 17);
-            ctx.lineTo(x + 18, y + 17);
-            ctx.stroke();
-            
-            ctx.strokeStyle = '#a0a0a0';
-            ctx.lineWidth = 7;
-            ctx.lineCap = 'round';
-            ctx.beginPath();
-            ctx.moveTo(x - 16, y + 36);
-            ctx.quadraticCurveTo(x - 25, y + 30, x - 22, y + 20);
-            ctx.stroke();
-        }
-
-        // Dibujar Alika (husky)
-        function drawAlika(x, y, showName = false) {
-            if (showName) {
-                ctx.fillStyle = 'white';
-                ctx.font = 'bold 14px Arial';
-                ctx.textAlign = 'center';
-                ctx.fillText('Alika', x, y - 10);
-            }
-
-            ctx.fillStyle = '#d3d3d3';
-            ctx.beginPath();
-            ctx.ellipse(x, y + 30, 20, 16, 0, 0, Math.PI * 2);
-            ctx.fill();
-            
-            ctx.fillStyle = '#ffffff';
-            ctx.beginPath();
-            ctx.ellipse(x, y + 35, 15, 12, 0, 0, Math.PI * 2);
-            ctx.fill();
-            
-            ctx.fillStyle = '#d3d3d3';
-            ctx.beginPath();
-            ctx.ellipse(x, y + 12, 16, 14, 0, 0, Math.PI * 2);
-            ctx.fill();
-            
-            ctx.fillStyle = '#ffffff';
-            ctx.beginPath();
-            ctx.ellipse(x, y + 15, 10, 10, 0, 0, Math.PI * 2);
-            ctx.fill();
-            
-            ctx.fillStyle = '#d3d3d3';
-            ctx.beginPath();
-            ctx.moveTo(x - 10, y + 2);
-            ctx.lineTo(x - 14, y - 6);
-            ctx.lineTo(x - 6, y + 4);
-            ctx.fill();
-            ctx.beginPath();
-            ctx.moveTo(x + 10, y + 2);
-            ctx.lineTo(x + 14, y - 6);
-            ctx.lineTo(x + 6, y + 4);
-            ctx.fill();
-            
-            ctx.fillStyle = '#87CEEB';
-            ctx.beginPath();
-            ctx.ellipse(x - 6, y + 10, 3, 4, 0, 0, Math.PI * 2);
-            ctx.ellipse(x + 6, y + 10, 3, 4, 0, 0, Math.PI * 2);
-            ctx.fill();
-            
-            ctx.fillStyle = '#000';
-            ctx.beginPath();
-            ctx.arc(x - 6, y + 10, 2, 0, Math.PI * 2);
-            ctx.arc(x + 6, y + 10, 2, 0, Math.PI * 2);
-            ctx.fill();
-            
-            ctx.fillStyle = '#000';
-            ctx.beginPath();
-            ctx.arc(x, y + 16, 3, 0, Math.PI * 2);
-            ctx.fill();
-            
-            ctx.fillStyle = '#d3d3d3';
-            ctx.fillRect(x - 12, y + 42, 6, 10);
-            ctx.fillRect(x + 6, y + 42, 6, 10);
-            
-            ctx.fillStyle = '#d3d3d3';
-            ctx.beginPath();
-            ctx.arc(x - 18, y + 28, 8, 0, Math.PI * 2);
-            ctx.fill();
-        }
-
-        // Dibujar Ying (chihuahua blanco)
-        function drawYing(x, y, showName = false) {
-            if (showName) {
-                ctx.fillStyle = 'white';
-                ctx.font = 'bold 14px Arial';
-                ctx.textAlign = 'center';
-                ctx.fillText('Ying', x, y - 10);
-            }
-
-            ctx.fillStyle = '#ffffff';
-            ctx.beginPath();
-            ctx.ellipse(x, y + 32, 14, 10, 0, 0, Math.PI * 2);
-            ctx.fill();
-            
-            ctx.fillStyle = '#ffffff';
-            ctx.beginPath();
-            ctx.ellipse(x, y + 15, 12, 11, 0, 0, Math.PI * 2);
-            ctx.fill();
-            
-            ctx.fillStyle = '#f5f5f5';
-            ctx.beginPath();
-            ctx.ellipse(x, y + 20, 6, 8, 0, 0, Math.PI * 2);
-            ctx.fill();
-            
-            ctx.fillStyle = '#ffffff';
-            ctx.beginPath();
-            ctx.ellipse(x - 10, y + 8, 8, 12, -0.3, 0, Math.PI * 2);
-            ctx.ellipse(x + 10, y + 8, 8, 12, 0.3, 0, Math.PI * 2);
-            ctx.fill();
-            
-            ctx.strokeStyle = '#e0e0e0';
-            ctx.lineWidth = 1.5;
-            for(let i = 0; i < 5; i++) {
-                ctx.beginPath();
-                ctx.moveTo(x - 10 + i, y + 5);
-                ctx.lineTo(x - 12 + i, y);
-                ctx.stroke();
-                ctx.beginPath();
-                ctx.moveTo(x + 10 - i, y + 5);
-                ctx.lineTo(x + 12 - i, y);
-                ctx.stroke();
-            }
-            
-            ctx.fillStyle = '#000';
-            ctx.beginPath();
-            ctx.arc(x - 5, y + 12, 3, 0, Math.PI * 2);
-            ctx.arc(x + 5, y + 12, 3, 0, Math.PI * 2);
-            ctx.fill();
-            
-            ctx.fillStyle = 'white';
-            ctx.beginPath();
-            ctx.arc(x - 5, y + 11, 1, 0, Math.PI * 2);
-            ctx.arc(x + 5, y + 11, 1, 0, Math.PI * 2);
-            ctx.fill();
-            
-            ctx.fillStyle = '#000';
-            ctx.beginPath();
-            ctx.arc(x, y + 22, 2, 0, Math.PI * 2);
-            ctx.fill();
-            
-            ctx.fillStyle = '#ffffff';
-            ctx.fillRect(x - 8, y + 40, 4, 8);
-            ctx.fillRect(x + 4, y + 40, 4, 8);
-        }
-
-        // Dibujar Calcifer (ajolote)
-        function drawCalcifer(x, y, showName = false) {
-            if (showName) {
-                ctx.fillStyle = 'white';
-                ctx.font = 'bold 14px Arial';
-                ctx.textAlign = 'center';
-                ctx.fillText('Calcifer', x, y - 10);
-            }
-
-            ctx.fillStyle = '#ffb6c1';
-            ctx.beginPath();
-            ctx.ellipse(x, y + 28, 18, 10, 0, 0, Math.PI * 2);
-            ctx.fill();
-            
-            ctx.fillStyle = '#ffb6c1';
-            ctx.beginPath();
-            ctx.ellipse(x, y + 15, 14, 12, 0, 0, Math.PI * 2);
-            ctx.fill();
-            
-            ctx.strokeStyle = '#ff69b4';
-            ctx.lineWidth = 3;
-            for(let i = 0; i < 3; i++) {
-                ctx.beginPath();
-                ctx.moveTo(x - 14, y + 10 + i * 3);
-                ctx.lineTo(x - 20, y + 8 + i * 3);
-                ctx.stroke();
-                ctx.beginPath();
-                ctx.moveTo(x + 14, y + 10 + i * 3);
-                ctx.lineTo(x + 20, y + 8 + i * 3);
-                ctx.stroke();
-            }
-            
-            ctx.fillStyle = '#000';
-            ctx.beginPath();
-            ctx.arc(x - 6, y + 12, 2, 0, Math.PI * 2);
-            ctx.arc(x + 6, y + 12, 2, 0, Math.PI * 2);
-            ctx.fill();
-            
-            ctx.strokeStyle = '#000';
-            ctx.lineWidth = 2;
-            ctx.beginPath();
-            ctx.arc(x, y + 18, 8, 0.2, Math.PI - 0.2);
-            ctx.stroke();
-            
-            ctx.fillStyle = '#ffb6c1';
-            ctx.fillRect(x - 14, y + 32, 5, 6);
-            ctx.fillRect(x + 9, y + 32, 5, 6);
-            
-            ctx.strokeStyle = '#ffb6c1';
-            ctx.lineWidth = 8;
-            ctx.beginPath();
-            ctx.moveTo(x + 16, y + 28);
-            ctx.quadraticCurveTo(x + 24, y + 26, x + 26, y + 20);
-            ctx.stroke();
-        }
-
-        // Dibujar Nagini (serpiente amarillo pastel con negro)
-        function drawNagini(x, y, showName = false) {
-            if (showName) {
-                ctx.fillStyle = 'white';
-                ctx.font = 'bold 14px Arial';
-                ctx.textAlign = 'center';
-                ctx.fillText('Nagini', x, y - 10);
-            }
-
-            // Cuerpo ondulado amarillo pastel
-            ctx.strokeStyle = '#FCEE58';
-            ctx.lineWidth = 12;
-            ctx.beginPath();
-            ctx.moveTo(x - 20, y + 35);
-            ctx.quadraticCurveTo(x - 10, y + 25, x, y + 28);
-            ctx.quadraticCurveTo(x + 10, y + 31, x + 18, y + 25);
-            ctx.stroke();
-            
-            // Patrón de escamas negras
-            ctx.strokeStyle = '#000000';
-            ctx.lineWidth = 2;
-            for(let i = 0; i < 8; i++) {
-                ctx.beginPath();
-                ctx.arc(x - 18 + i * 5, y + 32 - (i % 2) * 3, 4, 0, Math.PI);
-                ctx.stroke();
-            }
-            
-            // Cabeza triangular amarillo pastel
-            ctx.fillStyle = '#FCEE58';
-            ctx.beginPath();
-            ctx.moveTo(x - 8, y + 15);
-            ctx.lineTo(x, y + 5);
-            ctx.lineTo(x + 8, y + 15);
-            ctx.lineTo(x, y + 22);
-            ctx.fill();
-            
-            // Contorno negro de la cabeza
-            ctx.strokeStyle = '#000000';
-            ctx.lineWidth = 1.5;
-            ctx.beginPath();
-            ctx.moveTo(x - 8, y + 15);
-            ctx.lineTo(x, y + 5);
-            ctx.lineTo(x + 8, y + 15);
-            ctx.lineTo(x, y + 22);
-            ctx.closePath();
-            ctx.stroke();
-            
-            // Ojos verdes
-            ctx.fillStyle = '#00ff00';
-            ctx.beginPath();
-            ctx.ellipse(x - 3, y + 12, 2, 3, 0, 0, Math.PI * 2);
-            ctx.ellipse(x + 3, y + 12, 2, 3, 0, 0, Math.PI * 2);
-            ctx.fill();
-            
-            // Pupilas negras
-            ctx.fillStyle = '#000';
-            ctx.beginPath();
-            ctx.ellipse(x - 3, y + 12, 0.8, 2, 0, 0, Math.PI * 2);
-            ctx.ellipse(x + 3, y + 12, 0.8, 2, 0, 0, Math.PI * 2);
-            ctx.fill();
-            
-            // Lengua bífida roja
-            ctx.strokeStyle = '#ff0000';
-            ctx.lineWidth = 1.5;
-            ctx.beginPath();
-            ctx.moveTo(x, y + 18);
-            ctx.lineTo(x - 2, y + 24);
-            ctx.moveTo(x, y + 18);
-            ctx.lineTo(x + 2, y + 24);
-            ctx.stroke();
-        }
-
-        // Dibujar Tokki (conejo en la luna - mejorado)
-        function drawTokki(x, y) {
-            ctx.fillStyle = 'white';
-            ctx.font = 'bold 18px Arial';
-            ctx.textAlign = 'center';
-            ctx.fillText('Tokki', x, y - 50);
-
-            // Cuerpo blanco con contorno negro
-            ctx.fillStyle = '#ffffff';
-            ctx.strokeStyle = '#000000';
-            ctx.lineWidth = 2.5;
-            ctx.beginPath();
-            ctx.ellipse(x, y + 15, 22, 20, 0, 0, Math.PI * 2);
-            ctx.fill();
-            ctx.stroke();
-            
-            // Mancha negra en la panza del lado derecho
-            ctx.fillStyle = '#000';
-            ctx.beginPath();
-            ctx.ellipse(x + 8, y + 18, 10, 12, 0, 0, Math.PI * 2);
-            ctx.fill();
-            
-            // Cabeza redonda con contorno
-            ctx.fillStyle = '#ffffff';
-            ctx.beginPath();
-            ctx.ellipse(x, y - 10, 18, 17, 0, 0, Math.PI * 2);
-            ctx.fill();
-            ctx.stroke();
-            
-            // Orejas LARGAS y OREJONAS con contorno
-            ctx.fillStyle = '#ffffff';
-            ctx.beginPath();
-            ctx.ellipse(x - 10, y - 30, 7, 25, -0.3, 0, Math.PI * 2);
-            ctx.fill();
-            ctx.stroke();
-            
-            ctx.beginPath();
-            ctx.ellipse(x + 10, y - 30, 7, 25, 0.3, 0, Math.PI * 2);
-            ctx.fill();
-            ctx.stroke();
-            
-            // Interior orejas rosa con contorno
-            ctx.fillStyle = '#ffb6c1';
-            ctx.beginPath();
-            ctx.ellipse(x - 10, y - 28, 4, 15, -0.3, 0, Math.PI * 2);
-            ctx.fill();
-            ctx.stroke();
-            
-            ctx.beginPath();
-            ctx.ellipse(x + 10, y - 28, 4, 15, 0.3, 0, Math.PI * 2);
-            ctx.fill();
-            ctx.stroke();
-            
-            // Mancha negra en el ojo IZQUIERDO (ojo izquierdo de Tokki = derecha visual)
-            ctx.fillStyle = '#000';
-            ctx.beginPath();
-            ctx.ellipse(x + 7, y - 10, 6, 7, 0, 0, Math.PI * 2);
-            ctx.fill();
-            
-            // Ojos grandes redondos con contorno
-            ctx.fillStyle = '#000000';
-            ctx.beginPath();
-            ctx.arc(x - 7, y - 8, 4, 0, Math.PI * 2);
-            ctx.arc(x + 7, y - 8, 4, 0, Math.PI * 2);
-            ctx.fill();
-            
-            // Brillo en los ojos
-            ctx.fillStyle = 'white';
-            ctx.beginPath();
-            ctx.arc(x - 7.5, y - 9, 1.5, 0, Math.PI * 2);
-            ctx.arc(x + 6.5, y - 9, 1.5, 0, Math.PI * 2);
-            ctx.fill();
-            
-            // Nariz rosa con contorno
-            ctx.fillStyle = '#ffb6c1';
-            ctx.strokeStyle = '#000';
-            ctx.lineWidth = 1.5;
-            ctx.beginPath();
-            ctx.moveTo(x, y - 2);
-            ctx.lineTo(x - 2.5, y - 4);
-            ctx.lineTo(x + 2.5, y - 4);
-            ctx.closePath();
-            ctx.fill();
-            ctx.stroke();
-            
-            // Boca con contorno
-            ctx.strokeStyle = '#000';
-            ctx.lineWidth = 1.5;
-            ctx.beginPath();
-            ctx.moveTo(x, y - 2);
-            ctx.lineTo(x, y + 1);
-            ctx.moveTo(x, y + 1);
-            ctx.quadraticCurveTo(x - 4, y + 3, x - 5, y + 2);
-            ctx.moveTo(x, y + 1);
-            ctx.quadraticCurveTo(x + 4, y + 3, x + 5, y + 2);
-            ctx.stroke();
-            
-            // Bigotes negros
-            ctx.strokeStyle = '#000';
-            ctx.lineWidth = 1.5;
-            ctx.beginPath();
-            // Izquierda
-            ctx.moveTo(x - 12, y - 4);
-            ctx.lineTo(x - 22, y - 5);
-            ctx.moveTo(x - 12, y - 1);
-            ctx.lineTo(x - 22, y - 1);
-            ctx.moveTo(x - 12, y + 2);
-            ctx.lineTo(x - 22, y + 3);
-            // Derecha
-            ctx.moveTo(x + 12, y - 4);
-            ctx.lineTo(x + 22, y - 5);
-            ctx.moveTo(x + 12, y - 1);
-            ctx.lineTo(x + 22, y - 1);
-            ctx.moveTo(x + 12, y + 2);
-            ctx.lineTo(x + 22, y + 3);
-            ctx.stroke();
-            
-            // Patas delanteras con contorno (la derecha tiene mancha)
-            ctx.fillStyle = '#ffffff';
-            ctx.strokeStyle = '#000';
-            ctx.lineWidth = 2;
-            ctx.beginPath();
-            ctx.ellipse(x - 10, y + 28, 6, 10, 0, 0, Math.PI * 2);
-            ctx.fill();
-            ctx.stroke();
-            
-            // Pata derecha (ya tiene la mancha negra dibujada arriba)
-            ctx.strokeStyle = '#000';
-            ctx.lineWidth = 2;
-            ctx.beginPath();
-            ctx.ellipse(x + 12, y + 30, 6, 10, 0, 0, Math.PI * 2);
-            ctx.stroke();
-            
-            // Colita esponjosa con contorno
-            ctx.fillStyle = '#ffffff';
-            ctx.strokeStyle = '#000';
-            ctx.lineWidth = 2;
-            ctx.beginPath();
-            ctx.arc(x - 20, y + 15, 8, 0, Math.PI * 2);
-            ctx.fill();
-            ctx.stroke();
-        }
-
-        // Dibujar todos los personajes
-        function drawCharacters() {
-            const catX = game.cat.x;
-            const catY = game.cat.y - game.cat.height + game.camera.y;
-
-            // Dibujar Nami (siempre con nombre)
-            drawNami(catX, catY, true);
-
-            // Dibujar amigos siguiendo el historial con retraso + desplazamiento horizontal
-            const spacing = 45; // Espacio horizontal entre personajes
-            
-            game.friendsList.forEach((friend, index) => {
-                if (friend.active && game.cat.positionHistory.length > friend.delay) {
-                    const historyIndex = game.cat.positionHistory.length - friend.delay;
-                    const pos = game.cat.positionHistory[historyIndex];
-                    
-                    if (pos) {
-                        // Posición del amigo con offset horizontal para no encimarse
-                        const friendX = pos.x + (index + 1) * spacing;
-                        const friendY = pos.y - game.cat.height + game.camera.y;
-                        
-                        if (friend.name === 'alika') drawAlika(friendX, friendY, true);
-                        else if (friend.name === 'ying') drawYing(friendX, friendY, true);
-                        else if (friend.name === 'calcifer') drawCalcifer(friendX, friendY, true);
-                        else if (friend.name === 'nagini') drawNagini(friendX, friendY, true);
-                    }
-                }
-            });
-        }
-
-        // Actualizar amigos según altura
-        function updateFriends() {
-            game.friendsList.forEach(friend => {
-                if (game.height >= friend.height && !friend.active) {
-                    friend.active = true;
-                    updateFriendsUI();
-                }
-            });
-        }
-
-        function updateFriendsUI() {
-            const friendsDiv = document.getElementById('friends');
-            const activeFriends = game.friendsList.filter(f => f.active);
-            if (activeFriends.length > 0) {
-                const names = activeFriends.map(f => f.name.charAt(0).toUpperCase() + f.name.slice(1));
-                friendsDiv.textContent = 'Equipo: Nami, ' + names.join(', ');
-            }
-        }
-
-        // Dibujar plataformas
-        function drawPlatforms() {
-            game.platforms.forEach(platform => {
-                const screenY = platform.y + game.camera.y;
-                
-                if (screenY > -300 && screenY < canvas.height + 50) {
-                    if (platform.isMoon) {
-                        // Dibujar luna
-                        ctx.fillStyle = '#f0f0f0';
-                        ctx.beginPath();
-                        ctx.arc(platform.x + platform.width / 2, screenY - 80, 100, 0, Math.PI * 2);
-                        ctx.fill();
-                        
-                        // Cráteres
-                        ctx.fillStyle = '#d0d0d0';
-                        ctx.beginPath();
-                        ctx.arc(platform.x + platform.width / 2 - 30, screenY - 100, 20, 0, Math.PI * 2);
-                        ctx.arc(platform.x + platform.width / 2 + 35, screenY - 60, 25, 0, Math.PI * 2);
-                        ctx.arc(platform.x + platform.width / 2 - 15, screenY - 50, 15, 0, Math.PI * 2);
-                        ctx.arc(platform.x + platform.width / 2 + 10, screenY - 95, 12, 0, Math.PI * 2);
-                        ctx.fill();
-                        
-                        // Tokki ARRIBA de la luna (montándola)
-                        drawTokki(platform.x + platform.width / 2, screenY - 160);
-                        
-                        // Plataforma de la luna
-                        ctx.fillStyle = '#cccccc';
-                        ctx.fillRect(platform.x, screenY, platform.width, platform.height);
-                    } else {
-                        // Plataforma normal
-                        ctx.fillStyle = '#8B4513';
-                        ctx.fillRect(platform.x, screenY, platform.width, platform.height);
-                        ctx.fillStyle = '#A0522D';
-                        ctx.fillRect(platform.x, screenY, platform.width, 5);
-                    }
-                }
-            });
-        }
-
-        // Dibujar estrellas
-        function drawStars() {
-            ctx.fillStyle = 'white';
-            game.stars.forEach(star => {
-                const screenY = star.y + game.camera.y;
-                if (screenY > -10 && screenY < canvas.height + 10) {
-                    ctx.beginPath();
-                    ctx.arc(star.x, screenY, star.size, 0, Math.PI * 2);
-                    ctx.fill();
-                }
-            });
-        }
-
-        // Actualizar física
-        function update() {
-            if (!game.gameRunning) return;
-
-            // Guardar posición actual en el historial
-            game.cat.positionHistory.push({
-                x: game.cat.x,
-                y: game.cat.y
-            });
-
-            // Limitar el historial para no consumir mucha memoria
-            if (game.cat.positionHistory.length > 200) {
-                game.cat.positionHistory.shift();
-            }
-
-            // Movimiento horizontal
-            if (game.keys['ArrowLeft'] || game.keys['a']) {
-                game.cat.velocityX = -game.cat.speed;
-            } else if (game.keys['ArrowRight'] || game.keys['d']) {
-                game.cat.velocityX = game.cat.speed;
+            if (mode === 'story') {
+                document.getElementById('objective').textContent = '/ 1000m';
+                document.getElementById('missionText').textContent = '🌙 Misión: Rescatar a Tokki (1000m)';
             } else {
-                game.cat.velocityX *= 0.8;
+                document.getElementById('objective').textContent = '';
+                document.getElementById('missionText').textContent = '∞ Modo Infinito - ¡Sube lo más alto posible!';
             }
-
-            game.cat.x += game.cat.velocityX;
-
-            // Limites horizontales
-            if (game.cat.x < 0) game.cat.x = canvas.width;
-            if (game.cat.x > canvas.width) game.cat.x = 0;
-
-            // Gravedad
-            game.cat.velocityY += game.cat.gravity;
-            game.cat.y += game.cat.velocityY;
-
-            // Colisión con plataformas
-            let wasGrounded = game.cat.grounded;
-            game.cat.grounded = false;
             
-            game.platforms.forEach(platform => {
-                if (game.cat.velocityY > 0 &&
-                    game.cat.x > platform.x - game.cat.width / 2 &&
-                    game.cat.x < platform.x + platform.width + game.cat.width / 2 &&
-                    game.cat.y >= platform.y &&
-                    game.cat.y <= platform.y + platform.height + 10) {
-                    
-                    game.cat.y = platform.y;
-                    game.cat.velocityY = 0;
-                    game.cat.grounded = true;
-                    game.cat.jumpsLeft = game.cat.maxJumps;
-
-                    if (platform.isMoon) {
-                        endGame(true);
-                    }
-                }
-            });
-
-            // Actualizar cámara
-            if (game.cat.y < canvas.height / 2) {
-                game.camera.y = canvas.height / 2 - game.cat.y;
-            }
-
-            // Actualizar altura
-            game.height = Math.max(game.height, Math.floor(-game.cat.y / 10));
-            document.getElementById('height').textContent = game.height;
-
-            // Actualizar amigos
-            updateFriends();
-
-            // Caer fuera del mapa
-            if (game.cat.y > canvas.height - game.camera.y + 100) {
-                endGame(false);
-            }
+            game.gameRunning = true;
+            audioSystem.init();
+            audioSystem.playMusic();
+            createPlatforms();
         }
 
-        // Saltar (con doble salto)
-        function jump() {
-            if (game.cat.jumpsLeft > 0) {
-                game.cat.velocityY = game.cat.jumpPower;
-                game.cat.jumpsLeft--;
-            }
+        // ============================================
+        // VOLVER AL MENÚ
+        // ============================================
+        function returnToMenu() {
+            document.getElementById('gameOver').style.display = 'none';
+            document.getElementById('modeSelect').style.display = 'block';
+            audioSystem.stopMusic();
+            resetGameState();
         }
 
-        // Terminar juego
-        function endGame(won) {
-            game.gameRunning = false;
-            const gameOverDiv = document.getElementById('gameOver');
-            const endMessage = document.getElementById('endMessage');
-            const finalHeight = document.getElementById('finalHeight');
-
-            if (won) {
-                endMessage.textContent = '¡🐰 RESCATARON A TOKKI! 🌙';
-                finalHeight.textContent = '¡Nami y sus amigos salvaron al conejito!';
-            } else {
-                endMessage.textContent = '¡Oh no! Cayeron al vacío';
-                finalHeight.textContent = `Altura alcanzada: ${game.height}m de 1000m`;
-            }
-
-            gameOverDiv.style.display = 'block';
-        }
-
-        // Reiniciar juego
-        function restartGame() {
+        function resetGameState() {
             game.cat.x = canvas.width / 2;
             game.cat.y = canvas.height - 150;
             game.cat.velocityY = 0;
             game.cat.velocityX = 0;
             game.cat.jumpsLeft = game.cat.maxJumps;
             game.cat.positionHistory = [];
+            game.cat.invulnerable = false;
             game.camera.y = 0;
             game.height = 0;
-            game.gameRunning = true;
+            game.points = 0;
+            game.lives = 3;
+            game.gameRunning = false;
+            game.combo = 0;
+            game.carrots = 0;
+            game.coins = 0;
+            game.currentZone = 1;
+            game.tokkiRescued = false;
+            game.tokkiPosition = null;
+            game.lastSafePlatform = null;  // AGREGADO: Reset
+            game.particles = [];
             
-            game.friendsList.forEach(friend => {
-                friend.active = false;
-            });
+            game.friendsList.forEach(friend => friend.active = false);
+            game.activePowerups = { tripleJump: false, shield: false, magnet: false, speed: false };
+            game.powerupTimers = { tripleJump: 0, shield: 0, magnet: 0, speed: 0 };
             
-            createPlatforms();
-            updateFriendsUI();
-            
-            document.getElementById('gameOver').style.display = 'none';
+            updateHeartsUI();
             document.getElementById('friends').textContent = '';
+            document.getElementById('powerups').textContent = '';
+            document.getElementById('points').textContent = '0';
+            document.getElementById('height').textContent = '0';
         }
 
-        // Dibujar todo
+        // ============================================
+        // GENERAR PLATAFORMAS Y ELEMENTOS
+        // ============================================
+        function createPlatforms() {
+            game.platforms = []; game.powerups = []; game.collectibles = []; game.obstacles = [];
+            game.lastSafePlatform = null;  // AGREGADO: Reset
+            
+            // Plataforma inicial segura
+            const initialPlatform = { x: canvas.width / 2 - 100, y: canvas.height - 50, width: 200, height: 20, type: 'normal' };
+            game.platforms.push(initialPlatform);
+            game.lastSafePlatform = initialPlatform;  // AGREGADO: Set inicial
+
+            let lastY = canvas.height - 50;
+            const targetY = game.gameMode === 'story' ? -10000 : -50000;
+            let lastType = 'normal';  // AGREGADO: Para rastrear el tipo de la plataforma anterior
+            
+            while (lastY > targetY + 100) {
+                const currentHeight = Math.abs(lastY) / 10;
+                let zone = Math.floor(currentHeight / 200) + 1;
+                if (zone > 5) zone = 5;
+                
+                const spacing = Math.random() * (40 + zone * 10) + (isMobile ? 100 : 80);
+                lastY -= spacing;
+                
+                let width = Math.random() * (100 - zone * 10) + (120 - zone * 15);
+                if (width < 60) width = 60;
+                let x = Math.random() * (canvas.width - width);
+                
+                // Determinar tipo de plataforma con MÁS VARIEDAD (AJUSTADO: Prob spikes aumentada a ~0.10 pero no excesiva)
+                let type = 'normal';
+                const rand = Math.random();
+                if (zone >= 2) {
+                    if (rand < 0.12) type = 'moving';
+                    else if (rand < 0.22) type = 'disappearing';
+                    else if (rand < 0.30) type = 'elastic';
+                    else if (rand < 0.36 && zone >= 3) type = 'ice';
+                    else if (rand < 0.42 && zone >= 4) type = 'fake';
+                    else if (rand < 0.48 && zone >= 3) type = 'trap';
+                    else if (rand < 0.58 && zone >= 2) type = 'spikes';  // Aumentado: ~0.10 prob (0.58-0.48)
+                }
+                
+                // AGREGADO: Evitar plataformas con pinchos consecutivas
+                if (type === 'spikes' && lastType === 'spikes') {
+                    type = 'normal';  // Forzar a normal si la anterior era spikes
+                }
+                
+                const platform = {
+                    x, y: lastY, width, height: 20, type,
+                    moveSpeed: type === 'moving' ? (Math.random() * 2 + 1) * (Math.random() < 0.5 ? 1 : -1) : 0,
+                    moveRange: type === 'moving' ? Math.random() * 150 + 100 : 0,
+                    originalX: x, touched: false, disappearTime: 0, broken: false
+                };
+                game.platforms.push(platform);
+                
+                lastType = type;  // AGREGADO: Actualizar lastType
+                
+                // Power-ups (más frecuentes)
+                if (Math.random() < 0.12 && zone >= 2) {
+                    const types = ['tripleJump', 'shield', 'magnet', 'speed'];
+                    game.powerups.push({
+                        x: x + width / 2, y: lastY - 60,
+                        type: types[Math.floor(Math.random() * types.length)],
+                        collected: false, float: 0
+                    });
+                }
+                
+                // Coleccionables (más frecuentes, AJUSTADO: Hearts más probables)
+                if (Math.random() < 0.25) {
+                    const types = ['star', 'carrot', 'coin', 'heart'];
+                    let type = types[Math.floor(Math.random() * types.length)];
+                    if (type === 'heart' && Math.random() < 0.4) type = 'star';  // Reducido filtro: 60% keep heart (aumenta aparición)
+                    
+                    game.collectibles.push({
+                        x: x + width / 2 + (Math.random() - 0.5) * 50, y: lastY - 40,
+                        type, collected: false, float: Math.random() * Math.PI * 2
+                    });
+                }
+                
+                // MUCHOS MÁS OBSTÁCULOS
+                if (zone >= 2 && Math.random() < 0.25) { // Aumentado de 0.08 a 0.25
+                    const types = ['meteor', 'cloud', 'blackhole'];
+                    const type = types[Math.floor(Math.random() * types.length)];
+                    
+                    if (type === 'meteor') {
+                        game.obstacles.push({
+                            x: Math.random() * canvas.width, y: lastY - 200, type: 'meteor',
+                            velocityX: (Math.random() - 0.5) * 8, velocityY: Math.random() * 3 + 2,
+                            size: Math.random() * 20 + 20, rotation: 0
+                        });
+                    } else if (type === 'cloud') {
+                        game.obstacles.push({
+                            x: Math.random() * canvas.width, y: lastY - 150,
+                            type: 'cloud', strikeTime: 0, striking: false
+                        });
+                    } else {
+                        game.obstacles.push({
+                            x: Math.random() * canvas.width, y: lastY - 100,
+                            type: 'blackhole', size: 30, pullStrength: 0.3
+                        });
+                    }
+                }
+            }
+
+            // Plataforma de la luna (solo en modo historia)
+            if (game.gameMode === 'story') {
+                game.platforms.push({
+                    x: canvas.width / 2 - 150, y: targetY, width: 300, height: 30,
+                    type: 'moon', isMoon: true
+                });
+            }
+        }
+
+        // ============================================
+        // DIBUJO DE PERSONAJES
+        // ============================================
+        
+        function drawNami(x, y, showName) {
+            if (showName) {
+                ctx.fillStyle = 'white'; ctx.font = 'bold 14px Arial'; ctx.textAlign = 'center';
+                ctx.fillText('Nami', x, y - 10);
+            }
+            ctx.fillStyle = '#f5f5f5'; ctx.beginPath(); ctx.ellipse(x, y + 38, 18, 14, 0, 0, Math.PI * 2); ctx.fill();
+            ctx.fillStyle = '#a0a0a0'; ctx.beginPath(); ctx.ellipse(x, y + 25, 16, 12, 0, 0, Math.PI * 2); ctx.fill();
+            ctx.strokeStyle = '#606060'; ctx.lineWidth = 2;
+            for (let i = 0; i < 4; i++) { ctx.beginPath(); ctx.arc(x, y + 20 + i * 5, 14 - i * 2, Math.PI * 1.2, Math.PI * 1.8); ctx.stroke(); }
+            ctx.fillStyle = '#f5f5f5'; ctx.fillRect(x - 8, y + 42, 6, 8); ctx.fillRect(x + 2, y + 42, 6, 8);
+            ctx.fillStyle = '#a0a0a0'; ctx.beginPath(); ctx.ellipse(x, y + 12, 14, 13, 0, 0, Math.PI * 2); ctx.fill();
+            ctx.fillStyle = '#a0a0a0';
+            ctx.beginPath(); ctx.moveTo(x - 8, y + 2); ctx.lineTo(x - 12, y - 5); ctx.lineTo(x - 4, y + 5); ctx.fill();
+            ctx.beginPath(); ctx.moveTo(x + 8, y + 2); ctx.lineTo(x + 12, y - 5); ctx.lineTo(x + 4, y + 5); ctx.fill();
+            ctx.fillStyle = '#ffb6c1';
+            ctx.beginPath(); ctx.moveTo(x - 8, y + 2); ctx.lineTo(x - 10, y - 2); ctx.lineTo(x - 6, y + 3); ctx.fill();
+            ctx.beginPath(); ctx.moveTo(x + 8, y + 2); ctx.lineTo(x + 10, y - 2); ctx.lineTo(x + 6, y + 3); ctx.fill();
+            ctx.fillStyle = '#ffffff'; ctx.beginPath(); ctx.ellipse(x, y + 17, 8, 6, 0, 0, Math.PI * 2); ctx.fill();
+            ctx.fillStyle = '#98FB98'; ctx.beginPath();
+            ctx.ellipse(x - 5, y + 11, 3.5, 4, 0, 0, Math.PI * 2);
+            ctx.ellipse(x + 5, y + 11, 3.5, 4, 0, 0, Math.PI * 2); ctx.fill();
+            ctx.fillStyle = '#000'; ctx.beginPath();
+            ctx.ellipse(x - 5, y + 11, 1.5, 3, 0, 0, Math.PI * 2);
+            ctx.ellipse(x + 5, y + 11, 1.5, 3, 0, 0, Math.PI * 2); ctx.fill();
+            ctx.fillStyle = 'white'; ctx.beginPath();
+            ctx.arc(x - 5.5, y + 9.5, 1, 0, Math.PI * 2);
+            ctx.arc(x + 4.5, y + 9.5, 1, 0, Math.PI * 2); ctx.fill();
+            ctx.fillStyle = '#ff69b4'; ctx.beginPath();
+            ctx.moveTo(x, y + 16); ctx.lineTo(x - 2, y + 14); ctx.lineTo(x + 2, y + 14); ctx.fill();
+            ctx.strokeStyle = '#333'; ctx.lineWidth = 1; ctx.beginPath();
+            ctx.moveTo(x - 8, y + 15); ctx.lineTo(x - 18, y + 13);
+            ctx.moveTo(x - 8, y + 17); ctx.lineTo(x - 18, y + 17);
+            ctx.moveTo(x + 8, y + 15); ctx.lineTo(x + 18, y + 13);
+            ctx.moveTo(x + 8, y + 17); ctx.lineTo(x + 18, y + 17); ctx.stroke();
+            ctx.strokeStyle = '#a0a0a0'; ctx.lineWidth = 7; ctx.lineCap = 'round'; ctx.beginPath();
+            ctx.moveTo(x - 16, y + 36); ctx.quadraticCurveTo(x - 25, y + 30, x - 22, y + 20); ctx.stroke();
+            if (game.cat.invulnerable) {
+                ctx.strokeStyle = 'rgba(100, 200, 255, 0.6)'; ctx.lineWidth = 3;
+                ctx.beginPath(); ctx.arc(x, y + 25, 35, 0, Math.PI * 2); ctx.stroke();
+            }
+        }
+
+        function drawAlika(x, y, showName) {
+            if (showName) {
+                ctx.fillStyle = 'white'; ctx.font = 'bold 14px Arial'; ctx.textAlign = 'center';
+                ctx.fillText('Alika', x, y - 10);
+            }
+            ctx.fillStyle = '#d3d3d3'; ctx.beginPath(); ctx.ellipse(x, y + 30, 20, 16, 0, 0, Math.PI * 2); ctx.fill();
+            ctx.fillStyle = '#ffffff'; ctx.beginPath(); ctx.ellipse(x, y + 35, 15, 12, 0, 0, Math.PI * 2); ctx.fill();
+            ctx.fillStyle = '#d3d3d3'; ctx.beginPath(); ctx.ellipse(x, y + 12, 16, 14, 0, 0, Math.PI * 2); ctx.fill();
+            ctx.fillStyle = '#ffffff'; ctx.beginPath(); ctx.ellipse(x, y + 15, 10, 10, 0, 0, Math.PI * 2); ctx.fill();
+            ctx.fillStyle = '#d3d3d3';
+            ctx.beginPath(); ctx.moveTo(x - 10, y + 2); ctx.lineTo(x - 14, y - 6); ctx.lineTo(x - 6, y + 4); ctx.fill();
+            ctx.beginPath(); ctx.moveTo(x + 10, y + 2); ctx.lineTo(x + 14, y - 6); ctx.lineTo(x + 6, y + 4); ctx.fill();
+            ctx.fillStyle = '#87CEEB'; ctx.beginPath();
+            ctx.ellipse(x - 6, y + 10, 3, 4, 0, 0, Math.PI * 2);
+            ctx.ellipse(x + 6, y + 10, 3, 4, 0, 0, Math.PI * 2); ctx.fill();
+            ctx.fillStyle = '#000'; ctx.beginPath();
+            ctx.arc(x - 6, y + 10, 2, 0, Math.PI * 2);
+            ctx.arc(x + 6, y + 10, 2, 0, Math.PI * 2); ctx.fill();
+            ctx.fillStyle = '#000'; ctx.beginPath(); ctx.arc(x, y + 16, 3, 0, Math.PI * 2); ctx.fill();
+            ctx.fillStyle = '#d3d3d3'; ctx.fillRect(x - 12, y + 42, 6, 10); ctx.fillRect(x + 6, y + 42, 6, 10);
+            ctx.fillStyle = '#d3d3d3'; ctx.beginPath(); ctx.arc(x - 18, y + 28, 8, 0, Math.PI * 2); ctx.fill();
+        }
+
+        function drawYing(x, y, showName) {
+            if (showName) {
+                ctx.fillStyle = 'white'; ctx.font = 'bold 14px Arial'; ctx.textAlign = 'center';
+                ctx.fillText('Ying', x, y - 10);
+            }
+            ctx.fillStyle = '#ffffff'; ctx.beginPath(); ctx.ellipse(x, y + 32, 14, 10, 0, 0, Math.PI * 2); ctx.fill();
+            ctx.fillStyle = '#ffffff'; ctx.beginPath(); ctx.ellipse(x, y + 15, 12, 11, 0, 0, Math.PI * 2); ctx.fill();
+            ctx.fillStyle = '#f5f5f5'; ctx.beginPath(); ctx.ellipse(x, y + 20, 6, 8, 0, 0, Math.PI * 2); ctx.fill();
+            ctx.fillStyle = '#ffffff';
+            ctx.beginPath(); ctx.ellipse(x - 10, y + 8, 8, 12, -0.3, 0, Math.PI * 2); ctx.fill();
+            ctx.beginPath(); ctx.ellipse(x + 10, y + 8, 8, 12, 0.3, 0, Math.PI * 2); ctx.fill();
+            ctx.strokeStyle = '#e0e0e0'; ctx.lineWidth = 1.5;
+            for(let i = 0; i < 5; i++) {
+                ctx.beginPath(); ctx.moveTo(x - 10 + i, y + 5); ctx.lineTo(x - 12 + i, y); ctx.stroke();
+                ctx.beginPath(); ctx.moveTo(x + 10 - i, y + 5); ctx.lineTo(x + 12 - i, y); ctx.stroke();
+            }
+            ctx.fillStyle = '#000'; ctx.beginPath();
+            ctx.arc(x - 5, y + 12, 3, 0, Math.PI * 2);
+            ctx.arc(x + 5, y + 12, 3, 0, Math.PI * 2); ctx.fill();
+            ctx.fillStyle = 'white'; ctx.beginPath();
+            ctx.arc(x - 5, y + 11, 1, 0, Math.PI * 2);
+            ctx.arc(x + 5, y + 11, 1, 0, Math.PI * 2); ctx.fill();
+            ctx.fillStyle = '#000'; ctx.beginPath(); ctx.arc(x, y + 22, 2, 0, Math.PI * 2); ctx.fill();
+            ctx.fillStyle = '#ffffff'; ctx.fillRect(x - 8, y + 40, 4, 8); ctx.fillRect(x + 4, y + 40, 4, 8);
+        }
+
+        function drawCalcifer(x, y, showName) {
+            if (showName) {
+                ctx.fillStyle = 'white'; ctx.font = 'bold 14px Arial'; ctx.textAlign = 'center';
+                ctx.fillText('Calcifer', x, y - 10);
+            }
+            ctx.fillStyle = '#ffb6c1'; ctx.beginPath(); ctx.ellipse(x, y + 28, 18, 10, 0, 0, Math.PI * 2); ctx.fill();
+            ctx.fillStyle = '#ffb6c1'; ctx.beginPath(); ctx.ellipse(x, y + 15, 14, 12, 0, 0, Math.PI * 2); ctx.fill();
+            ctx.strokeStyle = '#ff69b4'; ctx.lineWidth = 3;
+            for(let i = 0; i < 3; i++) {
+                ctx.beginPath(); ctx.moveTo(x - 14, y + 10 + i * 3); ctx.lineTo(x - 20, y + 8 + i *
+                3); ctx.stroke();
+                ctx.beginPath(); ctx.moveTo(x + 14, y + 10 + i * 3); ctx.lineTo(x + 20, y + 8 + i * 3); ctx.stroke();
+            }
+            ctx.fillStyle = '#000'; ctx.beginPath();
+            ctx.arc(x - 6, y + 12, 2, 0, Math.PI * 2);
+            ctx.arc(x + 6, y + 12, 2, 0, Math.PI * 2); ctx.fill();
+            ctx.strokeStyle = '#000'; ctx.lineWidth = 2; ctx.beginPath();
+            ctx.arc(x, y + 18, 8, 0.2, Math.PI - 0.2); ctx.stroke();
+            ctx.fillStyle = '#ffb6c1'; ctx.fillRect(x - 14, y + 32, 5, 6); ctx.fillRect(x + 9, y + 32, 5, 6);
+            ctx.strokeStyle = '#ffb6c1'; ctx.lineWidth = 8; ctx.beginPath();
+            ctx.moveTo(x + 16, y + 28); ctx.quadraticCurveTo(x + 24, y + 26, x + 26, y + 20); ctx.stroke();
+        }
+
+        function drawNagini(x, y, showName) {
+            if (showName) {
+                ctx.fillStyle = 'white'; ctx.font = 'bold 14px Arial'; ctx.textAlign = 'center';
+                ctx.fillText('Nagini', x, y - 10);
+            }
+            ctx.strokeStyle = '#FCEE58'; ctx.lineWidth = 12; ctx.beginPath();
+            ctx.moveTo(x - 20, y + 35); ctx.quadraticCurveTo(x - 10, y + 25, x, y + 28);
+            ctx.quadraticCurveTo(x + 10, y + 31, x + 18, y + 25); ctx.stroke();
+            ctx.strokeStyle = '#000000'; ctx.lineWidth = 2;
+            for(let i = 0; i < 8; i++) {
+                ctx.beginPath(); ctx.arc(x - 18 + i * 5, y + 32 - (i % 2) * 3, 4, 0, Math.PI); ctx.stroke();
+            }
+            ctx.fillStyle = '#FCEE58'; ctx.beginPath();
+            ctx.moveTo(x - 8, y + 15); ctx.lineTo(x, y + 5); ctx.lineTo(x + 8, y + 15); ctx.lineTo(x, y + 22); ctx.fill();
+            ctx.strokeStyle = '#000000'; ctx.lineWidth = 1.5; ctx.beginPath();
+            ctx.moveTo(x - 8, y + 15); ctx.lineTo(x, y + 5); ctx.lineTo(x + 8, y + 15); ctx.lineTo(x, y + 22);
+            ctx.closePath(); ctx.stroke();
+            ctx.fillStyle = '#00ff00'; ctx.beginPath();
+            ctx.ellipse(x - 3, y + 12, 2, 3, 0, 0, Math.PI * 2);
+            ctx.ellipse(x + 3, y + 12, 2, 3, 0, 0, Math.PI * 2); ctx.fill();
+            ctx.fillStyle = '#000'; ctx.beginPath();
+            ctx.ellipse(x - 3, y + 12, 0.8, 2, 0, 0, Math.PI * 2);
+            ctx.ellipse(x + 3, y + 12, 0.8, 2, 0, 0, Math.PI * 2); ctx.fill();
+            ctx.strokeStyle = '#ff0000'; ctx.lineWidth = 1.5; ctx.beginPath();
+            ctx.moveTo(x, y + 18); ctx.lineTo(x - 2, y + 24);
+            ctx.moveTo(x, y + 18); ctx.lineTo(x + 2, y + 24); ctx.stroke();
+        }
+
+        function drawTokki(x, y, showName) {
+            if (showName) {
+                ctx.fillStyle = 'white'; ctx.font = 'bold 18px Arial'; ctx.textAlign = 'center';
+                ctx.fillText('Tokki', x, y - 50);
+            }
+            ctx.fillStyle = '#ffffff'; ctx.strokeStyle = '#000000'; ctx.lineWidth = 2.5; ctx.beginPath();
+            ctx.ellipse(x, y + 15, 22, 20, 0, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+            ctx.fillStyle = '#000'; ctx.beginPath(); ctx.ellipse(x + 8, y + 18, 10, 12, 0, 0, Math.PI * 2); ctx.fill();
+            ctx.fillStyle = '#ffffff'; ctx.beginPath(); ctx.ellipse(x, y - 10, 18, 17, 0, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+            ctx.fillStyle = '#ffffff';
+            ctx.beginPath(); ctx.ellipse(x - 10, y - 30, 7, 25, -0.3, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+            ctx.beginPath(); ctx.ellipse(x + 10, y - 30, 7, 25, 0.3, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+            ctx.fillStyle = '#ffb6c1';
+            ctx.beginPath(); ctx.ellipse(x - 10, y - 28, 4, 15, -0.3, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+            ctx.beginPath(); ctx.ellipse(x + 10, y - 28, 4, 15, 0.3, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+            ctx.fillStyle = '#000'; ctx.beginPath(); ctx.ellipse(x + 7, y - 10, 6, 7, 0, 0, Math.PI * 2); ctx.fill();
+            ctx.fillStyle = '#000000'; ctx.beginPath();
+            ctx.arc(x - 7, y - 8, 4, 0, Math.PI * 2);
+            ctx.arc(x + 7, y - 8, 4, 0, Math.PI * 2); ctx.fill();
+            ctx.fillStyle = 'white'; ctx.beginPath();
+            ctx.arc(x - 7.5, y - 9, 1.5, 0, Math.PI * 2);
+            ctx.arc(x + 6.5, y - 9, 1.5, 0, Math.PI * 2); ctx.fill();
+            ctx.fillStyle = '#ffb6c1'; ctx.strokeStyle = '#000'; ctx.lineWidth = 1.5; ctx.beginPath();
+            ctx.moveTo(x, y - 2); ctx.lineTo(x - 2.5, y - 4); ctx.lineTo(x + 2.5, y - 4);
+            ctx.closePath(); ctx.fill(); ctx.stroke();
+            ctx.strokeStyle = '#000';
+            ctx.lineWidth = 1.5; ctx.beginPath();
+            ctx.moveTo(x, y - 2); ctx.lineTo(x, y + 1);
+            ctx.moveTo(x, y + 1); ctx.quadraticCurveTo(x - 4, y + 3, x - 5, y + 2);
+            ctx.moveTo(x, y + 1); ctx.quadraticCurveTo(x + 4, y + 3, x + 5, y + 2); ctx.stroke();
+            ctx.strokeStyle = '#000'; ctx.lineWidth = 1.5; ctx.beginPath();
+            ctx.moveTo(x - 12, y - 4); ctx.lineTo(x - 22, y - 5);
+            ctx.moveTo(x - 12, y - 1); ctx.lineTo(x - 22, y - 1);
+            ctx.moveTo(x - 12, y + 2); ctx.lineTo(x - 22, y + 3);
+            ctx.moveTo(x + 12, y - 4); ctx.lineTo(x + 22, y - 5);
+            ctx.moveTo(x + 12, y - 1); ctx.lineTo(x + 22, y - 1);
+            ctx.moveTo(x + 12, y + 2); ctx.lineTo(x + 22, y + 3); ctx.stroke();
+            ctx.fillStyle = '#ffffff'; ctx.strokeStyle = '#000'; ctx.lineWidth = 2; ctx.beginPath();
+            ctx.ellipse(x - 10, y + 28, 6, 10, 0, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+            ctx.strokeStyle = '#000'; ctx.lineWidth = 2; ctx.beginPath();
+            ctx.ellipse(x + 12, y + 30, 6, 10, 0, 0, Math.PI * 2); ctx.stroke();
+            ctx.fillStyle = '#ffffff'; ctx.strokeStyle = '#000'; ctx.lineWidth = 2; ctx.beginPath();
+            ctx.arc(x - 20, y + 15, 8, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+        }
+
+        // ============================================
+        // DIBUJAR TODOS LOS PERSONAJES
+        // ============================================
+        function drawCharacters() {
+            const catX = game.cat.x;
+            const catY = game.cat.y - game.cat.height + game.camera.y;
+            drawNami(catX, catY, true);
+            
+            const spacing = 45;
+            game.friendsList.forEach((friend, index) => {
+                if (friend.active && game.cat.positionHistory.length > friend.delay) {
+                    const historyIndex = game.cat.positionHistory.length - friend.delay;
+                    const pos = game.cat.positionHistory[historyIndex];
+                    if (pos) {
+                        const friendX = pos.x + (index + 1) * spacing;
+                        const friendY = pos.y - game.cat.height + game.camera.y;
+                        if (friend.name === 'alika') drawAlika(friendX, friendY, true);
+                        else if (friend.name === 'ying') drawYing(friendX, friendY, true);
+                        else if (friend.name === 'calcifer') drawCalcifer(friendX, friendY, true);
+                        else if (friend.name === 'nagini') drawNagini(friendX, friendY, true);
+                        else if (friend.name === 'tokki') drawTokki(friendX, friendY, true);
+                    }
+                }
+            });
+            
+            // Dibujar Tokki en su posición si aún no ha sido rescatado
+            if (game.tokkiPosition && !game.tokkiRescued) {
+                const tokkiScreenY = game.tokkiPosition.y + game.camera.y;
+                if (tokkiScreenY > -200 && tokkiScreenY < canvas.height + 100) {
+                    drawTokki(game.tokkiPosition.x, tokkiScreenY, true);
+                }
+            }
+        }
+
+        // ============================================
+        // DIBUJAR PLATAFORMAS
+        // ============================================
+        function drawPlatforms() {
+            game.platforms.forEach(platform => {
+                const screenY = platform.y + game.camera.y;
+                if (screenY > -300 && screenY < canvas.height + 50) {
+                    if (platform.isMoon) {
+                        ctx.fillStyle = '#f0f0f0'; ctx.beginPath();
+                        ctx.arc(platform.x + platform.width / 2, screenY - 80, 100, 0, Math.PI * 2); ctx.fill();
+                        ctx.fillStyle = '#d0d0d0'; ctx.beginPath();
+                        ctx.arc(platform.x + platform.width / 2 - 30, screenY - 100, 20, 0, Math.PI * 2);
+                        ctx.arc(platform.x + platform.width / 2 + 35, screenY - 60, 25, 0, Math.PI * 2);
+                        ctx.arc(platform.x + platform.width / 2 - 15, screenY - 50, 15, 0, Math.PI * 2);
+                        ctx.arc(platform.x + platform.width / 2 + 10, screenY - 95, 12, 0, Math.PI * 2); ctx.fill();
+                        ctx.fillStyle = '#cccccc'; ctx.fillRect(platform.x, screenY, platform.width, platform.height);
+                    } else {
+                        if (platform.type === 'moving') ctx.fillStyle = '#8B6914';
+                        else if (platform.type === 'disappearing') ctx.fillStyle = platform.touched ? 'rgba(139, 69, 19, 0.5)' : '#8B4513';
+                        else if (platform.type === 'elastic') ctx.fillStyle = '#4CAF50';
+                        else if (platform.type === 'ice') ctx.fillStyle = '#87CEEB';
+                        else if (platform.type === 'fake') ctx.fillStyle = '#8B4513';
+                        else if (platform.type === 'trap') ctx.fillStyle = '#8B4513';
+                        else if (platform.type === 'spikes') ctx.fillStyle = '#654321';
+                        else ctx.fillStyle = '#8B4513';
+                        
+                        if (!platform.broken) {
+                            ctx.fillRect(platform.x, screenY, platform.width, platform.height);
+                            
+                            // Dibujar pinchos mejorados y realistas
+                            if (platform.type === 'spikes') {
+                                ctx.fillStyle = '#C0C0C0'; // Color metálico para los pinchos
+                                const spikeCount = Math.floor(platform.width / 20);
+                                for (let i = 0; i < spikeCount; i++) {
+                                    const spikeX = platform.x + (i * platform.width / spikeCount) + (platform.width / spikeCount / 2);
+                                    const spikeHeight = 15;
+                                    
+                                    // Dibujar pincho con forma triangular realista
+                                    ctx.beginPath();
+                                    ctx.moveTo(spikeX - 8, screenY);
+                                    ctx.lineTo(spikeX, screenY - spikeHeight);
+                                    ctx.lineTo(spikeX + 8, screenY);
+                                    ctx.closePath();
+                                    ctx.fill();
+                                    
+                                    // Sombra del pincho para efecto 3D
+                                    ctx.fillStyle = '#808080';
+                                    ctx.beginPath();
+                                    ctx.moveTo(spikeX, screenY - spikeHeight);
+                                    ctx.lineTo(spikeX + 8, screenY);
+                                    ctx.lineTo(spikeX + 4, screenY);
+                                    ctx.closePath();
+                                    ctx.fill();
+                                    
+                                    // Brillo del pincho
+                                    ctx.fillStyle = '#E8E8E8';
+                                    ctx.beginPath();
+                                    ctx.moveTo(spikeX - 8, screenY);
+                                    ctx.lineTo(spikeX, screenY - spikeHeight);
+                                    ctx.lineTo(spikeX - 4, screenY);
+                                    ctx.closePath();
+                                    ctx.fill();
+                                    
+                                    ctx.fillStyle = '#C0C0C0';
+                                }
+                            }
+                            
+                            if (platform.type === 'trap' && !platform.broken) {
+                                ctx.fillStyle = '#ff0000'; ctx.fillRect(platform.x + platform.width / 2 - 5, screenY - 10, 10, 10);
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // ============================================
+        // DIBUJAR ESTRELLAS
+        // ============================================
+        function drawStars() {
+            ctx.fillStyle = 'white';
+            game.stars.forEach(star => {
+                const screenY = star.y + game.camera.y;
+                if (screenY > -10 && screenY < canvas.height + 10) {
+                    star.twinkle += 0.05;
+                    const alpha = 0.5 + Math.sin(star.twinkle) * 0.5;
+                    ctx.globalAlpha = alpha;
+                    ctx.beginPath();
+                    ctx.arc(star.x, screenY, star.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            });
+            ctx.globalAlpha = 1;
+        }
+
+        // ============================================
+        // DIBUJAR POWER-UPS
+        // ============================================
+        function drawPowerups() {
+            game.powerups.forEach(powerup => {
+                if (!powerup.collected) {
+                    const screenY = powerup.y + game.camera.y;
+                    if (screenY > -100 && screenY < canvas.height + 100) {
+                        powerup.float += 0.05;
+                        const floatY = screenY + Math.sin(powerup.float) * 5;
+                        
+                        if (powerup.type === 'tripleJump') {
+                            ctx.fillStyle = '#FFD700'; ctx.beginPath();
+                            ctx.arc(powerup.x, floatY, 15, 0, Math.PI * 2); ctx.fill();
+                            ctx.fillStyle = '#000'; ctx.font = 'bold 16px Arial'; ctx.textAlign = 'center';
+                            ctx.fillText('3x', powerup.x, floatY + 5);
+                        } else if (powerup.type === 'shield') {
+                            ctx.strokeStyle = '#00BFFF'; ctx.lineWidth = 3; ctx.beginPath();
+                            ctx.arc(powerup.x, floatY, 15, 0, Math.PI * 2); ctx.stroke();
+                        } else if (powerup.type === 'magnet') {
+                            ctx.fillStyle = '#FF69B4'; ctx.beginPath();
+                            ctx.arc(powerup.x, floatY, 15, 0, Math.PI * 2); ctx.fill();
+                            ctx.fillStyle = '#fff'; ctx.font = 'bold 16px Arial'; ctx.textAlign = 'center';
+                            ctx.fillText('M', powerup.x, floatY + 5);
+                        } else if (powerup.type === 'speed') {
+                            ctx.fillStyle = '#32CD32'; ctx.beginPath();
+                            ctx.arc(powerup.x, floatY, 15, 0, Math.PI * 2); ctx.fill();
+                            ctx.fillStyle = '#fff'; ctx.font = 'bold 16px Arial'; ctx.textAlign = 'center';
+                            ctx.fillText('⚡', powerup.x, floatY + 5);
+                        }
+                    }
+                }
+            });
+        }
+
+        // ============================================
+        // DIBUJAR COLECCIONABLES
+        // ============================================
+        function drawCollectibles() {
+            game.collectibles.forEach(item => {
+                if (!item.collected) {
+                    const screenY = item.y + game.camera.y;
+                    if (screenY > -100 && screenY < canvas.height + 100) {
+                        item.float += 0.05;
+                        const floatY = screenY + Math.sin(item.float) * 3;
+                        
+                        if (item.type === 'star') {
+                            ctx.fillStyle = '#FFD700'; ctx.font = '20px Arial'; ctx.textAlign = 'center';
+                            ctx.fillText('⭐', item.x, floatY);
+                        } else if (item.type === 'carrot') {
+                            ctx.fillStyle = '#FF8C00'; ctx.font = '20px Arial'; ctx.textAlign = 'center';
+                            ctx.fillText('🥕', item.x, floatY);
+                        } else if (item.type === 'coin') {
+                            ctx.fillStyle = '#FFD700'; ctx.font = '20px Arial'; ctx.textAlign = 'center';
+                            ctx.fillText('🪙', item.x, floatY);
+                        } else if (item.type === 'heart') {
+                            ctx.fillStyle = '#FF0000'; ctx.font = '20px Arial'; ctx.textAlign = 'center';
+                            ctx.fillText('❤️', item.x, floatY);
+                        }
+                    }
+                }
+            });
+        }
+
+        // ============================================
+        // DIBUJAR OBSTÁCULOS
+        // ============================================
+        function drawObstacles() {
+            game.obstacles.forEach(obs => {
+                const screenY = obs.y + game.camera.y;
+                if (screenY > -200 && screenY < canvas.height + 200) {
+                    if (obs.type === 'meteor') {
+                        ctx.save();
+                        ctx.translate(obs.x, screenY);
+                        ctx.rotate(obs.rotation);
+                        ctx.fillStyle = '#8B4513';
+                        ctx.beginPath();
+                        ctx.arc(0, 0, obs.size, 0, Math.PI * 2);
+                        ctx.fill();
+                        ctx.fillStyle = '#654321';
+                        ctx.beginPath();
+                        ctx.arc(-obs.size / 3, -obs.size / 3, obs.size / 3, 0, Math.PI * 2);
+                        ctx.fill();
+                        ctx.restore();
+                    } else if (obs.type === 'cloud') {
+                        ctx.fillStyle = obs.striking ? '#333' : '#555';
+                        ctx.beginPath();
+                        ctx.ellipse(obs.x, screenY, 40, 25, 0, 0, Math.PI * 2);
+                        ctx.fill();
+                        if (obs.striking) {
+                            ctx.strokeStyle = '#FFFF00'; ctx.lineWidth = 3;
+                            ctx.beginPath();
+                            ctx.moveTo(obs.x, screenY + 25);
+                            ctx.lineTo(obs.x - 10, screenY + 60);
+                            ctx.lineTo(obs.x + 5, screenY + 60);
+                            ctx.lineTo(obs.x - 5, screenY + 95);
+                            ctx.stroke();
+                        }
+                    } else if (obs.type === 'blackhole') {
+                        ctx.fillStyle = '#000';
+                        ctx.beginPath();
+                        ctx.arc(obs.x, screenY, obs.size, 0, Math.PI * 2);
+                        ctx.fill();
+                        ctx.strokeStyle = '#800080'; ctx.lineWidth = 2;
+                        ctx.beginPath();
+                        ctx.arc(obs.x, screenY, obs.size + 10, 0, Math.PI * 2);
+                        ctx.stroke();
+                    }
+                }
+            });
+        }
+
+        // ============================================
+        // ACTUALIZAR FÍSICA DEL JUEGO
+        // ============================================
+        function update() {
+            if (!game.gameRunning) return;
+
+            // Guardar posición en historial
+            game.cat.positionHistory.push({ x: game.cat.x, y: game.cat.y });
+            if (game.cat.positionHistory.length > 200) game.cat.positionHistory.shift();
+
+            // Velocidad según power-up
+            const currentSpeed = game.activePowerups.speed ? game.cat.speed * 1.5 : game.cat.speed;
+
+            // Movimiento horizontal
+            if (game.keys['ArrowLeft'] || game.keys['a']) game.cat.velocityX = -currentSpeed;
+            else if (game.keys['ArrowRight'] || game.keys['d']) game.cat.velocityX = currentSpeed;
+            else game.cat.velocityX *= 0.8;
+
+            // Aplicar viento
+            game.cat.velocityX += game.windForce;
+            game.cat.x += game.cat.velocityX;
+
+            // Límites horizontales con wrap-around
+            if (game.cat.x < 0) game.cat.x = canvas.width;
+            if (game.cat.x > canvas.width) game.cat.x = 0;
+
+            // Gravedad y movimiento vertical
+            game.cat.velocityY += game.cat.gravity;
+            game.cat.y += game.cat.velocityY;
+
+            // Colisión con plataformas (AJUSTADO: Update lastSafePlatform en plataformas seguras)
+            game.cat.grounded = false;
+            game.platforms.forEach(platform => {
+                if (platform.broken) return;
+                
+                if (game.cat.velocityY > 0 &&
+                    game.cat.x > platform.x - game.cat.width / 2 &&
+                    game.cat.x < platform.x + platform.width + game.cat.width / 2 &&
+                    game.cat.y >= platform.y &&
+                    game.cat.y <= platform.y + platform.height + 10) {
+                    
+                    if (platform.type === 'fake') {
+                        platform.broken = true;
+                        return;
+                    }
+                    
+                    game.cat.y = platform.y;
+                    game.cat.velocityY = 0;
+                    game.cat.grounded = true;
+                    
+                    // AGREGADO: Actualizar última plataforma segura si no es peligrosa
+                    if (platform.type === 'normal' || platform.type === 'moving' || platform.type === 'elastic' || platform.type === 'ice' || platform.type === 'disappearing') {
+                        game.lastSafePlatform = platform;
+                    }
+                    
+                    // Guardar posición de Tokki si alcanzamos los 1000m y no está rescatado
+                    if (game.height >= 1000 && !game.tokkiPosition && !game.tokkiRescued) {
+                        game.tokkiPosition = { x: platform.x + platform.width / 2, y: platform.y - 60 };
+                    }
+                    
+                    // Saltos según power-up
+                    game.cat.maxJumps = game.activePowerups.tripleJump ? 3 : 2;
+                    game.cat.jumpsLeft = game.cat.maxJumps;
+
+                    // Comportamiento según tipo de plataforma
+                    if (platform.type === 'disappearing' && !platform.touched) {
+                        platform.touched = true;
+                        platform.disappearTime = 60;
+                    }
+                    
+                    if (platform.type === 'elastic') {
+                        game.cat.velocityY = game.cat.jumpPower * 1.8;
+                        createParticles(game.cat.x, game.cat.y, '#4CAF50', 10);
+                    }
+                    
+                    if (platform.type === 'ice') {
+                        game.cat.velocityX *= 1.2;
+                    }
+                    
+                    if ((platform.type === 'trap' || platform.type === 'spikes') && !game.cat.invulnerable) {
+                        loseLife();
+                    }
+
+                    if (platform.isMoon && game.gameMode === 'story') {
+                        endGame(true);
+                    }
+                }
+            });
+
+            // Colisión con Tokki para rescatarlo
+            if (game.tokkiPosition && !game.tokkiRescued) {
+                const dx = game.tokkiPosition.x - game.cat.x;
+                const dy = game.tokkiPosition.y - game.cat.y;
+                if (Math.abs(dx) < 40 && Math.abs(dy) < 40) {
+                    game.tokkiRescued = true;
+                    const tokkiFriend = game.friendsList.find(f => f.name === 'tokki');
+                    if (tokkiFriend) {
+                        tokkiFriend.active = true;
+                        updateFriendsUI();
+                    }
+                    game.points += 1000;
+                    createParticles(game.tokkiPosition.x, game.tokkiPosition.y, '#FFD700', 30);
+                    audioSystem.play('collect');
+                    
+                    // En modo historia, ganar al rescatar a Tokki
+                    if (game.gameMode === 'story') {
+                        setTimeout(() => endGame(true), 1000);
+                    }
+                }
+            }
+
+            // Actualizar plataformas
+            game.platforms.forEach(platform => {
+                if (platform.type === 'moving') {
+                    platform.x += platform.moveSpeed;
+                    if (Math.abs(platform.x - platform.originalX) > platform.moveRange) {
+                        platform.moveSpeed *= -1;
+                    }
+                }
+                
+                if (platform.type === 'disappearing' && platform.touched) {
+                    platform.disappearTime--;
+                    if (platform.disappearTime <= 0) platform.broken = true;
+                }
+            });
+
+            // Actualizar obstáculos (AJUSTADO: Colisiones mejoradas para quitar vidas)
+            game.obstacles.forEach((obs, index) => {
+                const screenY = obs.y + game.camera.y;  // Para colisión, usar screenY? No, colisión en world coords
+                const dyObs = obs.y - game.cat.y;  // dy en world
+                const dx = obs.x - game.cat.x;
+                const distance = Math.sqrt(dx * dx + dyObs * dyObs);
+                
+                if (obs.type === 'meteor') {
+                    obs.x += obs.velocityX;
+                    obs.y += obs.velocityY;
+                    obs.rotation += 0.1;
+                    
+                    // Colisión con meteoro (ya existía)
+                    if (distance < obs.size + 20 && !game.cat.invulnerable) {
+                        loseLife();
+                        game.obstacles.splice(index, 1);
+                    }
+                } else if (obs.type === 'cloud') {
+                    obs.strikeTime++;
+                    if (obs.strikeTime > 120 && obs.strikeTime < 150) {
+                        obs.striking = true;
+                    } else {
+                        obs.striking = false;
+                    }
+                    if (obs.strikeTime > 180) obs.strikeTime = 0;
+                    
+                    // AGREGADO: Colisión básica al tocar la nube (quita vida independientemente de striking)
+                    if (Math.abs(dx) < 50 && Math.abs(dyObs) < 30 && !game.cat.invulnerable) {
+                        loseLife();
+                        // Opcional: remover nube después de daño
+                        // game.obstacles.splice(index, 1);
+                    }
+                } else if (obs.type === 'blackhole') {
+                    if (distance < 150) {
+                        game.cat.velocityY += obs.pullStrength;
+                    }
+                    
+                    // AGREGADO: Colisión para daño al tocar directamente
+                    if (distance < obs.size + 25 && !game.cat.invulnerable) {
+                        loseLife();
+                        game.obstacles.splice(index, 1);
+                    }
+                }
+            });
+
+            // Colisión con power-ups
+            game.powerups.forEach(powerup => {
+                if (!powerup.collected) {
+                    const dx = powerup.x - game.cat.x;
+                    const dy = powerup.y - game.cat.y;
+                    if (Math.abs(dx) < 30 && Math.abs(dy) < 30) {
+                        powerup.collected = true;
+                        activatePowerup(powerup.type);
+                        game.points += 50;
+                        createParticles(powerup.x, powerup.y, '#FFD700', 15);
+                        audioSystem.play('powerup');
+                        }
+                }
+            });
+
+            // Colisión con coleccionables (con imán)
+            game.collectibles.forEach(item => {
+                if (!item.collected) {
+                    let dx = item.x - game.cat.x;
+                    let dy = item.y - game.cat.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (game.activePowerups.magnet && distance < 100) {
+                        item.x += -dx * 0.1;
+                        item.y += -dy * 0.1;
+                    }
+                    
+                    if (Math.abs(dx) < 25 && Math.abs(dy) < 25) {
+                        item.collected = true;
+                        if (item.type === 'star') {
+                            game.points += 10;
+                            game.combo++;
+                        } else if (item.type === 'carrot') {
+                            game.carrots++;
+                            game.points += 20;
+                            if (game.carrots >= 10) {
+                                game.carrots = 0;
+                                if (game.lives < game.maxLives) game.lives++;
+                                updateHeartsUI();
+                            }
+                        } else if (item.type === 'coin') {
+                            game.coins++;
+                            game.points += 30;
+                        } else if (item.type === 'heart') {
+                            if (game.lives < game.maxLives) {
+                                game.lives++;
+                                updateHeartsUI();
+                            }
+                            game.points += 50;
+                        }
+                        createParticles(item.x, item.y, '#FFD700', 8);
+                        audioSystem.play('collect');
+                    }
+                }
+            });
+
+            // Actualizar power-ups activos
+            Object.keys(game.powerupTimers).forEach(key => {
+                if (game.powerupTimers[key] > 0) {
+                    game.powerupTimers[key]--;
+                    if (game.powerupTimers[key] === 0) {
+                        game.activePowerups[key] = false;
+                        updatePowerupsUI();
+                    }
+                }
+            });
+
+            // Actualizar invulnerabilidad
+            if (game.cat.invulnerable) {
+                game.cat.invulnerableTime--;
+                if (game.cat.invulnerableTime <= 0) game.cat.invulnerable = false;
+            }
+
+            // Actualizar cámara
+            if (game.cat.y < canvas.height / 2) {
+                game.camera.y = canvas.height / 2 - game.cat.y;
+            }
+
+            // Actualizar altura y zona
+            game.height = Math.max(game.height, Math.floor(-game.cat.y / 10));
+            const newZone = Math.floor(game.height / 200) + 1;
+            if (newZone !== game.currentZone && newZone <= 5) {
+                game.currentZone = newZone;
+                updateZoneUI();
+            }
+            
+            document.getElementById('height').textContent = game.height;
+            document.getElementById('points').textContent = game.points;
+
+            // Actualizar amigos
+            updateFriends();
+
+            // Actualizar partículas
+            game.particles = game.particles.filter(p => {
+                p.x += p.vx;
+                p.y += p.vy;
+                p.life--;
+                return p.life > 0;
+            });
+
+            // Caída fuera del mapa
+            if (game.cat.y > canvas.height - game.camera.y + 100) {
+                loseLife();
+            }
+        }
+
+        // ============================================
+        // SISTEMA DE VIDAS (AJUSTADO: Respawn en lastSafePlatform)
+        // ============================================
+        function loseLife() {
+            if (game.cat.invulnerable) return;
+            
+            game.lives--;
+            updateHeartsUI();
+            audioSystem.play('damage');  // Ya reproduce sonido de daño
+            
+            if (game.lives <= 0) {
+                endGame(false);
+            } else {
+                game.cat.invulnerable = true;
+                game.cat.invulnerableTime = 120;
+                game.cat.velocityY = 0;
+                game.cat.velocityX = 0;  // AGREGADO: Reset velocityX
+                game.cat.jumpsLeft = game.cat.maxJumps;  // AGREGADO: Reset jumps
+                
+                // AGREGADO: Respawn en última plataforma segura
+                if (game.lastSafePlatform) {
+                    game.cat.x = game.lastSafePlatform.x + game.lastSafePlatform.width / 2;
+                    game.cat.y = game.lastSafePlatform.y - game.cat.height;
+                    game.camera.y = canvas.height / 2 - game.cat.y;  // Ajustar cámara
+                    game.height = Math.floor(-game.cat.y / 10);  // Actualizar altura
+                } else {
+                    // Fallback inicial
+                    game.cat.x = canvas.width / 2;
+                    game.cat.y = canvas.height - 150;
+                    game.camera.y = 0;
+                }
+                
+                createParticles(game.cat.x, game.cat.y, '#FF0000', 20);
+            }
+        }
+
+        function updateHeartsUI() {
+            let hearts = '';
+            for (let i = 0; i < game.lives; i++) hearts += '❤️';
+            for (let i = game.lives; i < game.maxLives; i++) hearts += '🖤';
+            document.getElementById('hearts').textContent = hearts;
+        }
+
+        // ============================================
+        // SISTEMA DE POWER-UPS
+        // ============================================
+        function activatePowerup(type) {
+            game.activePowerups[type] = true;
+            game.powerupTimers[type] = 300;
+            if (type === 'shield') {
+                game.cat.invulnerable = true;
+                game.cat.invulnerableTime = 300;
+            }
+            updatePowerupsUI();
+        }
+
+        function updatePowerupsUI() {
+            let text = '';
+            if (game.activePowerups.tripleJump) text += '3x Salto | ';
+            if (game.activePowerups.shield) text += '🛡️ Escudo | ';
+            if (game.activePowerups.magnet) text += '🧲 Imán | ';
+            if (game.activePowerups.speed) text += '⚡ Velocidad | ';
+            document.getElementById('powerups').textContent = text;
+        }
+
+        // ============================================
+        // ACTUALIZAR AMIGOS
+        // ============================================
+        function updateFriends() {
+            game.friendsList.forEach(friend => {
+                if (game.height >= friend.height && !friend.active && friend.name !== 'tokki') {
+                    friend.active = true;
+                    updateFriendsUI();
+                    game.points += 100;
+                    createParticles(game.cat.x, game.cat.y, '#00FF00', 20);
+                    audioSystem.play('collect');
+                }
+            });
+        }
+
+        function updateFriendsUI() {
+            const active = game.friendsList.filter(f => f.active);
+            if (active.length > 0) {
+                const names = active.map(f => f.name.charAt(0).toUpperCase() + f.name.slice(1));
+                document.getElementById('friends').textContent = 'Equipo: Nami, ' + names.join(', ');
+            }
+        }
+
+        function updateZoneUI() {
+            const zones = ['Cielo Tranquilo', 'Nubes Altas', 'Atmósfera', 'Espacio Cercano', 'Espacio Profundo'];
+            document.getElementById('zone').textContent = '🌟 Zona ' + game.currentZone + ': ' + zones[game.currentZone - 1];
+        }
+
+        // ============================================
+        // SISTEMA DE PARTÍCULAS
+        // ============================================
+        function createParticles(x, y, color, count) {
+            for (let i = 0; i < count; i++) {
+                game.particles.push({
+                    x, y, vx: (Math.random() - 0.5) * 6,
+                    vy: (Math.random() - 0.5) * 6,
+                    color, life: 30
+                });
+            }
+        }
+
+        function drawParticles() {
+            game.particles.forEach(p => {
+                ctx.fillStyle = p.color;
+                ctx.globalAlpha = p.life / 30;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y + game.camera.y, 3, 0, Math.PI * 2);
+                ctx.fill();
+            });
+            ctx.globalAlpha = 1;
+        }
+
+        // ============================================
+        // SALTAR
+        // ============================================
+        function jump() {
+            if (game.cat.jumpsLeft > 0) {
+                game.cat.velocityY = game.cat.jumpPower;
+                game.cat.jumpsLeft--;
+                createParticles(game.cat.x, game.cat.y, '#FFFFFF', 5);
+                audioSystem.play('jump');
+            }
+        }
+
+        // ============================================
+        // TERMINAR JUEGO
+        // ============================================
+        function endGame(won) {
+            game.gameRunning = false;
+            audioSystem.stopMusic();
+            
+            const gameOverDiv = document.getElementById('gameOver');
+            const endMessage = document.getElementById('endMessage');
+            const finalHeight = document.getElementById('finalHeight');
+            const finalPoints = document.getElementById('finalPoints');
+
+            if (won) {
+                endMessage.textContent = '¡🐰 RESCATARON A TOKKI! 🌙';
+                finalHeight.textContent = '¡Nami y sus amigos salvaron al conejito!';
+                audioSystem.play('win');
+            } else {
+                endMessage.textContent = '¡Oh no! Perdiste todas las vidas';
+                audioSystem.play('lose'); // Línea agregada
+                if (game.gameMode === 'story') {
+                    finalHeight.textContent = `Altura alcanzada: ${game.height}m de 1000m`;
+                } else {
+                    finalHeight.textContent = `Altura alcanzada: ${game.height}m`;
+                }
+            }
+            
+            finalPoints.textContent = `Puntos totales: ${game.points}`;
+            gameOverDiv.style.display = 'block';
+        }
+
+        // ============================================
+        // REINICIAR JUEGO
+        // ============================================
+        function restartGame() {
+            resetGameState();
+            
+            if (game.gameMode === 'story') {
+                document.getElementById('objective').textContent = '/ 1000m';
+            } else {
+                document.getElementById('objective').textContent = '';
+            }
+            
+            game.gameRunning = true;
+            createPlatforms();
+            updateHeartsUI();
+            updateFriendsUI();
+            updatePowerupsUI();
+            updateZoneUI();
+            
+            document.getElementById('gameOver').style.display = 'none';
+            audioSystem.playMusic();
+        }
+
+        // ============================================
+        // DIBUJAR TODO
+        // ============================================
         function draw() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             
-            // Fondo degradado
             const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
             if (game.height > 800) {
                 gradient.addColorStop(0, '#000000');
@@ -974,18 +1363,26 @@
             
             drawStars();
             drawPlatforms();
+            drawPowerups();
+            drawCollectibles();
+            drawObstacles();
+            drawParticles();
             drawCharacters();
 
             requestAnimationFrame(draw);
         }
 
-        // Game loop
+        // ============================================
+        // GAME LOOP - Actualizar física del juego
+        // ============================================
         function gameLoop() {
             update();
             requestAnimationFrame(gameLoop);
         }
 
-        // Controles de teclado
+        // ============================================
+        // CONTROLES DE TECLADO
+        // ============================================
         window.addEventListener('keydown', (e) => {
             game.keys[e.key] = true;
             if (e.key === ' ' || e.key === 'ArrowUp' || e.key === 'w') {
@@ -998,7 +1395,11 @@
             game.keys[e.key] = false;
         });
 
-        // Controles táctiles
+        // ============================================
+        // CONTROLES TÁCTILES MÓVILES
+        // ============================================
+        
+        // Botón izquierda
         document.getElementById('leftBtn').addEventListener('touchstart', (e) => {
             e.preventDefault();
             game.keys['ArrowLeft'] = true;
@@ -1009,6 +1410,7 @@
             game.keys['ArrowLeft'] = false;
         });
 
+        // Botón derecha
         document.getElementById('rightBtn').addEventListener('touchstart', (e) => {
             e.preventDefault();
             game.keys['ArrowRight'] = true;
@@ -1019,21 +1421,41 @@
             game.keys['ArrowRight'] = false;
         });
 
-        // Saltar en móvil
+        // Botón saltar
+        document.getElementById('jumpBtn').addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            jump();
+        });
+
+        document.getElementById('jumpBtn').addEventListener('touchend', (e) => {
+            e.preventDefault();
+        });
+
+        // Toque en canvas para saltar (alternativo)
         canvas.addEventListener('touchstart', (e) => {
             if (e.target === canvas) {
-                e.preventDefault();
-                jump();
+                const touch = e.touches[0];
+                const centerX = canvas.width / 2;
+                
+                // Si toca cerca del centro, salta
+                if (Math.abs(touch.clientX - centerX) < 100) {
+                    e.preventDefault();
+                    jump();
+                }
             }
         });
 
-        // Redimensionar
+        // ============================================
+        // REDIMENSIONAR CANVAS
+        // ============================================
         window.addEventListener('resize', () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         });
 
-        // Iniciar juego
+        // ============================================
+        // INICIAR JUEGO
+        // ============================================
         draw();
         gameLoop();
     </script>
