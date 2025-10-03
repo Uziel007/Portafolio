@@ -1,1176 +1,1334 @@
 /* Estilos generales */
 body {
-    background-color: rgb(30, 30, 30); /* Fondo oscuro */
-    color: rgb(200, 200, 200); /* Texto claro */
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
+  background-color: rgb(30, 30, 30); /* Fondo oscuro */
+  color: rgb(200, 200, 200); /* Texto claro */
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
-.h1relleno{
-    color: rgb(25, 25, 25);
+.h1relleno {
+  color: rgb(25, 25, 25);
 }
 
-.h1relleno2{
-    color: rgb(40, 40, 40); /* Fondo oscuro */
+.h1relleno2 {
+  color: rgb(40, 40, 40); /* Fondo oscuro */
 }
 
 /* Estilo para el enlace activo */
 .nav-links li a.active {
-    background-color: #4a4a4a; /* Fondo más oscuro */
-    color: #fff; /* Texto blanco */
-    font-weight: bold;
-    border-radius: 4px;
-    padding: 5px 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  background-color: #4a4a4a; /* Fondo más oscuro */
+  color: #fff; /* Texto blanco */
+  font-weight: bold;
+  border-radius: 4px;
+  padding: 5px 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 /* Opcional: Efecto hover para los enlaces */
 .nav-links li a:hover {
-    background-color: #333;
-    border-radius: 4px;
+  background-color: #333;
+  border-radius: 4px;
 }
 
 /* Navbar */
 .navbar {
-    background-color: rgb(25, 25, 25);
-    padding: 10px;
-    display: flex;
-    justify-content: flex-start; /* Alinea los elementos al inicio */
-    align-items: center;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  background-color: rgb(25, 25, 25);
+  padding: 10px;
+  display: flex;
+  justify-content: flex-start; /* Alinea los elementos al inicio */
+  align-items: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 .navbar .logo {
-    color: rgb(255, 255, 255);
-    font-size: 1.5em;
-    font-weight: bold;
-    margin-left: 20; /* Sin márgenes adicionales */
+  color: rgb(255, 255, 255);
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-left: 20; /* Sin márgenes adicionales */
 }
 
 .navbar .nav-links {
-    list-style-type: none;
-    display: flex;
-    gap: 20px;
-    margin-left: auto; /* Empuja la lista hacia la derecha */
+  list-style-type: none;
+  display: flex;
+  gap: 20px;
+  margin-left: auto; /* Empuja la lista hacia la derecha */
 }
 
 .navbar .nav-links li a {
-    color: rgb(200, 200, 200);
-    text-decoration: none;
-    font-size: 1.1em;
+  color: rgb(200, 200, 200);
+  text-decoration: none;
+  font-size: 1.1em;
 }
 
 .navbar .nav-links {
-    list-style-type: none;
-    display: flex;
-    gap: 20px;
+  list-style-type: none;
+  display: flex;
+  gap: 20px;
 }
 
 .navbar .nav-links li a {
-    color: rgb(200, 200, 200);
-    text-decoration: none;
-    font-size: 1.1em;
+  color: rgb(200, 200, 200);
+  text-decoration: none;
+  font-size: 1.1em;
 }
 
 /* Estilo general para el Hero */
 /* Efecto Hero con animación */
 .hero {
-    position: relative;
-    min-height: 85vh;
-    background: url('escritorio.jpg') no-repeat center center;
-    background-size: cover;
-    background-position: center 40%;
-    color: rgb(255, 255, 255);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    filter: brightness(0.5);
-    overflow: hidden;
-    animation: backgroundFadeIn 1.8s ease-in-out;
+  position: relative;
+  min-height: 85vh;
+  background: url("escritorio.jpg") no-repeat center center;
+  background-size: cover;
+  background-position: center 40%;
+  color: rgb(255, 255, 255);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  filter: brightness(0.5);
+  overflow: hidden;
+  animation: backgroundFadeIn 1.8s ease-in-out;
 }
 
 /* Animación para el fondo */
 @keyframes backgroundFadeIn {
-    0% {
-        transform: scale(1.2); /* Inicia con un ligero zoom */
-        opacity: 0;           /* Comienza invisible */
-    }
-    100% {
-        transform: scale(1);  /* Termina en su tamaño normal */
-        opacity: 1;           /* Totalmente visible */
-    }
+  0% {
+    transform: scale(1.2); /* Inicia con un ligero zoom */
+    opacity: 0; /* Comienza invisible */
+  }
+  100% {
+    transform: scale(1); /* Termina en su tamaño normal */
+    opacity: 1; /* Totalmente visible */
+  }
 }
 
 button {
-    background: black;
-    cursor: pointer;
-    border: none;
-    padding: 16px 32px;
-    color: azure;
-    font-size: 24px;
-    font-weight: bold;
-    position: relative;
-    border-radius: 12px;
+  background: black;
+  cursor: pointer;
+  border: none;
+  padding: 16px 32px;
+  color: azure;
+  font-size: 24px;
+  font-weight: bold;
+  position: relative;
+  border-radius: 12px;
 }
 
 button:hover::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(45deg, red, blue, deeppink, blue, red, blue, deeppink, blue);
-    background-size: 800%;
-    border-radius: 12px;
-    filter: blur(8px);
-    animation: glowing 20s linear infinite;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    45deg,
+    red,
+    blue,
+    deeppink,
+    blue,
+    red,
+    blue,
+    deeppink,
+    blue
+  );
+  background-size: 800%;
+  border-radius: 12px;
+  filter: blur(8px);
+  animation: glowing 20s linear infinite;
 }
 
 @keyframes glowing {
-    0% {
-        background-position: 0 0;
-    }
-    50% {
-        background-position: 400% 0;
-    }
-    100% {
-        background-position: 0 0;
-    }
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
 }
-
 
 /* Contenido del Hero */
 .hero-content {
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInUp 1.5s ease-in-out forwards;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 1.5s ease-in-out forwards;
 }
 
 .hero h1 {
-    font-size: 3rem;
-    margin-bottom: 20px;
-    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
-    animation: textGlow 2s infinite alternate;
+  font-size: 3rem;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
+  animation: textGlow 2s infinite alternate;
 }
 
 .hero p {
-    font-size: 1.5rem;
-    text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.5);
+  font-size: 1.5rem;
+  text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.5);
 }
 
 /* Animación de entrada */
 @keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Efecto de brillo en el texto */
 @keyframes textGlow {
-    from {
-        text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
-            0 0 20px rgba(255, 255, 255, 0.6);
-    }
-    to {
-        text-shadow: 0 0 20px rgba(255, 255, 255, 1),
-            0 0 30px rgba(255, 255, 255, 0.8);
-    }
+  from {
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
+      0 0 20px rgba(255, 255, 255, 0.6);
+  }
+  to {
+    text-shadow: 0 0 20px rgba(255, 255, 255, 1),
+      0 0 30px rgba(255, 255, 255, 0.8);
+  }
 }
-
 
 /* Sección Perfil Profesional */
 .section {
-    padding: 40px;
-    background-color: rgb(40, 40, 40);
-    margin-top: -5px;
+  padding: 40px;
+  background-color: rgb(40, 40, 40);
+  margin-top: -5px;
 }
 
 h2 {
-    font-size: 2em;
-    color: rgb(255, 255, 255);
+  font-size: 2em;
+  color: rgb(255, 255, 255);
 }
 
 p {
-    font-size: 1.2em;
-    line-height: 1.6;
+  font-size: 1.2em;
+  line-height: 1.6;
 }
 
 /* Botón de acción */
 .btn-primary {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: rgb(50, 50, 50);
-    color: rgb(255, 255, 255);
-    text-decoration: none;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: rgb(50, 50, 50);
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
 }
 
 .btn-primary:hover {
-    background-color: rgb(100, 100, 100);
+  background-color: rgb(100, 100, 100);
 }
 
 /*Miles*/
 :root {
-    --color-black: #161616;
-    --color-white: #fff;
-    --color--blue: #7dd3fb;
-    --color--yellow: #f6dc74;
-    --color--green: #59a622;
-    --color--pink: #ffa7dc;
-    --size: 50px; /* Fully responsive */
-  }
-  
-  /* Cat */
-  .cat {
-    position: relative;
-    height: var(--size);
-    width: calc(var(--size) * 1.13);
-  }
-  
-  /* Ears */
-  .ear {
-    position: absolute;
-    top: -30%;
-    height: 60%;
-    width: 25%;
-    background: var(--color--pink);
-  }
-  
-  .ear::before,
-  .ear::after {
-    content: '';
-    position: absolute;
-    bottom: 24%;
-    height: 10%;
-    width: 5%;
-    border-radius: 50%;
-    background: var(--color-black);
-  }
-  
-  .ear::after {
-    transform-origin: 50% 100%;
-  }
-  
-  .ear--left {
-    left: -7%;
-    border-radius: 70% 30% 0 0 / 100% 100% 0 0;
-    transform: rotate(-15deg);
-  }
-  
-  .ear--left::before,
-  .ear--left::after {
-    right: 10%;
-  }
-  
-  .ear--left::after {
-    transform: rotate(-45deg);
-  }
-  
-  .ear--right {
-    right: -7%;
-    border-radius: 30% 70% 0 0 / 100% 100% 0 0;
-    transform: rotate(15deg);
-  }
-  
-  .ear--right::before,
-  .ear--right::after {
-    left: 10%;
-  }
-  
-  .ear--right::after {
-    transform: rotate(45deg);
-  }
-  
-  /* Face */
-  .face {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    background: var(--color-black);
-    border-radius: 50%;
-  }
-  
-  /* Eyes */
-  .eye {
-    position: absolute;
-    top: 35%;
-    height: 30%;
-    width: 31%;
-    background: var(--color--green);
-    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-  }
-  
-  .eye::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 0;
-    width: 100%;
-    border-radius: 0 0 50% 50% / 0 0 40% 40%;
-    background: var(--color-black);
-    animation: blink 4s infinite ease-in;
-  }
-  
-  @keyframes blink {
-    0% { height: 0; }
-    90% { height: 0; }
-    92.5% { height: 100%; }
-    95% { height: 0; }
-    97.5% { height: 100%; }
-    100% { height: 0; }
-  }
-  
-  .eye::before {
-    content: '';
-    position: absolute;
-    top: 60%;
-    height: 10%;
-    width: 15%;
-    background: var(--color--green);
-    border-radius: 50%;
-  }
-  
-  .eye--left {
-    left: 0;
-  }
-  
-  .eye--left::before {
-    right: -5%;
-  }
-  
-  .eye--right {
-    right: 0;
-  }
-  
-  .eye--right::before {
-    left: -5%;
-  }
-  
-  /* Pupils */
-  .eye-pupil {
-    position: absolute;
-    top: 25%;
-    height: 50%;
-    width: 20%;
-    background: var(--color-black);
-    border-radius: 50%;
-    animation: look-around 4s infinite;
-  }
-  
-  @keyframes look-around {
-    0% { transform: translate(0); }
-    5% { transform: translate(50%, -25%); }
-    10% { transform: translate(50%, -25%); }
-    15% { transform: translate(-100%, -25%); }
-    20% { transform: translate(-100%, -25%); }
-    25% { transform: translate(0, 0); }
-    100% { transform: translate(0, 0); }
-  }
-  
-  .eye--left .eye-pupil {
-    right: 30%;
-  }
-  
-  .eye--right .eye-pupil {
-    left: 30%;
-  }
-  
-  .eye-pupil::after {
-    content: '';
-    position: absolute;
-    top: 30%;
-    right: -5%;
-    height: 20%;
-    width: 35%;
-    border-radius: 50%;
-    background: var(--color--green);
-  }
-  
-  /* Muzzle */
-  .muzzle {
-    position: absolute;
-    top: 60%;
-    left: 50%;
-    height: 6%;
-    width: 10%;
-    background: var(--color--pink);
-    transform: translateX(-50%);
-    border-radius: 50% 50% 50% 50% / 30% 30% 70% 70%;
-  }
-  
-  .enhanced-btn {
-    background: black; /* Fondo negro del botón */
-    color: white; /* Texto blanco */
-    cursor: pointer;
-    border: 2px solid transparent; /* No visible al principio */
-    padding: 16px 32px;
-    font-size: 24px;
-    font-weight: bold;
-    position: relative;
-    border-radius: 12px;
-    text-decoration: none; /* Elimina el subrayado */
-    display: inline-block; /* Como un botón en línea */
-    z-index: 1; /* Asegura que el texto esté encima del efecto */
-    transition: all 0.3s ease; /* Transición suave para todos los cambios */
+  --color-black: #161616;
+  --color-white: #fff;
+  --color--blue: #7dd3fb;
+  --color--yellow: #f6dc74;
+  --color--green: #59a622;
+  --color--pink: #ffa7dc;
+  --size: 50px; /* Fully responsive */
 }
 
-.enhanced-btn:hover {
-    color: white; /* Color del texto se mantiene blanco */
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.6), 0 0 25px rgba(255, 255, 255, 0.4); /* Sombra brillante al hacer hover */
-    transform: scale(1.1); /* Pequeño efecto de ampliación */
-}
-
-/* Efecto de borde al hacer hover */
-.enhanced-btn::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border-radius: 12px;
-    background: transparent;
-    border: 2px solid rgb(121, 119, 119); /* Borde blanco cuando se pasa el cursor */
-    transition: all 0.3s ease; /* Transición suave para el borde */
-    z-index: -1; /* Asegura que el borde esté detrás del contenido */
-}
-
-.enhanced-btn:hover::before {
-    border: 2px solid #f66f67e3; /* Borde brillante azul claro cuando se hace hover */
-}
-
-/* Contenedor del perfil */
-.profile-container {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 20px;
-    padding: 20px;
-    max-width: 100%;
-    flex-wrap: wrap; /* Permite que los elementos se acomoden en múltiples líneas en pantallas pequeñas */
-}
-
-.profile-text {
-    max-width: 100%; /* El texto ahora puede ocupar todo el espacio disponible */
-    font-size: 1.1em;
-    line-height: 1.6;
-    padding-right: 20px;
-    animation: fadeInText 2s ease-out;
-}
-
-.image-container {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    height: 100vh;
-    margin: 0;
-    padding-top: 20px;
-    flex: 1;
-    max-width: 100%; /* Ajuste de tamaño en pantallas pequeñas */
-}
-
-
-/* Imagen del perfil */
-/* Contenedor de la imagen */
-.image-container {
-    display: flex;
-    justify-content: center; /* Centra la imagen horizontalmente */
-    align-items: flex-start; /* Alinea la imagen hacia arriba */
-    padding-top: 20px; /* Espacio desde el borde superior */
-    margin: 0; /* Elimina márgenes */
-    height: auto; /* Permite que la altura se ajuste al contenido */
-}
-
-/* Imagen del perfil */
-.image-container img {
-    border-radius: 50%; /* Hace la imagen redonda */
-    border: 5px solid #ccc; /* Borde gris claro */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Sombra suave */
-    width: 400px; /* Ajusta el tamaño según sea necesario */
-    height: auto; /* Permite que la imagen tenga altura proporcional */
-    object-fit: cover; /* Asegura que la imagen no se deforme */
-    transition: transform 0.3s, box-shadow 0.3s; /* Animación suave */
-}
-
-
-.image-container img:hover {
-    transform: scale(1.1); /* Efecto de zoom al pasar el mouse */
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3); /* Sombra más intensa */
-}
-
-
-
-/* Texto del perfil */
-.profile-text {
-    max-width: 100%; /* El texto ahora puede ocupar todo el espacio disponible */
-    font-size: 1.1em;
-    line-height: 1.6;
-    padding-right: 20px; /* Espaciado a la derecha para evitar que el texto se pegue */
-    animation: fadeInText 2s ease-out;
-}
-
-/* Animaciones */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
-@keyframes slideIn {
-    from {
-        transform: translateX(-50px);
-        opacity: 0;
-    }
-    to {
-        transform: translateX(0);
-        opacity: 1;
-    }
-}
-
-@keyframes fadeInText {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
-/* Estilo del botón */
-.enhanced-btn {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #080808;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-/* Animación al cambiar texto */
-@keyframes textChange {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
-/* Para pantallas más pequeñas (por ejemplo, móviles) */
-@media (max-width: 768px) {
-    /* Navbar */
-    .navbar {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .navbar .logo {
-        margin: 10px 0; /* Ajuste de márgenes */
-    }
-
-    .navbar .nav-links {
-        flex-direction: column;
-        margin-left: 0;
-    }
-
-    .navbar .nav-links li a {
-        font-size: 1.2em; /* Tamaño de fuente más pequeño */
-    }
-
-    /* Hero */
-    .hero {
-        min-height: 60vh; /* Reduce la altura del Hero */
-        background-position: center;
-    }
-
-    .hero h1 {
-        font-size: 2.5rem; /* Ajuste de tamaño de fuente */
-    }
-
-    .hero p {
-        font-size: 1.2rem;
-    }
-
-    /* Imagen de perfil */
-    .image-container img {
-        width: 250px; /* Tamaño más pequeño para pantallas pequeñas */
-        height: 250px;
-    }
-
-    /* Perfil de texto */
-    .profile-text {
-        font-size: 1em;
-        padding-right: 10px;
-    }
-
-    /* Botón mejor ajustado */
-    .enhanced-btn {
-        padding: 10px 15px;
-        font-size: 18px;
-    }
-}
-
-/* Para pantallas muy pequeñas (por ejemplo, teléfonos móviles en orientación vertical) */
-@media (max-width: 480px) {
-    /* Ajustar el tamaño de la imagen de perfil */
-    .image-container img {
-        width: 200px;
-        height: 200px;
-    }
-
-    /* Ajustar el tamaño del texto */
-    .profile-text {
-        font-size: 0.9em;
-    }
-
-    .hero h1 {
-        font-size: 2rem; /* Ajuste para que no ocupe tanto espacio */
-    }
-
-    /* Navbar en pantallas pequeñas */
-    .navbar .logo {
-        font-size: 1.2em;
-    }
-
-    .navbar .nav-links li a {
-        font-size: 1em;
-    }
-}
-
-/* Variables CSS únicas para el header */
-:root {
-    --header-bg-primary: #1f1b1a;
-    --header-bg-secondary: #16213e;
-    --header-accent: #a60f0f;
-    --header-accent-hover: #ce3c14;
-    --header-text-primary: #ffffff;
-    --header-text-secondary: #b8c6db;
-    --header-border: rgba(255, 255, 255, 0.1);
-    --header-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    --header-shadow-light: 0 2px 10px rgba(0, 0, 0, 0.2);
-    --header-transition: 0.3s ease;
-    
-    /* Variables del gato (originales) */
-    --color-black: #161616;
-    --color-white: #fff;
-    --color--blue: #7dd3fb;
-    --color--yellow: #f6dc74;
-    --color--green: #59a622;
-    --color--pink: #ffa7dc;
-    --size: 50px;
-}
-
-/* Header principal */
-.modern-header {
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--header-border);
-}
-
-/* Navegación moderna */
-.modern-navigation {
-    background: linear-gradient(135deg, var(--header-bg-primary), var(--header-bg-secondary));
-    padding: 1rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: var(--header-shadow);
-    min-height: 70px;
-}
-
-/* Espaciador del header */
-.header-spacer {
-    color: transparent;
-    user-select: none;
-    pointer-events: none;
-    margin: 0;
-}
-
-/* Título de la marca */
-.brand-title {
-    color: var(--header-text-primary);
-    font-size: 1.6rem;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    transition: color var(--header-transition);
-    cursor: pointer;
-}
-
-.brand-title:hover {
-    color: var(--header-accent);
-}
-
-/* Menú de navegación */
-.navigation-menu {
-    list-style: none;
-    display: flex;
-    gap: 1rem;
-    margin: 0;
-    padding: 0;
-}
-
-/* Enlaces del menú */
-.nav-item {
-    color: var(--header-text-secondary);
-    text-decoration: none;
-    font-size: 1rem;
-    font-weight: 500;
-    padding: 0.75rem 1.25rem;
-    border-radius: 8px;
-    transition: all var(--header-transition);
-    position: relative;
-    border: 2px solid transparent;
-}
-
-.nav-item:hover {
-    color: var(--header-text-primary);
-    background-color: var(--header-accent);
-    transform: translateY(-2px);
-    box-shadow: var(--header-shadow-light);
-}
-
-/* Estado activo */
-.nav-item.active {
-    background-color: var(--header-accent);
-    color: var(--header-text-primary);
-    border-color: var(--header-accent-hover);
-}
-
-/* === ESTILOS DEL GATITO ANIMADO (ORIGINALES) === */
+/* Cat */
 .cat {
-    position: relative;
-    height: var(--size);
-    width: calc(var(--size) * 1.13);
-    transition: transform 0.3s ease;
-}
-
-.cat:hover {
-    transform: scale(1.05);
+  position: relative;
+  height: var(--size);
+  width: calc(var(--size) * 1.13);
 }
 
 /* Ears */
 .ear {
-    position: absolute;
-    top: -30%;
-    height: 60%;
-    width: 25%;
-    background: var(--color--pink);
+  position: absolute;
+  top: -30%;
+  height: 60%;
+  width: 25%;
+  background: var(--color--pink);
 }
 
 .ear::before,
 .ear::after {
-    content: '';
-    position: absolute;
-    bottom: 24%;
-    height: 10%;
-    width: 5%;
-    border-radius: 50%;
-    background: var(--color-black);
+  content: "";
+  position: absolute;
+  bottom: 24%;
+  height: 10%;
+  width: 5%;
+  border-radius: 50%;
+  background: var(--color-black);
 }
 
 .ear::after {
-    transform-origin: 50% 100%;
+  transform-origin: 50% 100%;
 }
 
 .ear--left {
-    left: -7%;
-    border-radius: 70% 30% 0 0 / 100% 100% 0 0;
-    transform: rotate(-15deg);
+  left: -7%;
+  border-radius: 70% 30% 0 0 / 100% 100% 0 0;
+  transform: rotate(-15deg);
 }
 
 .ear--left::before,
 .ear--left::after {
-    right: 10%;
+  right: 10%;
 }
 
 .ear--left::after {
-    transform: rotate(-45deg);
+  transform: rotate(-45deg);
 }
 
 .ear--right {
-    right: -7%;
-    border-radius: 30% 70% 0 0 / 100% 100% 0 0;
-    transform: rotate(15deg);
+  right: -7%;
+  border-radius: 30% 70% 0 0 / 100% 100% 0 0;
+  transform: rotate(15deg);
 }
 
 .ear--right::before,
 .ear--right::after {
-    left: 10%;
+  left: 10%;
 }
 
 .ear--right::after {
-    transform: rotate(45deg);
+  transform: rotate(45deg);
 }
 
 /* Face */
 .face {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    background: var(--color-black);
-    border-radius: 50%;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background: var(--color-black);
+  border-radius: 50%;
 }
 
 /* Eyes */
 .eye {
-    position: absolute;
-    top: 35%;
-    height: 30%;
-    width: 31%;
-    background: var(--color--green);
-    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  position: absolute;
+  top: 35%;
+  height: 30%;
+  width: 31%;
+  background: var(--color--green);
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
 }
 
 .eye::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 0;
-    width: 100%;
-    border-radius: 0 0 50% 50% / 0 0 40% 40%;
-    background: var(--color-black);
-    animation: blink 4s infinite ease-in;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 0;
+  width: 100%;
+  border-radius: 0 0 50% 50% / 0 0 40% 40%;
+  background: var(--color-black);
+  animation: blink 4s infinite ease-in;
 }
 
 @keyframes blink {
-    0% { height: 0; }
-    90% { height: 0; }
-    92.5% { height: 100%; }
-    95% { height: 0; }
-    97.5% { height: 100%; }
-    100% { height: 0; }
+  0% {
+    height: 0;
+  }
+  90% {
+    height: 0;
+  }
+  92.5% {
+    height: 100%;
+  }
+  95% {
+    height: 0;
+  }
+  97.5% {
+    height: 100%;
+  }
+  100% {
+    height: 0;
+  }
 }
 
 .eye::before {
-    content: '';
-    position: absolute;
-    top: 60%;
-    height: 10%;
-    width: 15%;
-    background: var(--color--green);
-    border-radius: 50%;
+  content: "";
+  position: absolute;
+  top: 60%;
+  height: 10%;
+  width: 15%;
+  background: var(--color--green);
+  border-radius: 50%;
 }
 
 .eye--left {
-    left: 0;
+  left: 0;
 }
 
 .eye--left::before {
-    right: -5%;
+  right: -5%;
 }
 
 .eye--right {
-    right: 0;
+  right: 0;
 }
 
 .eye--right::before {
-    left: -5%;
+  left: -5%;
 }
 
 /* Pupils */
 .eye-pupil {
-    position: absolute;
-    top: 25%;
-    height: 50%;
-    width: 20%;
-    background: var(--color-black);
-    border-radius: 50%;
-    animation: look-around 4s infinite;
+  position: absolute;
+  top: 25%;
+  height: 50%;
+  width: 20%;
+  background: var(--color-black);
+  border-radius: 50%;
+  animation: look-around 4s infinite;
 }
 
 @keyframes look-around {
-    0% { transform: translate(0); }
-    5% { transform: translate(50%, -25%); }
-    10% { transform: translate(50%, -25%); }
-    15% { transform: translate(-100%, -25%); }
-    20% { transform: translate(-100%, -25%); }
-    25% { transform: translate(0, 0); }
-    100% { transform: translate(0, 0); }
+  0% {
+    transform: translate(0);
+  }
+  5% {
+    transform: translate(50%, -25%);
+  }
+  10% {
+    transform: translate(50%, -25%);
+  }
+  15% {
+    transform: translate(-100%, -25%);
+  }
+  20% {
+    transform: translate(-100%, -25%);
+  }
+  25% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
 }
 
 .eye--left .eye-pupil {
-    right: 30%;
+  right: 30%;
 }
 
 .eye--right .eye-pupil {
-    left: 30%;
+  left: 30%;
 }
 
 .eye-pupil::after {
-    content: '';
-    position: absolute;
-    top: 30%;
-    right: -5%;
-    height: 20%;
-    width: 35%;
-    border-radius: 50%;
-    background: var(--color--green);
+  content: "";
+  position: absolute;
+  top: 30%;
+  right: -5%;
+  height: 20%;
+  width: 35%;
+  border-radius: 50%;
+  background: var(--color--green);
+}
+
+/* Texto debajo del gato */
+.play-text {
+  position: absolute;
+  top: 110%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  color: white;
+  opacity: 0;
+  animation: fadeMove 2s infinite alternate;
+}
+
+@keyframes fadeMove {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(0px);
+  }
+  50% {
+    opacity: 0.6;
+    transform: translateX(-50%) translateY(-2px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(0px);
+  }
+}
+
+/* Triángulo arriba del gato apuntando hacia abajo */
+.arrow-down {
+  position: absolute;
+  bottom: 100%; /* justo arriba del gato */
+  left: 50%;
+  transform: translateX(-50%) translateY(-8px); /* separa un poco más del gato */
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent; /* triángulo más pequeño */
+  border-right: 5px solid transparent;
+  border-top: 8px solid white; /* apunta hacia abajo */
+  opacity: 0;
+  animation: blinkArrow 3s infinite; /* parpadeo más lento */
+}
+
+@keyframes blinkArrow {
+  0%,
+  50%,
+  100% {
+    opacity: 0;
+  }
+  25%,
+  75% {
+    opacity: 1;
+  }
 }
 
 /* Muzzle */
 .muzzle {
-    position: absolute;
-    top: 60%;
-    left: 50%;
-    height: 6%;
-    width: 10%;
-    background: var(--color--pink);
-    transform: translateX(-50%);
-    border-radius: 50% 50% 50% 50% / 30% 30% 70% 70%;
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  height: 6%;
+  width: 10%;
+  background: var(--color--pink);
+  transform: translateX(-50%);
+  border-radius: 50% 50% 50% 50% / 30% 30% 70% 70%;
+}
+
+.enhanced-btn {
+  background: black; /* Fondo negro del botón */
+  color: white; /* Texto blanco */
+  cursor: pointer;
+  border: 2px solid transparent; /* No visible al principio */
+  padding: 16px 32px;
+  font-size: 24px;
+  font-weight: bold;
+  position: relative;
+  border-radius: 12px;
+  text-decoration: none; /* Elimina el subrayado */
+  display: inline-block; /* Como un botón en línea */
+  z-index: 1; /* Asegura que el texto esté encima del efecto */
+  transition: all 0.3s ease; /* Transición suave para todos los cambios */
+}
+
+.enhanced-btn:hover {
+  color: white; /* Color del texto se mantiene blanco */
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.6),
+    0 0 25px rgba(255, 255, 255, 0.4); /* Sombra brillante al hacer hover */
+  transform: scale(1.1); /* Pequeño efecto de ampliación */
+}
+
+/* Efecto de borde al hacer hover */
+.enhanced-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 12px;
+  background: transparent;
+  border: 2px solid rgb(121, 119, 119); /* Borde blanco cuando se pasa el cursor */
+  transition: all 0.3s ease; /* Transición suave para el borde */
+  z-index: -1; /* Asegura que el borde esté detrás del contenido */
+}
+
+.enhanced-btn:hover::before {
+  border: 2px solid #f66f67e3; /* Borde brillante azul claro cuando se hace hover */
+}
+
+/* Contenedor del perfil */
+.profile-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 20px;
+  padding: 20px;
+  max-width: 100%;
+  flex-wrap: wrap; /* Permite que los elementos se acomoden en múltiples líneas en pantallas pequeñas */
+}
+
+.profile-text {
+  max-width: 100%; /* El texto ahora puede ocupar todo el espacio disponible */
+  font-size: 1.1em;
+  line-height: 1.6;
+  padding-right: 20px;
+  animation: fadeInText 2s ease-out;
+}
+
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  height: 100vh;
+  margin: 0;
+  padding-top: 20px;
+  flex: 1;
+  max-width: 100%; /* Ajuste de tamaño en pantallas pequeñas */
+}
+
+/* Imagen del perfil */
+/* Contenedor de la imagen */
+.image-container {
+  display: flex;
+  justify-content: center; /* Centra la imagen horizontalmente */
+  align-items: flex-start; /* Alinea la imagen hacia arriba */
+  padding-top: 20px; /* Espacio desde el borde superior */
+  margin: 0; /* Elimina márgenes */
+  height: auto; /* Permite que la altura se ajuste al contenido */
+}
+
+/* Imagen del perfil */
+.image-container img {
+  border-radius: 50%; /* Hace la imagen redonda */
+  border: 5px solid #ccc; /* Borde gris claro */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Sombra suave */
+  width: 400px; /* Ajusta el tamaño según sea necesario */
+  height: auto; /* Permite que la imagen tenga altura proporcional */
+  object-fit: cover; /* Asegura que la imagen no se deforme */
+  transition: transform 0.3s, box-shadow 0.3s; /* Animación suave */
+}
+
+.image-container img:hover {
+  transform: scale(1.1); /* Efecto de zoom al pasar el mouse */
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3); /* Sombra más intensa */
+}
+
+/* Texto del perfil */
+.profile-text {
+  max-width: 100%; /* El texto ahora puede ocupar todo el espacio disponible */
+  font-size: 1.1em;
+  line-height: 1.6;
+  padding-right: 20px; /* Espaciado a la derecha para evitar que el texto se pegue */
+  animation: fadeInText 2s ease-out;
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInText {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Estilo del botón */
+.enhanced-btn {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #080808;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+/* Animación al cambiar texto */
+@keyframes textChange {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Para pantallas más pequeñas (por ejemplo, móviles) */
+@media (max-width: 768px) {
+  /* Navbar */
+  .navbar {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .navbar .logo {
+    margin: 10px 0; /* Ajuste de márgenes */
+  }
+
+  .navbar .nav-links {
+    flex-direction: column;
+    margin-left: 0;
+  }
+
+  .navbar .nav-links li a {
+    font-size: 1.2em; /* Tamaño de fuente más pequeño */
+  }
+
+  /* Hero */
+  .hero {
+    min-height: 60vh; /* Reduce la altura del Hero */
+    background-position: center;
+  }
+
+  .hero h1 {
+    font-size: 2.5rem; /* Ajuste de tamaño de fuente */
+  }
+
+  .hero p {
+    font-size: 1.2rem;
+  }
+
+  /* Imagen de perfil */
+  .image-container img {
+    width: 250px; /* Tamaño más pequeño para pantallas pequeñas */
+    height: 250px;
+  }
+
+  /* Perfil de texto */
+  .profile-text {
+    font-size: 1em;
+    padding-right: 10px;
+  }
+
+  /* Botón mejor ajustado */
+  .enhanced-btn {
+    padding: 10px 15px;
+    font-size: 18px;
+  }
+}
+
+/* Para pantallas muy pequeñas (por ejemplo, teléfonos móviles en orientación vertical) */
+@media (max-width: 480px) {
+  /* Ajustar el tamaño de la imagen de perfil */
+  .image-container img {
+    width: 200px;
+    height: 200px;
+  }
+
+  /* Ajustar el tamaño del texto */
+  .profile-text {
+    font-size: 0.9em;
+  }
+
+  .hero h1 {
+    font-size: 2rem; /* Ajuste para que no ocupe tanto espacio */
+  }
+
+  /* Navbar en pantallas pequeñas */
+  .navbar .logo {
+    font-size: 1.2em;
+  }
+
+  .navbar .nav-links li a {
+    font-size: 1em;
+  }
+}
+
+/* Variables CSS únicas para el header */
+:root {
+  --header-bg-primary: #1f1b1a;
+  --header-bg-secondary: #16213e;
+  --header-accent: #a60f0f;
+  --header-accent-hover: #ce3c14;
+  --header-text-primary: #ffffff;
+  --header-text-secondary: #b8c6db;
+  --header-border: rgba(255, 255, 255, 0.1);
+  --header-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  --header-shadow-light: 0 2px 10px rgba(0, 0, 0, 0.2);
+  --header-transition: 0.3s ease;
+
+  /* Variables del gato (originales) */
+  --color-black: #161616;
+  --color-white: #fff;
+  --color--blue: #7dd3fb;
+  --color--yellow: #f6dc74;
+  --color--green: #59a622;
+  --color--pink: #ffa7dc;
+  --size: 50px;
+}
+
+/* Header principal */
+.modern-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--header-border);
+}
+
+/* Navegación moderna */
+.modern-navigation {
+  background: linear-gradient(
+    135deg,
+    var(--header-bg-primary),
+    var(--header-bg-secondary)
+  );
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: var(--header-shadow);
+  min-height: 70px;
+}
+
+/* Espaciador del header */
+.header-spacer {
+  color: transparent;
+  user-select: none;
+  pointer-events: none;
+  margin: 0;
+}
+
+/* Título de la marca */
+.brand-title {
+  color: var(--header-text-primary);
+  font-size: 1.6rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: color var(--header-transition);
+  cursor: pointer;
+}
+
+.brand-title:hover {
+  color: var(--header-accent);
+}
+
+/* Menú de navegación */
+.navigation-menu {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+}
+
+/* Enlaces del menú */
+.nav-item {
+  color: var(--header-text-secondary);
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 0.75rem 1.25rem;
+  border-radius: 8px;
+  transition: all var(--header-transition);
+  position: relative;
+  border: 2px solid transparent;
+}
+
+.nav-item:hover {
+  color: var(--header-text-primary);
+  background-color: var(--header-accent);
+  transform: translateY(-2px);
+  box-shadow: var(--header-shadow-light);
+}
+
+/* Estado activo */
+.nav-item.active {
+  background-color: var(--header-accent);
+  color: var(--header-text-primary);
+  border-color: var(--header-accent-hover);
+}
+
+/* === ESTILOS DEL GATITO ANIMADO (ORIGINALES) === */
+.cat {
+  position: relative;
+  height: var(--size);
+  width: calc(var(--size) * 1.13);
+  transition: transform 0.3s ease;
+}
+
+.cat:hover {
+  transform: scale(1.05);
+}
+
+/* Ears */
+.ear {
+  position: absolute;
+  top: -30%;
+  height: 60%;
+  width: 25%;
+  background: var(--color--pink);
+}
+
+.ear::before,
+.ear::after {
+  content: "";
+  position: absolute;
+  bottom: 24%;
+  height: 10%;
+  width: 5%;
+  border-radius: 50%;
+  background: var(--color-black);
+}
+
+.ear::after {
+  transform-origin: 50% 100%;
+}
+
+.ear--left {
+  left: -7%;
+  border-radius: 70% 30% 0 0 / 100% 100% 0 0;
+  transform: rotate(-15deg);
+}
+
+.ear--left::before,
+.ear--left::after {
+  right: 10%;
+}
+
+.ear--left::after {
+  transform: rotate(-45deg);
+}
+
+.ear--right {
+  right: -7%;
+  border-radius: 30% 70% 0 0 / 100% 100% 0 0;
+  transform: rotate(15deg);
+}
+
+.ear--right::before,
+.ear--right::after {
+  left: 10%;
+}
+
+.ear--right::after {
+  transform: rotate(45deg);
+}
+
+/* Face */
+.face {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background: var(--color-black);
+  border-radius: 50%;
+}
+
+/* Eyes */
+.eye {
+  position: absolute;
+  top: 35%;
+  height: 30%;
+  width: 31%;
+  background: var(--color--green);
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+}
+
+.eye::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 0;
+  width: 100%;
+  border-radius: 0 0 50% 50% / 0 0 40% 40%;
+  background: var(--color-black);
+  animation: blink 4s infinite ease-in;
+}
+
+@keyframes blink {
+  0% {
+    height: 0;
+  }
+  90% {
+    height: 0;
+  }
+  92.5% {
+    height: 100%;
+  }
+  95% {
+    height: 0;
+  }
+  97.5% {
+    height: 100%;
+  }
+  100% {
+    height: 0;
+  }
+}
+
+.eye::before {
+  content: "";
+  position: absolute;
+  top: 60%;
+  height: 10%;
+  width: 15%;
+  background: var(--color--green);
+  border-radius: 50%;
+}
+
+.eye--left {
+  left: 0;
+}
+
+.eye--left::before {
+  right: -5%;
+}
+
+.eye--right {
+  right: 0;
+}
+
+.eye--right::before {
+  left: -5%;
+}
+
+/* Pupils */
+.eye-pupil {
+  position: absolute;
+  top: 25%;
+  height: 50%;
+  width: 20%;
+  background: var(--color-black);
+  border-radius: 50%;
+  animation: look-around 4s infinite;
+}
+
+@keyframes look-around {
+  0% {
+    transform: translate(0);
+  }
+  5% {
+    transform: translate(50%, -25%);
+  }
+  10% {
+    transform: translate(50%, -25%);
+  }
+  15% {
+    transform: translate(-100%, -25%);
+  }
+  20% {
+    transform: translate(-100%, -25%);
+  }
+  25% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+.eye--left .eye-pupil {
+  right: 30%;
+}
+
+.eye--right .eye-pupil {
+  left: 30%;
+}
+
+.eye-pupil::after {
+  content: "";
+  position: absolute;
+  top: 30%;
+  right: -5%;
+  height: 20%;
+  width: 35%;
+  border-radius: 50%;
+  background: var(--color--green);
+}
+
+/* Muzzle */
+.muzzle {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  height: 6%;
+  width: 10%;
+  background: var(--color--pink);
+  transform: translateX(-50%);
+  border-radius: 50% 50% 50% 50% / 30% 30% 70% 70%;
 }
 
 /* === RESPONSIVE DESIGN MEJORADO === */
 @media (max-width: 1024px) {
-    .modern-navigation {
-        padding: 1rem 1.5rem;
-    }
-    
-    .navigation-menu {
-        gap: 0.8rem;
-    }
-    
-    .nav-item {
-        padding: 0.6rem 1rem;
-        font-size: 0.95rem;
-    }
+  .modern-navigation {
+    padding: 1rem 1.5rem;
+  }
+
+  .navigation-menu {
+    gap: 0.8rem;
+  }
+
+  .nav-item {
+    padding: 0.6rem 1rem;
+    font-size: 0.95rem;
+  }
 }
 
 @media (max-width: 768px) {
-    .modern-navigation {
-        flex-direction: column;
-        padding: 1rem;
-        gap: 1rem;
-        min-height: auto;
-    }
+  .modern-navigation {
+    flex-direction: column;
+    padding: 1rem;
+    gap: 1rem;
+    min-height: auto;
+  }
 
-    .brand-title {
-        font-size: 1.4rem;
-        margin: 0.5rem 0;
-        text-align: center;
-    }
+  .brand-title {
+    font-size: 1.4rem;
+    margin: 0.5rem 0;
+    text-align: center;
+  }
 
-    .navigation-menu {
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-        width: 100%;
-        gap: 0.5rem;
-    }
+  .navigation-menu {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    gap: 0.5rem;
+  }
 
-    .nav-item {
-        padding: 0.8rem 1rem;
-        font-size: 0.9rem;
-        flex: 1;
-        text-align: center;
-        min-width: calc(50% - 0.25rem);
-    }
+  .nav-item {
+    padding: 0.8rem 1rem;
+    font-size: 0.9rem;
+    flex: 1;
+    text-align: center;
+    min-width: calc(50% - 0.25rem);
+  }
 }
 
 @media (max-width: 480px) {
-    .modern-navigation {
-        padding: 0.8rem;
-    }
+  .modern-navigation {
+    padding: 0.8rem;
+  }
 
-    .brand-title {
-        font-size: 1.2rem;
-    }
+  .brand-title {
+    font-size: 1.2rem;
+  }
 
-    .navigation-menu {
-        flex-direction: column;
-        width: 100%;
-        gap: 0.5rem;
-    }
+  .navigation-menu {
+    flex-direction: column;
+    width: 100%;
+    gap: 0.5rem;
+  }
 
-    .nav-item {
-        width: 100%;
-        padding: 0.8rem;
-        font-size: 0.9rem;
-        min-width: 100%;
-    }
+  .nav-item {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 0.9rem;
+    min-width: 100%;
+  }
 
-    .cat {
-        transform: scale(0.9);
-    }
-    
-    .cat:hover {
-        transform: scale(0.95);
-    }
+  .cat {
+    transform: scale(0.9);
+  }
+
+  .cat:hover {
+    transform: scale(0.95);
+  }
 }
 
 /* Menú móvil hamburguesa (opcional para futuro) */
 @media (max-width: 480px) {
-    .header-spacer {
-        display: none;
-    }
+  .header-spacer {
+    display: none;
+  }
 }
 
 /* CSS moderno para el footer */
-:root{
-  --bg: #0f1724;              /* fondo general */
-  --panel: rgba(255,255,255,0.04);
+:root {
+  --bg: #0f1724; /* fondo general */
+  --panel: rgba(255, 255, 255, 0.04);
   --accent-1: #6ee7b7;
   --accent-2: #60a5fa;
   --muted: #9aa6b2;
   --glass-blur: 8px;
   --radius: 14px;
-  --transition: 250ms cubic-bezier(.2,.9,.3,1);
+  --transition: 250ms cubic-bezier(0.2, 0.9, 0.3, 1);
   --max-width: 1100px;
   --padding: 1.25rem;
 }
 
 /* Reset pequeño (sólo para demo) */
-.modern-footer { box-sizing: border-box; }
+.modern-footer {
+  box-sizing: border-box;
+}
 
 /* Contenedor principal */
-.modern-footer{
+.modern-footer {
   width: 100%;
-  background: linear-gradient(180deg, rgba(15,23,36,0.6), rgba(7,10,15,0.75));
+  background: linear-gradient(
+    180deg,
+    rgba(15, 23, 36, 0.6),
+    rgba(7, 10, 15, 0.75)
+  );
   color: #e6eef8;
   padding: 2.25rem 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 /* Inner card con glassmorphism */
-.modern-footer .footer-inner{
+.modern-footer .footer-inner {
   width: min(96%, var(--max-width));
-  background: linear-gradient(135deg, rgba(255,255,255,0.02), rgba(255,255,255,0.015));
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.02),
+    rgba(255, 255, 255, 0.015)
+  );
   border-radius: var(--radius);
   padding: 1rem 1.25rem;
   display: grid;
   grid-template-columns: 1fr auto;
   gap: 0.8rem;
   align-items: center;
-  box-shadow: 0 6px 18px rgba(2,6,23,0.55), inset 0 1px 0 rgba(255,255,255,0.02);
+  box-shadow: 0 6px 18px rgba(2, 6, 23, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.02);
   backdrop-filter: blur(var(--glass-blur)) saturate(1.05);
-  border: 1px solid rgba(255,255,255,0.03);
+  border: 1px solid rgba(255, 255, 255, 0.03);
 }
 
 /* Brand (izquierda) */
-.footer-inner .brand{
-  display:flex;
-  gap:0.9rem;
-  align-items:center;
+.footer-inner .brand {
+  display: flex;
+  gap: 0.9rem;
+  align-items: center;
 }
-.footer-inner .logo{
-  width:48px;
-  height:48px;
-  min-width:48px;
-  min-height:48px;
-  border-radius:12px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-  box-shadow: 0 3px 10px rgba(2,6,23,0.45);
-  border: 1px solid rgba(255,255,255,0.03);
+.footer-inner .logo {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  min-height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.02),
+    rgba(255, 255, 255, 0.01)
+  );
+  box-shadow: 0 3px 10px rgba(2, 6, 23, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.03);
   color: var(--accent-1);
 }
 
 /* Texto de marca */
-.brand-text .name{
-  margin:0;
-  font-weight:600;
-  letter-spacing:0.2px;
-  font-size:0.98rem;
+.brand-text .name {
+  margin: 0;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  font-size: 0.98rem;
   color: #f8fbff;
 }
-.brand-text .tag{
-  margin:0;
-  font-size:0.78rem;
+.brand-text .tag {
+  margin: 0;
+  font-size: 0.78rem;
   color: var(--muted);
-  margin-top:2px;
+  margin-top: 2px;
 }
 
 /* Copyright centrado pequeño */
-.footer-copy{
-  margin:0;
-  font-size:0.88rem;
+.footer-copy {
+  margin: 0;
+  font-size: 0.88rem;
   color: var(--muted);
   justify-self: center;
-  text-align:center;
+  text-align: center;
 }
 
 /* Social icons (derecha) */
-.socials{
-  display:flex;
-  gap:0.55rem;
-  align-items:center;
+.socials {
+  display: flex;
+  gap: 0.55rem;
+  align-items: center;
   justify-self: end;
 }
-.social{
-  display:inline-grid;
-  place-items:center;
-  width:40px;
-  height:36px;
-  border-radius:10px;
-  text-decoration:none;
+.social {
+  display: inline-grid;
+  place-items: center;
+  width: 40px;
+  height: 36px;
+  border-radius: 10px;
+  text-decoration: none;
   color: var(--muted);
-  transition: transform var(--transition), color var(--transition), background var(--transition);
-  border: 1px solid rgba(255,255,255,0.03);
-  background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));
-  box-shadow: 0 2px 8px rgba(2,6,23,0.45);
+  transition: transform var(--transition), color var(--transition),
+    background var(--transition);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.01),
+    rgba(255, 255, 255, 0.005)
+  );
+  box-shadow: 0 2px 8px rgba(2, 6, 23, 0.45);
 }
-.social svg { display:block; width:18px; height:18px; }
+.social svg {
+  display: block;
+  width: 18px;
+  height: 18px;
+}
 
 /* hover: color vivo y pequeño lift */
-.social:hover{
+.social:hover {
   transform: translateY(-4px) scale(1.02);
   color: #0b1020;
   background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
-  box-shadow: 0 8px 20px rgba(9,30,66,0.45);
+  box-shadow: 0 8px 20px rgba(9, 30, 66, 0.45);
 }
 
 /* Responsive: columnas se apilan en pantallas pequeñas */
-@media (max-width:720px){
-  .footer-inner{
+@media (max-width: 720px) {
+  .footer-inner {
     grid-template-columns: 1fr;
     text-align: center;
     gap: 0.6rem;
     padding: 1rem;
   }
-  .socials { justify-self: center; }
-  .footer-copy { order: 3; }
-  .brand { justify-content: center; }
+  .socials {
+    justify-self: center;
+  }
+  .footer-copy {
+    order: 3;
+  }
+  .brand {
+    justify-content: center;
+  }
 }
 
 /* Pequeña animación pulso en el copy para dar vida (opcional) */
-@keyframes subtlePulse{
-  0% { opacity: 0.95; transform: translateY(0); }
-  50% { opacity: 1; transform: translateY(-2px); }
-  100% { opacity: 0.95; transform: translateY(0); }
+@keyframes subtlePulse {
+  0% {
+    opacity: 0.95;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-2px);
+  }
+  100% {
+    opacity: 0.95;
+    transform: translateY(0);
+  }
 }
-.footer-copy { animation: subtlePulse 6s ease-in-out infinite; }
+.footer-copy {
+  animation: subtlePulse 6s ease-in-out infinite;
+}
 
 /* Alternativa: modo claro (si lo quieres habilitar desde JS) */
 .modern-footer.light {
   --bg: #f7fafc;
   color: #0b1220;
-  --panel: rgba(11,18,32,0.03);
+  --panel: rgba(11, 18, 32, 0.03);
   --muted: #5b6b75;
 }

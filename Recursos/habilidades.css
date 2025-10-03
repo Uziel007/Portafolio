@@ -2171,6 +2171,60 @@ main {
   color: #ffd93d;
   transform: scale(1.05);
 }
+/* Texto debajo del gato */
+.play-text {
+  position: absolute;
+  top: 110%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  color: white;
+  opacity: 0;
+  animation: fadeMove 2s infinite alternate;
+}
+
+@keyframes fadeMove {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(0px);
+  }
+  50% {
+    opacity: 0.6;
+    transform: translateX(-50%) translateY(-2px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(0px);
+  }
+}
+
+/* Triángulo arriba del gato apuntando hacia abajo */
+.arrow-down {
+  position: absolute;
+  bottom: 100%; /* justo arriba del gato */
+  left: 50%;
+  transform: translateX(-50%) translateY(-8px); /* separa un poco más del gato */
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent; /* triángulo más pequeño */
+  border-right: 5px solid transparent;
+  border-top: 8px solid white; /* apunta hacia abajo */
+  opacity: 0;
+  animation: blinkArrow 3s infinite; /* parpadeo más lento */
+}
+
+@keyframes blinkArrow {
+  0%,
+  50%,
+  100% {
+    opacity: 0;
+  }
+  25%,
+  75% {
+    opacity: 1;
+  }
+}
 
 /* Responsive */
 @media (max-width: 768px) {
