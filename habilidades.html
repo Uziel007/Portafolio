@@ -1109,8 +1109,8 @@
       function downloadCV(format) {
         // Rutas a los archivos CV en tu proyecto (GitHub Pages compatible)
         const cvFiles = {
-          pdf: "Recursos/CV/CV.pdf",
-          word: "Recursos/CV/CV.docx",
+          pdf: "Recursos/CV/CV Uziel Sanchez Marin en PDF.pdf",
+          word: "Recursos/CV/CV Uziel Sanchez Marin WORD.docx",
           simple: "Recursos/CV/CV.txt",
         };
 
@@ -1126,7 +1126,7 @@
         // Descargar archivo si existe
         const link = document.createElement("a");
         link.href = cvFiles[format];
-        link.download = `Uziel_Sanchez_CV_${format.toUpperCase()}.${
+        link.download = `Uziel_Sanchez_Marin_CV_${format.toUpperCase()}.${
           format === "word" ? "docx" : format === "simple" ? "txt" : "pdf"
         }`;
         document.body.appendChild(link);
