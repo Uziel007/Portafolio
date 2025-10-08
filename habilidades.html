@@ -54,11 +54,7 @@
               <div class="eye eye--right"><div class="eye-pupil"></div></div>
               <div class="muzzle"></div>
             </div>
-
-            <!-- Texto debajo del gato -->
             <div class="play-text">Jugar</div>
-
-            <!-- Triángulo arriba del gato apuntando hacia abajo -->
             <div class="arrow-down"></div>
           </div>
         </a>
@@ -356,10 +352,24 @@
             </button>
             <button
               class="filter-btn"
+              data-filter="agile"
+              id="habilidades-filter-agile"
+            >
+              Metodologías Ágiles
+            </button>
+            <button
+              class="filter-btn"
               data-filter="frameworks"
               id="habilidades-filter-frameworks"
             >
               Frameworks
+            </button>
+            <button
+              class="filter-btn"
+              data-filter="tools"
+              id="habilidades-filter-tools"
+            >
+              Herramientas
             </button>
             <button
               class="filter-btn"
@@ -384,13 +394,6 @@
             </button>
             <button
               class="filter-btn"
-              data-filter="office"
-              id="habilidades-filter-office"
-            >
-              Office Suite
-            </button>
-            <button
-              class="filter-btn"
               data-filter="language"
               id="habilidades-filter-language"
             >
@@ -400,11 +403,13 @@
 
           <!-- Grid de certificaciones -->
           <div class="certificates-grid" id="habilidades-certificatesGrid">
+            
+            <!-- SCRUM - Metodologías Ágiles -->
             <a
               href="https://www.scrumstudy.com/certification/verify?type=SFC&number=1056186"
               target="_blank"
               class="certificate-card fade-in-up stagger-1"
-              data-category="frameworks"
+              data-category="agile"
             >
               <img
                 src="Recursos/Certificaciones/scrumfundamentals.png"
@@ -422,6 +427,7 @@
               </p>
             </a>
 
+            <!-- JavaScript - Programación -->
             <a
               href="https://www.udemy.com/certificate/UC-c19c8edd-de0c-4ee6-b192-738afacc1ad9/"
               target="_blank"
@@ -445,11 +451,12 @@
               </p>
             </a>
 
+            <!-- Google Analytics - Herramientas -->
             <a
               href="https://skillshop.credential.net/b52f8295-7bf4-4760-9dae-c189130d9a9f#acc.jZBeV19Q"
               target="_blank"
               class="certificate-card fade-in-up stagger-3"
-              data-category="marketing"
+              data-category="tools"
             >
               <img
                 src="Recursos/Certificaciones/GoogleAnalytics.png"
@@ -467,6 +474,7 @@
               </p>
             </a>
 
+            <!-- Marketing Digital - Marketing -->
             <a
               href="https://c46e136a583f7e334124-ac22991740ab4ff17e21daf2ed577041.ssl.cf1.rackcdn.com/Certificate/DigitalMarketingFundamentals-UzielSanchezMarin-611988.pdf"
               target="_blank"
@@ -489,6 +497,7 @@
               </p>
             </a>
 
+            <!-- Database Course - Base de Datos -->
             <a
               href="https://www.udemy.com/certificate/UC-65101205-8c2c-453d-a6bb-03d6e2466af5/"
               target="_blank"
@@ -511,6 +520,7 @@
               </p>
             </a>
 
+            <!-- PHP - Programación -->
             <a
               href="https://www.udemy.com/certificate/UC-223436ce-99ef-4fa5-88c4-4c687f9512c1/"
               target="_blank"
@@ -532,6 +542,7 @@
               </p>
             </a>
 
+            <!-- Java - Programación -->
             <a
               href="https://www.udemy.com/certificate/UC-b9e3657c-1bdf-4c20-a5c5-afb735076931/"
               target="_blank"
@@ -554,6 +565,7 @@
               </p>
             </a>
 
+            <!-- Python - Programación -->
             <a
               href="https://data-flair.training/verify/75B547582A-75AF51C5AE-7591D036BD/"
               target="_blank"
@@ -574,6 +586,7 @@
               </p>
             </a>
 
+            <!-- jQuery - Programación -->
             <a
               href="https://www.udemy.com/certificate/UC-70e496be-05ff-4552-be0f-8039291c9bca/"
               target="_blank"
@@ -595,6 +608,7 @@
               </p>
             </a>
 
+            <!-- Spring Modulith - Frameworks -->
             <a
               href="https://www.udemy.com/certificate/UC-4f4d3aa4-df56-421f-b30e-28ba6d6d6649/"
               target="_blank"
@@ -618,6 +632,7 @@
               </p>
             </a>
 
+            <!-- JavaFX Database - Base de Datos -->
             <a
               href="https://www.udemy.com/certificate/UC-dbd5a0ed-9985-4889-89b7-d70143143514/"
               target="_blank"
@@ -639,15 +654,17 @@
                 creación de una aplicación independiente.
               </p>
             </a>
+
+            <!-- Notion - Herramientas -->
             <a
               href="https://claseflix.io/validar-certificado/68e61d70c1ae460015c597c7"
               target="_blank"
               class="certificate-card fade-in-up stagger-12"
-              data-category="leadership"
+              data-category="tools"
             >
               <img
                 src="Recursos/Certificaciones/cursodenotioncertificadao.png"
-                alt="Certificación Liderazgo"
+                alt="Certificación Notion"
                 class="certificate-image"
               />
               <h3 class="certificate-title">
@@ -657,6 +674,7 @@
                 Curso completo de Notion, una herramienta todo-en-uno para productividad, organización y gestión de proyectos. Aprende desde los fundamentos hasta el uso de bases de datos, widgets, plantillas personalizadas e inteligencia artificial para optimizar tu flujo de trabajo.
               </p>
             </a>
+
           </div>
         </div>
 
@@ -699,7 +717,6 @@
           Timeline Académico
         </h2>
         <div class="timeline fade-in-up" id="habilidades-timeline">
-          <!-- Técnico -->
           <div class="timeline-item" id="habilidades-timeline-item-1">
             <div class="timeline-content">
               <h3 style="color: #ffd93d; margin-bottom: 10px">
@@ -713,52 +730,6 @@
             <div class="timeline-date">2016-2019</div>
           </div>
 
-          <!-- Certificaciones tras técnico -->
-          <div class="timeline-item">
-            <div class="timeline-content">
-              <h3 style="color: #ffd93d; margin-bottom: 10px">
-                Certificaciones en Bases de Datos
-              </h3>
-              <ul style="color: rgba(255, 255, 255, 0.9); padding-left: 20px">
-                <li>SQL y Normalización</li>
-                <li>MongoDB y NoSQL</li>
-                <li>JPA / Hibernate</li>
-              </ul>
-            </div>
-            <div class="timeline-date">2020-2022</div>
-          </div>
-
-          <!-- Ingeniería -->
-          <div class="timeline-item">
-            <div class="timeline-content">
-              <h3 style="color: #ffd93d; margin-bottom: 10px">
-                Ingeniería en Sistemas Computacionales
-              </h3>
-              <p style="color: rgba(255, 255, 255, 0.9)">
-                Universidad Bancaria de México – Especialización en desarrollo
-                full-stack, arquitectura de sistemas y gestión de proyectos.
-              </p>
-            </div>
-            <div class="timeline-date">2021-2025</div>
-          </div>
-
-          <!-- Certificaciones tras ingeniería -->
-          <div class="timeline-item">
-            <div class="timeline-content">
-              <h3 style="color: #ffd93d; margin-bottom: 10px">
-                Certificaciones en Desarrollo Web y Arquitectura
-              </h3>
-              <ul style="color: rgba(255, 255, 255, 0.9); padding-left: 20px">
-                <li>Java Full Stack</li>
-                <li>JavaScript Avanzado</li>
-                <li>Microservicios con Spring Boot</li>
-                <li>APIs y Seguridad con JWT</li>
-              </ul>
-            </div>
-            <div class="timeline-date">2022-2025</div>
-          </div>
-
-          <!-- Bloque adicional de certificaciones -->
           <div class="timeline-item">
             <div class="timeline-content">
               <h3 style="color: #ffd93d; margin-bottom: 10px">
@@ -974,7 +945,6 @@
         🔗
         <div class="fab-tooltip">Compartir perfil</div>
       </button>
-      <!-- Botón volver arriba -->
       <button class="fab" onclick="scrollToTop()" id="habilidades-scroll-top">
         ↑
       </button>
@@ -1036,16 +1006,11 @@
     </footer>
 
     <script>
-      // Variables globales con IDs únicos para habilidades
       let isDarkTheme = false;
-      const habilidadesCertificates =
-        document.querySelectorAll(".certificate-card");
+      const habilidadesCertificates = document.querySelectorAll(".certificate-card");
 
-      // Crear partículas animadas
       function createParticles() {
-        const particlesContainer = document.getElementById(
-          "habilidades-particles"
-        );
+        const particlesContainer = document.getElementById("habilidades-particles");
         const particleCount = 50;
 
         for (let i = 0; i < particleCount; i++) {
@@ -1059,25 +1024,18 @@
         }
       }
 
-      // Cambiar tema
       function toggleTheme() {
         isDarkTheme = !isDarkTheme;
-        document
-          .getElementById("habilidades-body")
-          .classList.toggle("dark-theme");
-        document.getElementById("habilidades-themeIcon").textContent =
-          isDarkTheme ? "☀️" : "🌙";
+        document.getElementById("habilidades-body").classList.toggle("dark-theme");
+        document.getElementById("habilidades-themeIcon").textContent = isDarkTheme ? "☀️" : "🌙";
         localStorage.setItem("habilidades-darkTheme", isDarkTheme);
 
-        // Efecto de transición suave
-        document.getElementById("habilidades-body").style.transition =
-          "all 0.5s ease";
+        document.getElementById("habilidades-body").style.transition = "all 0.5s ease";
         setTimeout(() => {
           document.getElementById("habilidades-body").style.transition = "";
         }, 500);
       }
 
-      // Modal del CV
       function openCVModal() {
         document.getElementById("habilidades-cvModal").classList.add("show");
       }
@@ -1087,7 +1045,6 @@
       }
 
       function downloadCV(format) {
-        // Rutas a los archivos CV en tu proyecto (GitHub Pages compatible)
         const cvFiles = {
           pdf: "Recursos/CV/CV Uziel Sanchez Marin en PDF.pdf",
           word: "Recursos/CV/CV Uziel Sanchez Marin WORD.docx",
@@ -1100,10 +1057,8 @@
           simple: "📋 Descargando versión simple del CV...",
         };
 
-        // Mostrar mensaje
         alert(messages[format]);
 
-        // Descargar archivo si existe
         const link = document.createElement("a");
         link.href = cvFiles[format];
         link.download = `Uziel_Sanchez_Marin_CV_${format.toUpperCase()}.${
@@ -1116,7 +1071,6 @@
         closeCVModal();
       }
 
-      // Compartir perfil
       function shareProfile() {
         if (navigator.share) {
           navigator.share({
@@ -1125,32 +1079,25 @@
             url: window.location.href,
           });
         } else {
-          // Fallback para navegadores que no soportan Web Share API
           navigator.clipboard.writeText(window.location.href).then(() => {
             alert("🔗 URL copiada al portapapeles");
           });
         }
       }
 
-      // Filtros de certificaciones
       function setupFilters() {
         const filterButtons = document.querySelectorAll(".filter-btn");
         const certificates = document.querySelectorAll(".certificate-card");
 
         filterButtons.forEach((button) => {
           button.addEventListener("click", () => {
-            // Remover clase active de todos los botones
             filterButtons.forEach((btn) => btn.classList.remove("active"));
-            // Agregar clase active al botón clickeado
             button.classList.add("active");
 
             const filter = button.getAttribute("data-filter");
 
             certificates.forEach((cert) => {
-              if (
-                filter === "all" ||
-                cert.getAttribute("data-category") === filter
-              ) {
+              if (filter === "all" || cert.getAttribute("data-category") === filter) {
                 cert.style.display = "block";
                 cert.style.animation = "fadeInUp 0.5s ease forwards";
               } else {
@@ -1163,7 +1110,6 @@
         });
       }
 
-      // Buscador de certificaciones
       function setupSearch() {
         const searchInput = document.getElementById("habilidades-searchInput");
         const certificates = document.querySelectorAll(".certificate-card");
@@ -1172,17 +1118,10 @@
           const searchTerm = e.target.value.toLowerCase();
 
           certificates.forEach((cert) => {
-            const title = cert
-              .querySelector(".certificate-title")
-              .textContent.toLowerCase();
-            const description = cert
-              .querySelector(".certificate-description")
-              .textContent.toLowerCase();
+            const title = cert.querySelector(".certificate-title").textContent.toLowerCase();
+            const description = cert.querySelector(".certificate-description").textContent.toLowerCase();
 
-            if (
-              title.includes(searchTerm) ||
-              description.includes(searchTerm)
-            ) {
+            if (title.includes(searchTerm) || description.includes(searchTerm)) {
               cert.style.display = "block";
               cert.style.animation = "fadeInUp 0.5s ease forwards";
             } else {
@@ -1192,15 +1131,12 @@
         });
       }
 
-      // Actualizar estadísticas específicas de habilidades
       function updateHabilidadesStats(filter) {
         const allCerts = document.querySelectorAll(".certificate-card");
-        const totalElement = document.getElementById(
-          "habilidades-totalCertificates"
-        );
+        const totalElement = document.getElementById("habilidades-totalCertificates");
 
         if (filter === "all") {
-          totalElement.textContent = "11";
+          totalElement.textContent = "12";
         } else {
           let count = 0;
           allCerts.forEach((cert) => {
@@ -1212,7 +1148,6 @@
         }
       }
 
-      // Contador animado para estadísticas
       function animateCounters() {
         const counters = document.querySelectorAll(".stat-number");
         const observer = new IntersectionObserver((entries) => {
@@ -1229,11 +1164,7 @@
                   count += increment;
                   counter.textContent =
                     Math.ceil(count) +
-                    (targetText.includes("%")
-                      ? "%"
-                      : targetText.includes("+")
-                      ? "+"
-                      : "");
+                    (targetText.includes("%") ? "%" : targetText.includes("+") ? "+" : "");
                   requestAnimationFrame(updateCounter);
                 } else {
                   counter.textContent = targetText;
@@ -1249,7 +1180,6 @@
         counters.forEach((counter) => observer.observe(counter));
       }
 
-      // Scroll to top
       function scrollToTop() {
         window.scrollTo({
           top: 0,
@@ -1257,7 +1187,6 @@
         });
       }
 
-      // Mostrar/ocultar botón de scroll
       function setupScrollButton() {
         const scrollBtn = document.getElementById("habilidades-scroll-top");
 
@@ -1270,7 +1199,6 @@
         });
       }
 
-      // Animación de scroll
       function animateOnScroll() {
         const elements = document.querySelectorAll(".fade-in-up");
         const observer = new IntersectionObserver(
@@ -1292,7 +1220,6 @@
         });
       }
 
-      // Animación de barras de progreso
       function animateProgressBars() {
         const progressBars = document.querySelectorAll(".progress-fill");
         const observer = new IntersectionObserver(
@@ -1303,8 +1230,7 @@
                 const width = progressBar.style.width;
                 progressBar.style.width = "0%";
                 setTimeout(() => {
-                  progressBar.style.transition =
-                    "width 2s cubic-bezier(0.25, 0.46, 0.45, 0.94)";
+                  progressBar.style.transition = "width 2s cubic-bezier(0.25, 0.46, 0.45, 0.94)";
                   progressBar.style.width = width;
                 }, 200);
               }
@@ -1318,7 +1244,6 @@
         progressBars.forEach((bar) => observer.observe(bar));
       }
 
-      // Timeline animation
       function setupTimeline() {
         const timelineItems = document.querySelectorAll(".timeline-item");
         const observer = new IntersectionObserver(
@@ -1337,11 +1262,8 @@
         timelineItems.forEach((item) => observer.observe(item));
       }
 
-      // Efecto de mouse sobre las cards
       function setupMouseEffects() {
-        const cards = document.querySelectorAll(
-          ".certificate-card, .tech-card, .skills-column"
-        );
+        const cards = document.querySelectorAll(".certificate-card, .tech-card, .skills-column");
 
         cards.forEach((card) => {
           card.addEventListener("mousemove", (e) => {
@@ -1359,13 +1281,11 @@
           });
 
           card.addEventListener("mouseleave", () => {
-            card.style.transform =
-              "perspective(1000px) rotateX(0) rotateY(0) translateZ(0)";
+            card.style.transform = "perspective(1000px) rotateX(0) rotateY(0) translateZ(0)";
           });
         });
       }
 
-      // Cerrar modal al hacer click fuera
       document.addEventListener("click", (e) => {
         const modal = document.getElementById("habilidades-cvModal");
         if (e.target === modal) {
@@ -1373,7 +1293,6 @@
         }
       });
 
-      // Atajos de teclado específicos para habilidades
       document.addEventListener("keydown", (e) => {
         if (e.key === "Escape") {
           closeCVModal();
@@ -1388,9 +1307,7 @@
         }
       });
 
-      // Inicializar todas las funciones específicas de habilidades
       document.addEventListener("DOMContentLoaded", () => {
-        // Restaurar tema guardado específico para habilidades
         const savedTheme = localStorage.getItem("habilidades-darkTheme");
         if (savedTheme === "true") {
           toggleTheme();
@@ -1407,7 +1324,6 @@
         setupTimeline();
       });
 
-      // Smooth scrolling para navegación interna
       document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
         anchor.addEventListener("click", function (e) {
           e.preventDefault();
@@ -1422,7 +1338,6 @@
       });
     </script>
 
-    <!-- Scripts originales -->
     <script src="Recursos/navbar.js" defer></script>
   </body>
 </html>
