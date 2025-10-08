@@ -94,7 +94,15 @@
       <section id="habilidades" class="section">
         <!-- Formación Académica -->
         <div class="academic-container fade-in-up" id="habilidades-academic">
-          <h2 class="academic-title" id="habilidades-academic-title">
+          <h2
+            id="habilidades-academic-title"
+            style="
+              color: white;
+              font-size: 2.8rem;
+              line-height: 1.1;
+              margin-bottom: 30px;
+            "
+          >
             Formación Académica
           </h2>
           <ul class="academic-list" id="habilidades-academic-list">
@@ -128,49 +136,83 @@
               class="knowledge-item fade-in-up stagger-1"
               id="habilidades-knowledge-programming"
             >
-              Lenguajes de Programación: C++, Java, Python, PHP, JavaScript
+              Lenguajes de Programación: C++, Java, Python, PHP, JavaScript.
+              Desarrollo de aplicaciones robustas, orientadas a objetos,
+              optimización de código y resolución de problemas complejos.
+              Experiencia en integración con APIs, desarrollo backend y lógica
+              avanzada.
             </div>
             <div
               class="knowledge-item fade-in-up stagger-2"
               id="habilidades-knowledge-web"
             >
-              Desarrollo Web: HTML, CSS, JavaScript
+              Desarrollo Web: HTML, CSS, JavaScript. Creación de interfaces
+              modernas, accesibles y responsivas. Enfoque en experiencia de
+              usuario (UX/UI), diseño adaptable, optimización SEO básica y
+              buenas prácticas de desarrollo frontend.
             </div>
             <div
               class="knowledge-item fade-in-up stagger-3"
               id="habilidades-knowledge-frameworks"
             >
-              Frameworks: React, Angular, Bootstrap
+              Frameworks: React, Angular, Bootstrap. Construcción de
+              aplicaciones escalables, dinámicas y modulares. Conocimientos en
+              componentes reutilizables, hooks, SPA, routing, integración con
+              servicios y buenas prácticas de mantenimiento.
             </div>
             <div
               class="knowledge-item fade-in-up stagger-4"
               id="habilidades-knowledge-databases"
             >
-              Bases de Datos: MySQL, PostgreSQL
+              Bases de Datos: MySQL, PostgreSQL. Diseño y modelado de bases de
+              datos relacionales, creación de consultas eficientes, relaciones
+              entre tablas, triggers, procedimientos almacenados y optimización
+              de rendimiento.
             </div>
             <div
               class="knowledge-item fade-in-up stagger-5"
               id="habilidades-knowledge-tools"
             >
-              Herramientas de Desarrollo: Git, Visual Studio Code, IntelliJ IDEA
+              Herramientas de Desarrollo: Git, Visual Studio Code, IntelliJ
+              IDEA. Control de versiones colaborativo, manejo de ramas, revisión
+              de código, integración continua y personalización de entornos de
+              trabajo para flujos ágiles y eficientes.
             </div>
             <div
               class="knowledge-item fade-in-up stagger-6"
               id="habilidades-knowledge-systems"
             >
-              Administración de Sistemas: Linux, Windows Server
+              Administración de Sistemas: Linux, Windows Server. Configuración
+              de entornos, despliegue de aplicaciones, gestión de usuarios y
+              permisos, automatización básica con scripts y monitoreo de
+              servicios.
             </div>
             <div
               class="knowledge-item fade-in-up stagger-1"
               id="habilidades-knowledge-methodologies"
             >
-              Metodologías Ágiles: Scrum
+              Metodologías Ágiles: Scrum. Experiencia en organización de
+              sprints, planificación de tareas, mejora continua, comunicación en
+              equipo y entrega iterativa de valor. Uso de tableros Kanban y
+              herramientas de gestión.
             </div>
             <div
               class="knowledge-item fade-in-up stagger-2"
               id="habilidades-knowledge-marketing"
             >
-              Marketing Digital: Certificación en Marketing Digital
+              Marketing Digital: Certificación en Marketing Digital.
+              Conocimientos en estrategias de posicionamiento online, redes
+              sociales, segmentación de audiencias, SEO/SEM básico, analítica
+              web y creación de campañas efectivas.
+            </div>
+            <div
+              class="knowledge-item fade-in-up stagger-3"
+              id="habilidades-knowledge-leadership"
+            >
+              Liderazgo y Comunicación: Habilidades sociales para trabajo en
+              equipo, resolución de conflictos, liderazgo en proyectos y
+              motivación grupal. Comunicación efectiva, empatía profesional,
+              coordinación multidisciplinaria y toma de decisiones estratégicas.
             </div>
           </div>
         </div>
@@ -318,6 +360,41 @@
               id="habilidades-filter-frameworks"
             >
               Frameworks
+            </button>
+            <button
+              class="filter-btn"
+              data-filter="leadership"
+              id="habilidades-filter-leadership"
+            >
+              Liderazgo
+            </button>
+            <button
+              class="filter-btn"
+              data-filter="ai"
+              id="habilidades-filter-ai"
+            >
+              IA/ML
+            </button>
+            <button
+              class="filter-btn"
+              data-filter="architecture"
+              id="habilidades-filter-architecture"
+            >
+              Arquitectura
+            </button>
+            <button
+              class="filter-btn"
+              data-filter="office"
+              id="habilidades-filter-office"
+            >
+              Office Suite
+            </button>
+            <button
+              class="filter-btn"
+              data-filter="language"
+              id="habilidades-filter-language"
+            >
+              Idiomas
             </button>
           </div>
 
@@ -562,6 +639,24 @@
                 creación de una aplicación independiente.
               </p>
             </a>
+            <a
+              href="https://claseflix.io/validar-certificado/68e61d70c1ae460015c597c7"
+              target="_blank"
+              class="certificate-card fade-in-up stagger-12"
+              data-category="leadership"
+            >
+              <img
+                src="Recursos/Certificaciones/cursodenotioncertificadao.png"
+                alt="Certificación Liderazgo"
+                class="certificate-image"
+              />
+              <h3 class="certificate-title">
+                Certificación en Notion
+              </h3>
+              <p class="certificate-description">
+                Curso completo de Notion, una herramienta todo-en-uno para productividad, organización y gestión de proyectos. Aprende desde los fundamentos hasta el uso de bases de datos, widgets, plantillas personalizadas e inteligencia artificial para optimizar tu flujo de trabajo.
+              </p>
+            </a>
           </div>
         </div>
 
@@ -597,7 +692,7 @@
             text-align: center;
             color: white;
             font-size: 2.5rem;
-            margin-bottom: 70px; /* Espacio extra para que no se empalme la línea */
+            margin-bottom: 70px;
           "
           id="habilidades-timeline-title"
         >
@@ -1099,17 +1194,21 @@
 
       // Actualizar estadísticas específicas de habilidades
       function updateHabilidadesStats(filter) {
-        const visibleCerts = document.querySelectorAll(
-          `.certificate-card[style*="display: block"], .certificate-card:not([style*="display: none"])`
-        );
+        const allCerts = document.querySelectorAll(".certificate-card");
         const totalElement = document.getElementById(
           "habilidades-totalCertificates"
         );
 
         if (filter === "all") {
-          totalElement.textContent = "12";
+          totalElement.textContent = "11";
         } else {
-          totalElement.textContent = visibleCerts.length;
+          let count = 0;
+          allCerts.forEach((cert) => {
+            if (cert.getAttribute("data-category") === filter) {
+              count++;
+            }
+          });
+          totalElement.textContent = count;
         }
       }
 
@@ -1120,7 +1219,8 @@
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
               const counter = entry.target;
-              const target = parseInt(counter.textContent.replace(/\D/g, ""));
+              const targetText = counter.textContent;
+              const target = parseInt(targetText.replace(/\D/g, ""));
               let count = 0;
               const increment = target / 100;
 
@@ -1129,22 +1229,19 @@
                   count += increment;
                   counter.textContent =
                     Math.ceil(count) +
-                    (counter.textContent.includes("%")
+                    (targetText.includes("%")
                       ? "%"
-                      : counter.textContent.includes("+")
+                      : targetText.includes("+")
                       ? "+"
                       : "");
                   requestAnimationFrame(updateCounter);
                 } else {
-                  counter.textContent = counter.textContent.includes("%")
-                    ? target + "%"
-                    : counter.textContent.includes("+")
-                    ? target + "+"
-                    : target;
+                  counter.textContent = targetText;
                 }
               };
 
               updateCounter();
+              observer.unobserve(counter);
             }
           });
         });
