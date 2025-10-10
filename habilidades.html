@@ -287,7 +287,7 @@
           >
             <div class="stat-card" id="habilidades-stat-certificates">
               <span class="stat-number" id="habilidades-totalCertificates"
-                >12</span
+                >0</span
               >
               <span class="stat-label">Certificaciones</span>
             </div>
@@ -516,6 +516,25 @@
               </p>
             </a>
 
+            <a
+              href="https://badges.innovativelearning.eu/badge/17d8d470-f87f-4f72-b97c-4a58996927f4"
+              target="_blank"
+              class="certificate-card fade-in-up stagger-1"
+              data-category="agile"
+            >
+              <img
+                src="Recursos/Certificaciones/KanbanLearnKanbanAwarenessCertified.png"
+                alt="Certificación SCRUM"
+                class="certificate-image"
+              />
+              <h3 class="certificate-title">
+                KanbanLearn Kanban Awareness Certified
+              </h3>
+              <p class="certificate-description">
+                Certificación de Kanban Awareness que valida conocimientos sobre los principios y prácticas fundamentales de Kanban. Incluye gestión visual de tareas, flujo de trabajo eficiente y mejora continua para optimizar procesos en proyectos y equipos ágiles.
+              </p>
+            </a>
+
             <!-- 3. Marketing Digital - DMI (Marketing) -->
             <a
               href="https://c46e136a583f7e334124-ac22991740ab4ff17e21daf2ed577041.ssl.cf1.rackcdn.com/Certificate/DigitalMarketingFundamentals-UzielSanchezMarin-611988.pdf"
@@ -724,7 +743,7 @@
           </div>
         </div>
 
-        <!-- Calculadora de Skills -->
+                <!-- Calculadora de Skills -->
         <div class="skills-calculator fade-in-up">
           <h3 style="color: white; font-size: 1.8rem; margin-bottom: 20px">
             Resumen de Competencias
@@ -763,6 +782,7 @@
           Timeline Académico
         </h2>
         <div class="timeline fade-in-up" id="habilidades-timeline">
+          <!-- Técnico -->
           <div class="timeline-item" id="habilidades-timeline-item-1">
             <div class="timeline-content">
               <h3 style="color: #ffd93d; margin-bottom: 10px">
@@ -776,6 +796,52 @@
             <div class="timeline-date">2016-2019</div>
           </div>
 
+          <!-- Certificaciones tras técnico -->
+          <div class="timeline-item">
+            <div class="timeline-content">
+              <h3 style="color: #ffd93d; margin-bottom: 10px">
+                Certificaciones en Bases de Datos
+              </h3>
+              <ul style="color: rgba(255, 255, 255, 0.9); padding-left: 20px">
+                <li>SQL y Normalización</li>
+                <li>MongoDB y NoSQL</li>
+                <li>JPA / Hibernate</li>
+              </ul>
+            </div>
+            <div class="timeline-date">2020-2022</div>
+          </div>
+
+          <!-- Ingeniería -->
+          <div class="timeline-item">
+            <div class="timeline-content">
+              <h3 style="color: #ffd93d; margin-bottom: 10px">
+                Ingeniería en Sistemas Computacionales
+              </h3>
+              <p style="color: rgba(255, 255, 255, 0.9)">
+                Universidad Bancaria de México – Especialización en desarrollo
+                full-stack, arquitectura de sistemas y gestión de proyectos.
+              </p>
+            </div>
+            <div class="timeline-date">2021-2025</div>
+          </div>
+
+          <!-- Certificaciones tras ingeniería -->
+          <div class="timeline-item">
+            <div class="timeline-content">
+              <h3 style="color: #ffd93d; margin-bottom: 10px">
+                Certificaciones en Desarrollo Web y Arquitectura
+              </h3>
+              <ul style="color: rgba(255, 255, 255, 0.9); padding-left: 20px">
+                <li>Java Full Stack</li>
+                <li>JavaScript Avanzado</li>
+                <li>Microservicios con Spring Boot</li>
+                <li>APIs y Seguridad con JWT</li>
+              </ul>
+            </div>
+            <div class="timeline-date">2022-2025</div>
+          </div>
+
+          <!-- Bloque adicional de certificaciones -->
           <div class="timeline-item">
             <div class="timeline-content">
               <h3 style="color: #ffd93d; margin-bottom: 10px">
@@ -1201,7 +1267,7 @@
         );
 
         if (filter === "all") {
-          totalElement.textContent = "12";
+          totalElement.textContent = allCerts.length;
         } else {
           let count = 0;
           allCerts.forEach((cert) => {
@@ -1395,6 +1461,9 @@
         animateCounters();
         setupScrollButton();
         setupTimeline();
+        
+        // Inicializar el contador de certificaciones con el total real
+        updateHabilidadesStats('all');
       });
 
       document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
