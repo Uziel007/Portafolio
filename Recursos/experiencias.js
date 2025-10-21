@@ -2082,7 +2082,7 @@ document.addEventListener("DOMContentLoaded", function () {
       animateContent();
       document.getElementById("contenido").innerHTML = `
                 <p>
-                    Durante mi periodo como Becario de Sistemas Computacionales en Sky Leasing, formé parte de un equipo clave en la transformación digital de la empresa.
+                    Durante mi periodo como Becario de Sistemas Computacionales en Deecsa, formé parte de un equipo clave en la transformación digital de la empresa.
                     Mi participación se destacó por el desarrollo de soluciones innovadoras y la implementación de estrategias tecnológicas orientadas a la optimización de procesos. Entre mis principales responsabilidades y logros se incluyen:
                 </p>
                 <ul>
