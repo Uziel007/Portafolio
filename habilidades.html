@@ -366,6 +366,13 @@
             </button>
             <button
               class="filter-btn"
+              data-filter="cloud"
+              id="habilidades-filter-cloud"
+            >
+              Nube
+            </button>
+            <button
+              class="filter-btn"
               data-filter="tools"
               id="habilidades-filter-tools"
             >
@@ -387,17 +394,17 @@
             </button>
             <button
               class="filter-btn"
-              data-filter="architecture"
-              id="habilidades-filter-architecture"
-            >
-              Arquitectura
-            </button>
-            <button
-              class="filter-btn"
               data-filter="language"
               id="habilidades-filter-language"
             >
               Idiomas
+            </button>
+            <button
+              class="filter-btn"
+              data-filter="architecture"
+              id="habilidades-filter-architecture"
+            >
+              Arquitectura
             </button>
           </div>
 
@@ -491,6 +498,52 @@
                 Explora patrones arquitectónicos, componentes, dependencias y
                 buenas prácticas para construir aplicaciones escalables, seguras
                 y mantenibles.
+              </p>
+            </a>
+
+            <a
+              href="Recursos/Certificaciones/descargas/santander.pdf"
+              target="_blank"
+              class="certificate-card fade-in-up stagger-6"
+              data-category="agile"
+            >
+              <img
+                src="Recursos/Certificaciones/Gestión de Proyectos y Fundamentos de metodología Agile.png"
+                alt="Certificación Santander Agile"
+                class="certificate-image"
+              />
+              <h3 class="certificate-title">
+                Santander Gestión de Proyectos y Fundamentos de Metodología Agile
+              </h3>
+              <p class="certificate-description">
+                Certificación emitida por
+                <strong>Santander Open Academy</strong> al completar con éxito
+                el curso sobre
+                <strong>Gestión de Proyectos y Metodología Agile</strong>.
+                Incluye fundamentos de Scrum, gestión adaptable, planificación
+                iterativa y liderazgo de equipos en entornos ágiles.
+              </p>
+            </a>
+
+            <!-- 5. Cloud Development - Credmark (Nube) -->
+            <a
+              href="https://credmark.ai/badge/CM-2511-FBKFWYR"
+              target="_blank"
+              class="certificate-card fade-in-up stagger-6"
+              data-category="cloud"
+            >
+              <img
+                src="Recursos/Certificaciones/Top Cloud Development Coder.png"
+                alt="Certificación Credmark Desarrollo en la Nube"
+                class="certificate-image"
+              />
+              <h3 class="certificate-title">Desarrollo en la Nube</h3>
+              <p class="certificate-description">
+                Insignia otorgada por Credmark por alcanzar un desempeño
+                <strong>10% superior</strong> en la evaluación de
+                <strong>Desarrollo en la Nube</strong>, demostrando
+                conocimientos avanzados en despliegue, infraestructura y
+                servicios cloud modernos.
               </p>
             </a>
 
@@ -1505,6 +1558,23 @@
           }
         });
       });
+
+      function openCourseAndDownload(event, courseUrl, pdfPath) {
+        event.preventDefault();
+
+        // Abrir la página primero
+        window.open(courseUrl, "_blank");
+
+        // Descargar el PDF inmediatamente después
+        setTimeout(() => {
+          const link = document.createElement("a");
+          link.href = pdfPath;
+          link.download = "Santander-Agile-Certificado.pdf";
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        }, 300);
+      }
     </script>
 
     <script src="Recursos/navbar.js" defer></script>
